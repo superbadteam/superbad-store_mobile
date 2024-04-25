@@ -1,22 +1,22 @@
 /* eslint-disable react/jsx-key */
-import React from "react"
-import { ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Icon, Text } from "../../../components"
-import { colors, typography } from "../../../theme"
-import { Demo } from "../DemoShowroomScreen"
-import { DemoDivider } from "../DemoDivider"
-import { DemoUseCase } from "../DemoUseCase"
+import React from "react";
+import { ImageStyle, TextStyle, View, ViewStyle } from "react-native";
+import { Button, Icon, Text } from "../../../components";
+import { colors, typography } from "../../../theme";
+import { Demo } from "../DemoShowroomScreen";
+import { DemoDivider } from "../DemoDivider";
+import { DemoUseCase } from "../DemoUseCase";
 
-const $iconStyle: ImageStyle = { width: 30, height: 30 }
-const $customButtonStyle: ViewStyle = { backgroundColor: colors.error, height: 100 }
-const $customButtonPressedStyle: ViewStyle = { backgroundColor: colors.error }
+const $iconStyle: ImageStyle = { width: 30, height: 30 };
+const $customButtonStyle: ViewStyle = { backgroundColor: colors.error, height: 100 };
+const $customButtonPressedStyle: ViewStyle = { backgroundColor: colors.error };
 const $customButtonTextStyle: TextStyle = {
   color: colors.error,
   fontFamily: typography.primary.bold,
   textDecorationLine: "underline",
   textDecorationColor: colors.error,
-}
-const $customButtonPressedTextStyle: TextStyle = { color: colors.palette.neutral100 }
+};
+const $customButtonPressedTextStyle: TextStyle = { color: colors.palette.neutral100 };
 const $customButtonRightAccessoryStyle: ViewStyle = {
   width: "53%",
   height: "200%",
@@ -24,14 +24,16 @@ const $customButtonRightAccessoryStyle: ViewStyle = {
   position: "absolute",
   top: 0,
   right: 0,
-}
-const $customButtonPressedRightAccessoryStyle: ImageStyle = { tintColor: colors.palette.neutral100 }
+};
+const $customButtonPressedRightAccessoryStyle: ImageStyle = {
+  tintColor: colors.palette.neutral100,
+};
 
-const $disabledOpacity: ViewStyle = { opacity: 0.5 }
+const $disabledOpacity: ViewStyle = { opacity: 0.5 };
 const $disabledButtonTextStyle: TextStyle = {
   color: colors.palette.neutral100,
   textDecorationColor: colors.palette.neutral100,
-}
+};
 
 export const DemoButton: Demo = {
   name: "Button",
@@ -83,12 +85,10 @@ export const DemoButton: Demo = {
 
       <Button>
         <Text>
-          <Text preset="bold">Nested children - proident veniam.</Text>
-          {` `}
+          <Text preset="bold">Nested children - proident veniam.</Text>{" "}
           <Text preset="default">
             Ullamco cupidatat officia exercitation velit non ullamco nisi..
-          </Text>
-          {` `}
+          </Text>{" "}
           <Text preset="bold">Occaecat aliqua irure proident veniam.</Text>
         </Text>
       </Button>
@@ -208,4 +208,4 @@ export const DemoButton: Demo = {
       </Button>
     </DemoUseCase>,
   ],
-}
+};

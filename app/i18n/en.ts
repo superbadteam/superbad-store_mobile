@@ -119,7 +119,7 @@ const en = {
         "No favorites have been added yet. Tap the heart on an episode to add it to your favorites!",
     },
   },
-}
+};
 
-export default en
-export type Translations = typeof en
+export default en;
+export type Translations = typeof en;

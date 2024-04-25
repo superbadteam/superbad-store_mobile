@@ -1,15 +1,15 @@
 /* eslint-disable react/jsx-key, react-native/no-inline-styles */
-import React from "react"
-import { TextStyle, View, ViewStyle } from "react-native"
-import { Header, Icon } from "../../../components"
-import { colors } from "../../../theme"
-import { Demo } from "../DemoShowroomScreen"
-import { DemoDivider } from "../DemoDivider"
-import { DemoUseCase } from "../DemoUseCase"
+import React from "react";
+import { TextStyle, View, ViewStyle } from "react-native";
+import { Header, Icon } from "../../../components";
+import { colors } from "../../../theme";
+import { Demo } from "../DemoShowroomScreen";
+import { DemoDivider } from "../DemoDivider";
+import { DemoUseCase } from "../DemoUseCase";
 
 const $rightAlignTitle: TextStyle = {
   textAlign: "right",
-}
+};
 
 const $customLeftAction: ViewStyle = {
   backgroundColor: colors.error,
@@ -19,16 +19,16 @@ const $customLeftAction: ViewStyle = {
   flexDirection: "row",
   flexWrap: "wrap",
   overflow: "hidden",
-}
+};
 
 const $customTitle: TextStyle = {
   textDecorationLine: "underline line-through",
   textDecorationStyle: "dashed",
   color: colors.error,
   textDecorationColor: colors.error,
-}
+};
 
-const $customWhiteTitle: TextStyle = { color: colors.palette.neutral100 }
+const $customWhiteTitle: TextStyle = { color: colors.palette.neutral100 };
 
 export const DemoHeader: Demo = {
   name: "Header",
@@ -114,4 +114,4 @@ export const DemoHeader: Demo = {
       />
     </DemoUseCase>,
   ],
-}
+};

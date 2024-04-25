@@ -1,4 +1,4 @@
-import { Translations } from "./en"
+import { Translations } from "./en";
 
 const ar: Translations = {
   common: {
@@ -117,6 +117,6 @@ const ar: Translations = {
         "لم تتم اضافة اي مفضلات حتى الان. اضغط على القلب في إحدى الحلقات لإضافته الى المفضلة.",
     },
   },
-}
+};
 
-export default ar
+export default ar;

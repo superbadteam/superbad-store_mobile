@@ -1,53 +1,53 @@
-import { observer } from "mobx-react-lite"
-import React, { ComponentType, FC, useEffect, useMemo, useRef, useState } from "react"
-import { TextInput, TextStyle, ViewStyle } from "react-native"
-import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../components"
-import { useStores } from "../models"
-import { AppStackScreenProps } from "../navigators"
-import { colors, spacing } from "../theme"
+import { observer } from "mobx-react-lite";
+import React, { ComponentType, FC, useEffect, useMemo, useRef, useState } from "react";
+import { TextInput, TextStyle, ViewStyle } from "react-native";
+import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../components";
+import { useStores } from "../models";
+import { AppStackScreenProps } from "../navigators";
+import { colors, spacing } from "../theme";
 
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
 export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_props) {
-  const authPasswordInput = useRef<TextInput>(null)
+  const authPasswordInput = useRef<TextInput>(null);
 
-  const [authPassword, setAuthPassword] = useState("")
-  const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [attemptsCount, setAttemptsCount] = useState(0)
+  const [authPassword, setAuthPassword] = useState("");
+  const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [attemptsCount, setAttemptsCount] = useState(0);
   const {
     authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
-  } = useStores()
+  } = useStores();
 
   useEffect(() => {
     // Here is where you could fetch credentials from keychain or storage
     // and pre-fill the form fields.
-    setAuthEmail("ignite@infinite.red")
-    setAuthPassword("ign1teIsAwes0m3")
+    setAuthEmail("ignite@infinite.red");
+    setAuthPassword("ign1teIsAwes0m3");
 
     // Return a "cleanup" function that React will run when the component unmounts
     return () => {
-      setAuthPassword("")
-      setAuthEmail("")
-    }
-  }, [])
+      setAuthPassword("");
+      setAuthEmail("");
+    };
+  }, []);
 
-  const error = isSubmitted ? validationError : ""
+  const error = isSubmitted ? validationError : "";
 
   function login() {
-    setIsSubmitted(true)
-    setAttemptsCount(attemptsCount + 1)
+    setIsSubmitted(true);
+    setAttemptsCount(attemptsCount + 1);
 
-    if (validationError) return
+    if (validationError) return;
 
     // Make a request to your server to get an authentication token.
     // If successful, reset the fields and set the token.
-    setIsSubmitted(false)
-    setAuthPassword("")
-    setAuthEmail("")
+    setIsSubmitted(false);
+    setAuthPassword("");
+    setAuthEmail("");
 
     // We'll mock this with a fake token.
-    setAuthToken(String(Date.now()))
+    setAuthToken(String(Date.now()));
   }
 
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
@@ -61,10 +61,10 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
             size={20}
             onPress={() => setIsAuthPasswordHidden(!isAuthPasswordHidden)}
           />
-        )
+        );
       },
     [isAuthPasswordHidden],
-  )
+  );
 
   return (
     <Screen
@@ -114,31 +114,31 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         onPress={login}
       />
     </Screen>
-  )
-})
+  );
+});
 
 const $screenContentContainer: ViewStyle = {
   paddingVertical: spacing.xxl,
   paddingHorizontal: spacing.lg,
-}
+};
 
 const $signIn: TextStyle = {
   marginBottom: spacing.sm,
-}
+};
 
 const $enterDetails: TextStyle = {
   marginBottom: spacing.lg,
-}
+};
 
 const $hint: TextStyle = {
   color: colors.tint,
   marginBottom: spacing.md,
-}
+};
 
 const $textField: ViewStyle = {
   marginBottom: spacing.lg,
-}
+};
 
 const $tapButton: ViewStyle = {
   marginTop: spacing.xs,
-}
+};

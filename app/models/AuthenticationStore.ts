@@ -1,4 +1,4 @@
-import { Instance, SnapshotOut, types } from "mobx-state-tree"
+import { Instance, SnapshotOut, types } from "mobx-state-tree";
 
 export const AuthenticationStoreModel = types
   .model("AuthenticationStore")
@@ -8,28 +8,28 @@ export const AuthenticationStoreModel = types
   })
   .views((store) => ({
     get isAuthenticated() {
-      return !!store.authToken
+      return !!store.authToken;
     },
     get validationError() {
-      if (store.authEmail.length === 0) return "can't be blank"
-      if (store.authEmail.length < 6) return "must be at least 6 characters"
+      if (store.authEmail.length === 0) return "can't be blank";
+      if (store.authEmail.length < 6) return "must be at least 6 characters";
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(store.authEmail))
-        return "must be a valid email address"
-      return ""
+        return "must be a valid email address";
+      return "";
     },
   }))
   .actions((store) => ({
     setAuthToken(value?: string) {
-      store.authToken = value
+      store.authToken = value;
     },
     setAuthEmail(value: string) {
-      store.authEmail = value.replace(/ /g, "")
+      store.authEmail = value.replace(/ /g, "");
     },
     logout() {
-      store.authToken = undefined
-      store.authEmail = ""
+      store.authToken = undefined;
+      store.authEmail = "";
     },
-  }))
+  }));
 
 export interface AuthenticationStore extends Instance<typeof AuthenticationStoreModel> {}
 export interface AuthenticationStoreSnapshot extends SnapshotOut<typeof AuthenticationStoreModel> {}
