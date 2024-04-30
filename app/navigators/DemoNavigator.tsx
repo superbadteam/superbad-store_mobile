@@ -14,6 +14,7 @@ import {
 import { DemoPodcastListScreen } from "../screens/DemoPodcastListScreen";
 import { colors, spacing, typography } from "../theme";
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator";
+import ProductDetailScreen from "app/screens/ProductDetailScreen/ProductDetailScreen"
 
 export type DemoTabParamList = {
   DemoCommunity: undefined;
@@ -21,6 +22,7 @@ export type DemoTabParamList = {
   DemoDebug: undefined;
   DemoPodcastList: undefined;
   DemoCreateProduct: undefined;
+  ProductDetail: undefined
 };
 
 /**
@@ -92,8 +94,8 @@ export function DemoNavigator() {
       />
 
       <Tab.Screen
-        name="DemoDebug"
-        component={DemoDebugScreen}
+        name="ProductDetail"
+        component={ProductDetailScreen}
         options={{
           tabBarLabel: translate("demoNavigator.debugTab"),
           tabBarIcon: ({ focused }) => (
