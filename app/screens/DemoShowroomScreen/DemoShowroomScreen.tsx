@@ -1,28 +1,28 @@
-import { Link, RouteProp, useRoute } from "@react-navigation/native"
-import React, { FC, ReactElement, useEffect, useRef, useState } from "react"
-import { Image, ImageStyle, Platform, SectionList, TextStyle, View, ViewStyle } from "react-native"
-import { Drawer } from "react-native-drawer-layout"
-import { type ContentStyle } from "@shopify/flash-list"
-import { ListItem, ListView, ListViewRef, Screen, Text } from "../../components"
-import { isRTL } from "../../i18n"
-import { DemoTabParamList, DemoTabScreenProps } from "../../navigators/DemoNavigator"
-import { colors, spacing } from "../../theme"
-import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle"
-import * as Demos from "./demos"
-import { DrawerIconButton } from "./DrawerIconButton"
+import { Link, RouteProp, useRoute } from "@react-navigation/native";
+import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
+import { Image, ImageStyle, Platform, SectionList, TextStyle, View, ViewStyle } from "react-native";
+import { Drawer } from "react-native-drawer-layout";
+import { type ContentStyle } from "@shopify/flash-list";
+import { ListItem, ListView, ListViewRef, Screen, Text } from "../../components";
+import { isRTL } from "../../i18n";
+import { DemoTabParamList, DemoTabScreenProps } from "../../navigators/DemoNavigator";
+import { colors, spacing } from "../../theme";
+import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle";
+import * as Demos from "./demos";
+import { DrawerIconButton } from "./DrawerIconButton";
 
-const logo = require("../../../assets/images/logo.png")
+const logo = require("../../../assets/images/logo.png");
 
 export interface Demo {
-  name: string
-  description: string
-  data: ReactElement[]
+  name: string;
+  description: string;
+  data: ReactElement[];
 }
 
 interface DemoListItem {
-  item: { name: string; useCases: string[] }
-  sectionIndex: number
-  handleScroll?: (sectionIndex: number, itemIndex?: number) => void
+  item: { name: string; useCases: string[] };
+  sectionIndex: number;
+  handleScroll?: (sectionIndex: number, itemIndex?: number) => void;
 }
 
 const slugify = (str: string) =>
@@ -31,10 +31,10 @@ const slugify = (str: string) =>
     .trim()
     .replace(/[^\w\s-]/g, "")
     .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "")
+    .replace(/^-+|-+$/g, "");
 
 const WebListItem: FC<DemoListItem> = ({ item, sectionIndex }) => {
-  const sectionSlug = item.name.toLowerCase()
+  const sectionSlug = item.name.toLowerCase();
 
   return (
     <View>
@@ -42,17 +42,17 @@ const WebListItem: FC<DemoListItem> = ({ item, sectionIndex }) => {
         <Text preset="bold">{item.name}</Text>
       </Link>
       {item.useCases.map((u) => {
-        const itemSlug = slugify(u)
+        const itemSlug = slugify(u);
 
         return (
           <Link key={`section${sectionIndex}-${u}`} to={`/showroom/${sectionSlug}/${itemSlug}`}>
             <Text>{u}</Text>
           </Link>
-        )
+        );
       })}
     </View>
-  )
-}
+  );
+};
 
 const NativeListItem: FC<DemoListItem> = ({ item, sectionIndex, handleScroll }) => (
   <View>
@@ -68,64 +68,64 @@ const NativeListItem: FC<DemoListItem> = ({ item, sectionIndex, handleScroll }) 
       />
     ))}
   </View>
-)
+);
 
-const ShowroomListItem = Platform.select({ web: WebListItem, default: NativeListItem })
+const ShowroomListItem = Platform.select({ web: WebListItem, default: NativeListItem });
 
 export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
   function DemoShowroomScreen(_props) {
-    const [open, setOpen] = useState(false)
-    const timeout = useRef<ReturnType<typeof setTimeout>>()
-    const listRef = useRef<SectionList>(null)
-    const menuRef = useRef<ListViewRef<DemoListItem["item"]>>(null)
-    const route = useRoute<RouteProp<DemoTabParamList, "DemoShowroom">>()
-    const params = route.params
+    const [open, setOpen] = useState(false);
+    const timeout = useRef<ReturnType<typeof setTimeout>>();
+    const listRef = useRef<SectionList>(null);
+    const menuRef = useRef<ListViewRef<DemoListItem["item"]>>(null);
+    const route = useRoute<RouteProp<DemoTabParamList, "DemoShowroom">>();
+    const params = route.params;
 
     // handle Web links
     React.useEffect(() => {
       if (params !== undefined && Object.keys(params).length > 0) {
-        const demoValues = Object.values(Demos)
+        const demoValues = Object.values(Demos);
         const findSectionIndex = demoValues.findIndex(
           (x) => x.name.toLowerCase() === params.queryIndex,
-        )
-        let findItemIndex = 0
+        );
+        let findItemIndex = 0;
         if (params.itemIndex) {
           try {
             findItemIndex =
               demoValues[findSectionIndex].data.findIndex(
                 (u) => slugify(u.props.name) === params.itemIndex,
-              ) + 1
+              ) + 1;
           } catch (err) {
-            console.error(err)
+            console.error(err);
           }
         }
-        handleScroll(findSectionIndex, findItemIndex)
+        handleScroll(findSectionIndex, findItemIndex);
       }
-    }, [params])
+    }, [params]);
 
     const toggleDrawer = () => {
       if (!open) {
-        setOpen(true)
+        setOpen(true);
       } else {
-        setOpen(false)
+        setOpen(false);
       }
-    }
+    };
 
     const handleScroll = (sectionIndex: number, itemIndex = 0) => {
       listRef.current?.scrollToLocation({
         animated: true,
         itemIndex,
         sectionIndex,
-      })
-      toggleDrawer()
-    }
+      });
+      toggleDrawer();
+    };
 
     const scrollToIndexFailed = (info: {
-      index: number
-      highestMeasuredFrameIndex: number
-      averageItemLength: number
+      index: number;
+      highestMeasuredFrameIndex: number;
+      averageItemLength: number;
     }) => {
-      listRef.current?.getScrollResponder()?.scrollToEnd()
+      listRef.current?.getScrollResponder()?.scrollToEnd();
       timeout.current = setTimeout(
         () =>
           listRef.current?.scrollToLocation({
@@ -134,14 +134,14 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
             sectionIndex: 0,
           }),
         50,
-      )
-    }
+      );
+    };
 
     useEffect(() => {
-      return () => timeout.current && clearTimeout(timeout.current)
-    }, [])
+      return () => timeout.current && clearTimeout(timeout.current);
+    }, []);
 
-    const $drawerInsets = useSafeAreaInsetsStyle(["top"])
+    const $drawerInsets = useSafeAreaInsetsStyle(["top"]);
 
     return (
       <Drawer
@@ -196,61 +196,61 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
                   </Text>
                   <Text style={$demoItemDescription}>{section.description}</Text>
                 </View>
-              )
+              );
             }}
           />
         </Screen>
       </Drawer>
-    )
-  }
+    );
+  };
 
 const $screenContainer: ViewStyle = {
   flex: 1,
-}
+};
 
 const $drawer: ViewStyle = {
   backgroundColor: colors.background,
   flex: 1,
-}
+};
 
 const $listContentContainer: ContentStyle = {
   paddingHorizontal: spacing.lg,
-}
+};
 
 const $sectionListContentContainer: ViewStyle = {
   paddingHorizontal: spacing.lg,
-}
+};
 
 const $heading: ViewStyle = {
   marginBottom: spacing.xxxl,
-}
+};
 
 const $logoImage: ImageStyle = {
   height: 42,
   width: 77,
-}
+};
 
 const $logoContainer: ViewStyle = {
   alignSelf: "flex-start",
   justifyContent: "center",
   height: 56,
   paddingHorizontal: spacing.lg,
-}
+};
 
 const $menuContainer: ViewStyle = {
   paddingBottom: spacing.xs,
   paddingTop: spacing.lg,
-}
+};
 
 const $demoItemName: TextStyle = {
   fontSize: 24,
   marginBottom: spacing.md,
-}
+};
 
 const $demoItemDescription: TextStyle = {
   marginBottom: spacing.xxl,
-}
+};
 
 const $demoUseCasesSpacer: ViewStyle = {
   paddingBottom: spacing.xxl,
-}
+};

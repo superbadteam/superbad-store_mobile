@@ -1,4 +1,4 @@
-import { EpisodeModel } from "./Episode"
+import { EpisodeModel } from "./Episode";
 
 const data = {
   guid: "f91f2ea0-378a-4a90-9a83-d438a0cc32f6",
@@ -21,19 +21,19 @@ const data = {
       value: "clean",
     },
   },
-}
-const episode = EpisodeModel.create(data)
+};
+const episode = EpisodeModel.create(data);
 
 test("publish date format", () => {
-  expect(episode.datePublished.textLabel).toBe("Jan 20, 2022")
+  expect(episode.datePublished.textLabel).toBe("Jan 20, 2022");
   expect(episode.datePublished.accessibilityLabel).toBe(
     'demoPodcastListScreen.accessibility.publishLabel {"date":"Jan 20, 2022"}',
-  )
-})
+  );
+});
 
 test("duration format", () => {
-  expect(episode.duration.textLabel).toBe("42:58")
+  expect(episode.duration.textLabel).toBe("42:58");
   expect(episode.duration.accessibilityLabel).toBe(
     'demoPodcastListScreen.accessibility.durationLabel {"hours":0,"minutes":42,"seconds":58}',
-  )
-})
+  );
+});

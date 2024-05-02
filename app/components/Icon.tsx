@@ -1,5 +1,5 @@
-import * as React from "react"
-import { ComponentType } from "react"
+import * as React from "react";
+import { ComponentType } from "react";
 import {
   Image,
   ImageStyle,
@@ -9,40 +9,40 @@ import {
   View,
   ViewProps,
   ViewStyle,
-} from "react-native"
+} from "react-native";
 
-export type IconTypes = keyof typeof iconRegistry
+export type IconTypes = keyof typeof iconRegistry;
 
 interface IconProps extends TouchableOpacityProps {
   /**
    * The name of the icon
    */
-  icon: IconTypes
+  icon: IconTypes;
 
   /**
    * An optional tint color for the icon
    */
-  color?: string
+  color?: string;
 
   /**
    * An optional size for the icon. If not provided, the icon will be sized to the icon's resolution.
    */
-  size?: number
+  size?: number;
 
   /**
    * Style overrides for the icon image
    */
-  style?: StyleProp<ImageStyle>
+  style?: StyleProp<ImageStyle>;
 
   /**
    * Style overrides for the icon container
    */
-  containerStyle?: StyleProp<ViewStyle>
+  containerStyle?: StyleProp<ViewStyle>;
 
   /**
    * An optional function to be called when the icon is pressed
    */
-  onPress?: TouchableOpacityProps["onPress"]
+  onPress?: TouchableOpacityProps["onPress"];
 }
 
 /**
@@ -60,19 +60,19 @@ export function Icon(props: IconProps) {
     style: $imageStyleOverride,
     containerStyle: $containerStyleOverride,
     ...WrapperProps
-  } = props
+  } = props;
 
-  const isPressable = !!WrapperProps.onPress
+  const isPressable = !!WrapperProps.onPress;
   const Wrapper = (WrapperProps?.onPress ? TouchableOpacity : View) as ComponentType<
     TouchableOpacityProps | ViewProps
-  >
+  >;
 
   const $imageStyle: StyleProp<ImageStyle> = [
     $imageStyleBase,
     color !== undefined && { tintColor: color },
     size !== undefined && { width: size, height: size },
     $imageStyleOverride,
-  ]
+  ];
 
   return (
     <Wrapper
@@ -82,7 +82,7 @@ export function Icon(props: IconProps) {
     >
       <Image style={$imageStyle} source={iconRegistry[icon]} />
     </Wrapper>
-  )
+  );
 }
 
 export const iconRegistry = {
@@ -108,8 +108,8 @@ export const iconRegistry = {
   slack: require("../../assets/icons/demo/slack.png"),
   view: require("../../assets/icons/view.png"),
   x: require("../../assets/icons/x.png"),
-}
+};
 
 const $imageStyleBase: ImageStyle = {
   resizeMode: "contain",
-}
+};
