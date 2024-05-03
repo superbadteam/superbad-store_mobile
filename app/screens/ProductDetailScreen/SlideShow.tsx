@@ -11,7 +11,7 @@ interface SlideShowProps {
 const SlideShow: React.FC<SlideShowProps> = ({ images }) => {
   return (
     <View style={styles.container}>
-      <Swiper style={styles.wrapper} showsButtons autoplay>
+      <Swiper style={styles.wrapper} showsButtons={false} autoplay>
         {images.map((imageUri, index) => (
           <View key={index} style={styles.slide}>
             <Image source={{ uri: imageUri }} style={styles.image} />
