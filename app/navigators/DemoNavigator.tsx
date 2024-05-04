@@ -5,17 +5,23 @@ import { TextStyle, ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Icon } from "../components";
 import { translate } from "../i18n";
-import { DemoCommunityScreen, DemoShowroomScreen, DemoDebugScreen } from "../screens";
+import {
+  DemoCommunityScreen,
+  DemoShowroomScreen,
+  DemoDebugScreen,
+  DemoCreateProductScreen,
+} from "../screens";
 import { DemoPodcastListScreen } from "../screens/DemoPodcastListScreen";
 import { colors, spacing, typography } from "../theme";
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator";
 
 export type DemoTabParamList = {
-  DemoCommunity: undefined;
-  DemoShowroom: { queryIndex?: string; itemIndex?: string };
-  DemoDebug: undefined;
-  DemoPodcastList: undefined;
-};
+  DemoCommunity: undefined
+  DemoShowroom: { queryIndex?: string; itemIndex?: string }
+  DemoDebug: undefined
+  DemoPodcastList: undefined
+  DemoCreateProduct: undefined
+}
 
 /**
  * Helper for automatically generating navigation prop types for each route.
@@ -90,6 +96,17 @@ export function DemoNavigator() {
         component={DemoDebugScreen}
         options={{
           tabBarLabel: translate("demoNavigator.debugTab"),
+          tabBarIcon: ({ focused }) => (
+            <Icon icon="debug" color={focused ? colors.tint : undefined} size={30} />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="DemoCreateProduct"
+        component={DemoCreateProductScreen}
+        options={{
+          tabBarLabel: "create",
           tabBarIcon: ({ focused }) => (
             <Icon icon="debug" color={focused ? colors.tint : undefined} size={30} />
           ),
