@@ -25,6 +25,7 @@ export const DEFAULT_API_CONFIG: ApiConfig = {
  */
 export class Api {
   apisauce: ApisauceInstance;
+  apiInstance2: ApisauceInstance;
   config: ApiConfig;
 
   /**
@@ -34,6 +35,14 @@ export class Api {
     this.config = config;
     this.apisauce = create({
       baseURL: this.config.url,
+      timeout: this.config.timeout,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    // Test new instance
+    this.apiInstance2 = create({
+      baseURL: "https://api.escuelajs.co/api/v1",
       timeout: this.config.timeout,
       headers: {
         Accept: "application/json",
@@ -72,6 +81,26 @@ export class Api {
         console.error(`Bad data: ${e.message}\n${response.data}`, e.stack);
       }
       return { kind: "bad-data" };
+    }
+  }
+
+  async getCategories(): Promise<any> {
+    try {
+      // Gọi API để lấy danh sách categories
+      const response: ApiResponse<any> = await this.apiInstance2.get("/categories");
+
+      // Kiểm tra nếu có lỗi trong response
+      if (!response.ok) {
+        const problem = getGeneralApiProblem(response);
+        if (problem) return problem;
+      }
+
+      // Trả về dữ liệu từ response nếu không có lỗi
+      return response.data;
+    } catch (error) {
+      // Xử lý nếu có lỗi khi gọi API
+      console.error("Error fetching categories:", error);
+      return { kind: "unknown-error", temporary: true };
     }
   }
 }

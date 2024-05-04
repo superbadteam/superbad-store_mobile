@@ -1,58 +1,57 @@
-import React, { FC } from "react"
-import * as Application from "expo-application"
-import { Linking, Platform, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Toggle, Screen, ToggleProps, Text, TextField } from "../components"
+import React, { FC, useEffect, useState } from "react"
+import { TextStyle, View, ViewStyle } from "react-native"
+import { Button, Toggle, Screen, ToggleProps, Text, TextField, DropdownComponent } from "../components"
 import { DemoTabScreenProps } from "../navigators/DemoNavigator"
-import { colors, spacing } from "../theme"
-import { isRTL } from "../i18n"
-import { useStores } from "../models"
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { spacing } from "../theme"
+import * as ImagePicker from 'react-native-image-picker';
 
-/**
- * @param {string} url - The URL to open in the browser.
- * @returns {void} - No return value.
- */
-function openLinkInBrowser(url: string) {
-  Linking.canOpenURL(url).then((canOpen) => canOpen && Linking.openURL(url))
-}
+import { api } from "../services/api"
+
 function ControlledToggle(props: ToggleProps) {
   const [value, setValue] = React.useState(props.value || false)
   return <Toggle {...props} value={value} onPress={() => setValue(!value)} />
 }
 
 function openImagePicker() {
-  launchImageLibrary({mediaType: 'photo', quality: 0.5}, (response) => {
-    console.log('Response = ', response);
-  });
+ImagePicker.launchImageLibrary({
+      mediaType: 'photo',
+      includeBase64: false,
+      maxHeight: 200,
+      maxWidth: 200,
+    },
+    (response) => {
+      console.log(response);
+    },
+  )
 }
+
+// const categories = [
+//     { label: 'Item 1', value: '1' },
+//     { label: 'Item 2', value: '2' },
+//     { label: 'Item 3', value: '3' },
+//     { label: 'Item 4', value: '4' },
+//     { label: 'Item 5', value: '5' },
+//     { label: 'Item 6', value: '6' },
+//     { label: 'Item 7', value: '7' },
+//     { label: 'Item 8', value: '8' },
+//   ];
+
 export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">> =
   function DemoCreateProductScreen(_props) {
-    const {
-      authenticationStore: { logout },
-    } = useStores()
-
-    const usingHermes = typeof HermesInternal === "object" && HermesInternal !== null
-    // @ts-expect-error
-    const usingFabric = global.nativeFabricUIManager != null
-
-    const demoReactotron = React.useMemo(
-      () => async () => {
-        if (__DEV__) {
-          console.tron.display({
-            name: "DISPLAY",
-            value: {
-              appId: Application.applicationId,
-              appName: Application.applicationName,
-              appVersion: Application.nativeApplicationVersion,
-              appBuildVersion: Application.nativeBuildVersion,
-              hermesEnabled: usingHermes,
-            },
-            important: true,
-          })
+    const [categories, setCategories] = useState([]);
+    useEffect(() => {
+      const fetchCategories = async () => {
+        try {
+          const response = await api.getCategories();
+          setCategories(response);
+        } catch (error) {
+          console.error("Error fetching categories:", error);
         }
-      },
-      [],
-    )
+      };
+
+      fetchCategories();
+    }, []); // Empty dependency array ensures the effect runs only once, on component mount
+
 
     return (
       <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
@@ -97,6 +96,8 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
             />
           </View>
 
+          <Text style={$label}>Category</Text>
+          <DropdownComponent data={categories} placeholder="Select category"/>
           <View style={$conditionField}>
             <ControlledToggle variant="radio" label="New" />
             <ControlledToggle variant="radio" label="Like new" />
@@ -118,6 +119,15 @@ const $container: ViewStyle = {
   paddingTop: spacing.lg,
   paddingBottom: spacing.xxl,
   paddingHorizontal: spacing.lg,
+  backgroundColor: 'white',
+}
+
+const $label: TextStyle = {
+  marginTop: spacing.lg,
+  display: "flex",
+  flexDirection: "row",
+  width: "100%",
+  fontWeight: "bold",
 }
 
 const $createContainer: ViewStyle = {
