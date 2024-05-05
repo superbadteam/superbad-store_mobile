@@ -49,7 +49,7 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
     return (
       <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
         <View style={$createContainer}>
-          <Text style={$title}>Create product</Text>
+          <Text size="xl" style={$title}>Create product</Text>
 
           <TextField
             autoCapitalize="none"
@@ -82,17 +82,16 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
 
           <View style={$descriptionField}>
             <TextField
-              style={$descriptionTextField}
               label="Description"
               placeholder="Enter description"
               multiline
             />
           </View>
 
-          <Text style={$label}>Category</Text>
+          <Text weight="medium" style={$label}>Category</Text>
           <DropdownComponent data={categories} placeholder="Select category"/>
 
-          <Text style={$label}>Condition</Text>
+          <Text weight="medium" style={$label}>Condition</Text>
           <RadioGroup options={conditions} value={radioValue} onValueChange={setRadioValue} style={$radioToggleGroupContainer}/>
 
           <View style={$uploadArea}>
@@ -119,10 +118,7 @@ const $container: ViewStyle = {
 
 const $label: TextStyle = {
   marginTop: spacing.lg,
-  display: "flex",
-  flexDirection: "row",
-  width: "100%",
-  fontWeight: "bold",
+  textAlign: "left",
 };
 
 const $submit: ViewStyle = {
@@ -134,7 +130,6 @@ const $submit: ViewStyle = {
 const $createContainer: ViewStyle = {
   flexDirection: "column",
   justifyContent: "center",
-  alignItems: "center",
 };
 
 const $textField: ViewStyle = {
@@ -147,14 +142,8 @@ const $descriptionField: ViewStyle = {
   width: "100%",
 };
 
-const $descriptionTextField: TextStyle = {
-  height: 100,
-  width: "100%",
-};
-
 const $title: TextStyle = {
-  marginBottom: spacing.xxl,
-  fontSize: 24,
+  marginBottom: spacing.lg,
 };
 
 const $informationField: ViewStyle = {
