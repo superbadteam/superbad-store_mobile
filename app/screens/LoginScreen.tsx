@@ -72,10 +72,14 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
       contentContainerStyle={$screenContentContainer}
       safeAreaEdges={["top", "bottom"]}
     >
-      <Text testID="login-heading" tx="loginScreen.signIn" preset="heading" style={$signIn} />
-      <Text tx="loginScreen.enterDetails" preset="subheading" style={$enterDetails} />
-      {attemptsCount > 2 && <Text tx="loginScreen.hint" size="sm" weight="light" style={$hint} />}
-
+      <Text
+        testID="login-heading"
+        tx="loginScreen.loginWithEmail"
+        preset="heading"
+        style={$login}
+        size="xl"
+        weight="bold"
+      />
       <TextField
         value={authEmail}
         onChangeText={setAuthEmail}
@@ -106,9 +110,11 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         RightAccessory={PasswordRightAccessory}
       />
 
+      <Text tx="loginScreen.forgotPassword" size="sm" style={$link} weight="bold" />
+
       <Button
         testID="login-button"
-        tx="loginScreen.tapToSignIn"
+        tx="loginScreen.login"
         style={$tapButton}
         preset="reversed"
         onPress={login}
@@ -122,17 +128,8 @@ const $screenContentContainer: ViewStyle = {
   paddingHorizontal: spacing.lg,
 };
 
-const $signIn: TextStyle = {
-  marginBottom: spacing.sm,
-};
-
-const $enterDetails: TextStyle = {
+const $login: TextStyle = {
   marginBottom: spacing.lg,
-};
-
-const $hint: TextStyle = {
-  color: colors.tint,
-  marginBottom: spacing.md,
 };
 
 const $textField: ViewStyle = {
@@ -141,4 +138,12 @@ const $textField: ViewStyle = {
 
 const $tapButton: ViewStyle = {
   marginTop: spacing.xs,
+  backgroundColor: colors.theme,
+};
+
+const $link: TextStyle = {
+  color: colors.theme,
+  marginTop: -spacing.md,
+  marginBottom: spacing.md,
+  alignSelf: "flex-end",
 };
