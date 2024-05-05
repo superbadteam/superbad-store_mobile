@@ -58,7 +58,7 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
             keyboardType="email-address"
             label="Product Name"
             labelTx="DemoCreateProductScreen.label.productName"
-            placeholder="Enter product name"
+            placeholderTx="DemoCreateProductScreen.placeholder.productName"
           />
 
           <View style={$informationField}>
@@ -68,7 +68,7 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
               autoCorrect={false}
               keyboardType="email-address"
               labelTx="DemoCreateProductScreen.label.price"
-              placeholder="Ex: 100"
+              placeholderTx="DemoCreateProductScreen.placeholder.price"
             />
 
             <TextField
@@ -77,21 +77,19 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
               autoCorrect={false}
               keyboardType="email-address"
               labelTx="DemoCreateProductScreen.label.discount"
-              placeholder="Ex: 10"
+              placeholderTx="DemoCreateProductScreen.placeholder.discount"
             />
           </View>
 
           <View style={$descriptionField}>
             <TextField
-              label="Description"
+              labelTx="DemoCreateProductScreen.label.description"
               placeholderTx="DemoCreateProductScreen.label.description"
               multiline
             />
           </View>
 
-          <Text weight="medium" style={$label}>
-            Category
-          </Text>
+          <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.category"/>
           <DropdownComponent
             data={categories}
             placeholderTx="DemoCreateProductScreen.placeholder.selectCategory"
