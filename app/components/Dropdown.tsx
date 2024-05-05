@@ -1,9 +1,7 @@
-/* eslint-disable react-native/no-color-literals */
-/* eslint-disable react-native/no-inline-styles */
-  import React, { useState } from 'react';
-  import { StyleSheet, View } from 'react-native';
-  import { Dropdown } from 'react-native-element-dropdown';
-  import AntDesign from '@expo/vector-icons/AntDesign';
+  import React, { useState } from "react";
+  import { ViewStyle, View } from "react-native";
+  import { Dropdown } from "react-native-element-dropdown";
+  import AntDesign from "@expo/vector-icons/AntDesign";
 
   interface DropdownComponentProps {
     data?: any;
@@ -25,20 +23,18 @@ export const DropdownComponent = (props: DropdownComponentProps) => {
     const [isFocus, setIsFocus] = useState(false);
 
     return (
-      <View style={styles.container}>
-        {/* {renderLabel()} */}
+      <View style={$container}>
         <Dropdown
-          style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
+          style={$dropdown}
+          placeholderStyle={$placeholderStyle}
+          selectedTextStyle={$selectedTextStyle}
+          inputSearchStyle={$inputSearchStyle}
           data={data}
           search
           maxHeight={300}
           labelField="name"
           valueField="id"
-          placeholder={!isFocus ? placeholder : '...'}
+          placeholder={!isFocus ? placeholder : "..."}
           searchPlaceholder="Search..."
           value={value}
           onFocus={() => setIsFocus(true)}
@@ -49,8 +45,8 @@ export const DropdownComponent = (props: DropdownComponentProps) => {
           }}
           renderLeftIcon={() => (
             <AntDesign
-              style={styles.icon}
-              color={isFocus ? 'blue' : 'black'}
+              style={$icon}
+              color={isFocus ? "blue" : "black"}
               name="Safety"
               size={20}
             />
@@ -62,33 +58,22 @@ export const DropdownComponent = (props: DropdownComponentProps) => {
 
   export default DropdownComponent;
 
-  const styles = StyleSheet.create({
-    container: {
-      backgroundColor: 'white',
-      width: '100%',
-    },
-    dropdown: {
-      borderColor: 'gray',
-      borderRadius: 8,
-      borderWidth: 0.5,
-      height: 50,
-      paddingHorizontal: 8,
-    },
-    icon: {
-      marginRight: 5,
-    },
-    iconStyle: {
-      height: 20,
-      width: 20,
-    },
-    inputSearchStyle: {
-      fontSize: 16,
-      height: 40,
-    },
-    placeholderStyle: {
-      fontSize: 16,
-    },
-    selectedTextStyle: {
-      fontSize: 16,
-    },
-  });
+  const $container: ViewStyle = {
+    width: "100%",
+  };
+  const $dropdown: ViewStyle = {
+    borderRadius: 8,
+    borderWidth: 0.5,
+    height: 50,
+    paddingHorizontal: 8,
+  };
+  const $icon: ViewStyle = {
+    marginRight: 5,
+  };
+  const $inputSearchStyle: ViewStyle = {
+    height: 40,
+  };
+  const $placeholderStyle: ViewStyle = {
+  };
+  const $selectedTextStyle: ViewStyle = {
+  };

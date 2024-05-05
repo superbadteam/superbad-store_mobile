@@ -10,6 +10,7 @@ import Config from "../../config";
 import { GeneralApiProblem, getGeneralApiProblem } from "./apiProblem";
 import type { ApiConfig, ApiFeedResponse } from "./api.types";
 import type { EpisodeSnapshotIn } from "../../models/Episode";
+import { Category } from "app/types";
 
 /**
  * Configuring the apisauce instance.
@@ -25,7 +26,6 @@ export const DEFAULT_API_CONFIG: ApiConfig = {
  */
 export class Api {
   apisauce: ApisauceInstance;
-  apiInstance2: ApisauceInstance;
   config: ApiConfig;
 
   /**
@@ -35,14 +35,6 @@ export class Api {
     this.config = config;
     this.apisauce = create({
       baseURL: this.config.url,
-      timeout: this.config.timeout,
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    // Test new instance
-    this.apiInstance2 = create({
-      baseURL: "https://api.escuelajs.co/api/v1",
       timeout: this.config.timeout,
       headers: {
         Accept: "application/json",
@@ -86,20 +78,15 @@ export class Api {
 
   async getCategories(): Promise<any> {
     try {
-      // Gọi API để lấy danh sách categories
-      const response: ApiResponse<any> = await this.apiInstance2.get("/categories");
+      const response: ApiResponse<Category[]> = await this.apisauce.get("/inventory/categories");
 
-      // Kiểm tra nếu có lỗi trong response
       if (!response.ok) {
         const problem = getGeneralApiProblem(response);
         if (problem) return problem;
       }
 
-      // Trả về dữ liệu từ response nếu không có lỗi
       return response.data;
-    } catch (error) {
-      // Xử lý nếu có lỗi khi gọi API
-      console.error("Error fetching categories:", error);
+    } catch (e) {
       return { kind: "unknown-error", temporary: true };
     }
   }

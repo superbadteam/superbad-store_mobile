@@ -11,3 +11,4 @@ export * from "./TextField";
 export * from "./Toggle";
 export * from "./EmptyState";
 export * from "./Dropdown";
+export * from "./RadioGroup";
