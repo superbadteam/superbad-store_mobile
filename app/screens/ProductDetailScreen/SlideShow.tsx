@@ -24,12 +24,12 @@ const SlideShow: React.FC<SlideShowProps> = ({ images }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 200,
+    height: 300,
   },
   image: {
-    borderRadius: 10,
-    height: 200,
-    width: width - 40,
+    borderRadius: 5,
+    height: 300,
+    width,
   },
   slide: {
     alignItems: 'center',

@@ -12,6 +12,7 @@ const colors = {
   blue: "blue",
   border: "#ccc",
   gray: "gray",
+  orange: "orange",
 };
 
 interface BackButtonProps {
@@ -34,7 +35,8 @@ const ProductDetailScreen = () => {
     name: "Sample Product",
     brand: "Gucci",
     price: 99.99,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description:
+      "This is a fantastic example product. It's made with high-quality materials and designed to last. Whether you're using it at home or on the go, it's sure to meet your needs. ",
     imageUrl: "https://via.placeholder.com/200",
     sizes: ["S", "M", "L", "XL", "XXL"],
   };
@@ -68,6 +70,13 @@ const ProductDetailScreen = () => {
         <View style={styles.productDetails}>
           <Text style={[styles.brand, { color: colors.gray }]}>{product.brand}</Text>
           <Text style={[styles.text, styles.name, { color: colors.text }]}>{product.name}</Text>
+          <View style={styles.reviewContainer}>
+            <View style={[styles.ratingReview, { backgroundColor: colors.orange }]}>
+              <Ionicons name="star" size={20} color="white" />{" "}
+              <Text style={[styles.reviewText, { color: colors.white }]}>4.1</Text>
+            </View>
+            <Text style={[{ color: colors.gray }, styles.countReview]}>87 Reviews</Text>
+          </View>
           <Text style={[styles.text, styles.price, { color: colors.text }]}>${product.price}</Text>
           <Text style={[styles.text, styles.description, { color: colors.text }]}>
             {product.description}
@@ -75,18 +84,17 @@ const ProductDetailScreen = () => {
         </View>
 
         {/* Size options */}
-        <Text style={[styles.price, styles.text, { color: colors.text }]}>Size</Text>
         <View style={styles.sizeContainer}>
+          <Text style={[styles.price, styles.text, { color: colors.text }]}>Size</Text>
           {product.sizes.map((size) => (
             <TouchableOpacity
               key={size}
-              style={[
-                styles.sizeButton,
-                selectedSize === size ? styles.selectedSizeButton : null,
-              ]}
+              style={[styles.sizeButton, selectedSize === size ? styles.selectedSizeButton : null]}
               onPress={() => setSelectedSize(size)}
             >
-              <Text style={[styles.text, { color: selectedSize === size ? colors.white : colors.text }]}>
+              <Text
+                style={[styles.text, { color: selectedSize === size ? colors.white : colors.text }]}
+              >
                 {size}
               </Text>
             </TouchableOpacity>
@@ -198,6 +206,27 @@ const styles = StyleSheet.create({
   },
   selectedSizeButton: {
     backgroundColor: colors.blue,
+  },
+  reviewContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: 180,
+    marginTop: 5,
+    marginBottom: 10,
+  },
+  ratingReview: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 8,
+    borderRadius: 5,
+  },
+  reviewText: {
+    fontSize: 16,
+    marginLeft: 5,
+  },
+  countReview: {
+    fontSize: 18,
   },
 });
 
