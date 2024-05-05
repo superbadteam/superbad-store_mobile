@@ -122,6 +122,28 @@ const en = {
         "No favorites have been added yet. Tap the heart on an episode to add it to your favorites!",
     },
   },
+  DemoCreateProductScreen: {
+    createProduct: "Create Product",
+    label: {
+      productName: "Product Name",
+      price: "Price ($)",
+      description: "Description",
+      discount: "Discount (%)",
+      category: "Category",
+      condition: "Condition",
+      uploadImage: "Upload Image",
+    },
+    placeholder: {
+      productName: "Enter product name",
+      price: "Ex: 100",
+      description: "Enter product description",
+      discount: "Ex: 10",
+      selectCategory: "Select category",
+    },
+    upload: "Upload",
+    title: "Create product",
+    submit: "Submit",
+  },
 };
 
 export default en;

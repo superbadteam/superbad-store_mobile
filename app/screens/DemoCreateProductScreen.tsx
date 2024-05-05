@@ -9,7 +9,8 @@ import { api } from "../services/api";
 import type { Category } from "app/types";
 
 function openImagePicker() {
-ImagePicker.launchImageLibrary({
+  ImagePicker.launchImageLibrary(
+    {
       mediaType: "photo",
       includeBase64: false,
       maxHeight: 200,
@@ -23,7 +24,6 @@ ImagePicker.launchImageLibrary({
 
 export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">> =
   function DemoCreateProductScreen(_props) {
-
     const conditions: RadioOptions[] = [
       { label: "New", value: "new" },
       { label: "Like new", value: "likenew" },
@@ -49,7 +49,7 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
     return (
       <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
         <View style={$createContainer}>
-          <Text size="xl" style={$title}>Create product</Text>
+          <Text size="xl" style={$title} tx="DemoCreateProductScreen.createProduct" />
 
           <TextField
             autoCapitalize="none"
@@ -57,6 +57,7 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
             autoCorrect={false}
             keyboardType="email-address"
             label="Product Name"
+            labelTx="DemoCreateProductScreen.label.productName"
             placeholder="Enter product name"
           />
 
@@ -66,7 +67,7 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
               containerStyle={$informationFieldTextField}
               autoCorrect={false}
               keyboardType="email-address"
-              label="Price ($)"
+              labelTx="DemoCreateProductScreen.label.price"
               placeholder="Ex: 100"
             />
 
@@ -75,7 +76,7 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
               containerStyle={$informationFieldTextField}
               autoCorrect={false}
               keyboardType="email-address"
-              label="Discount (%)"
+              labelTx="DemoCreateProductScreen.label.discount"
               placeholder="Ex: 10"
             />
           </View>
@@ -83,27 +84,46 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
           <View style={$descriptionField}>
             <TextField
               label="Description"
-              placeholder="Enter description"
+              placeholderTx="DemoCreateProductScreen.label.description"
               multiline
             />
           </View>
 
-          <Text weight="medium" style={$label}>Category</Text>
-          <DropdownComponent data={categories} placeholder="Select category"/>
+          <Text weight="medium" style={$label}>
+            Category
+          </Text>
+          <DropdownComponent
+            data={categories}
+            placeholderTx="DemoCreateProductScreen.placeholder.selectCategory"
+          />
 
-          <Text weight="medium" style={$label}>Condition</Text>
-          <RadioGroup options={conditions} value={radioValue} onValueChange={setRadioValue} style={$radioToggleGroupContainer}/>
+          <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.condition" />
+          <RadioGroup
+            options={conditions}
+            value={radioValue}
+            onValueChange={setRadioValue}
+            style={$radioToggleGroupContainer}
+          />
 
           <View style={$uploadArea}>
-            <Text style={$uploadText}>Upload Image</Text>
-            <Button style={$uploadButton} onPress={openImagePicker}>
-              Upload
-            </Button>
+            <Text
+              style={$uploadText}
+              weight="medium"
+              tx="DemoCreateProductScreen.label.uploadImage"
+            />
+            <Button
+              style={$uploadButton}
+              onPress={openImagePicker}
+              tx="DemoCreateProductScreen.upload"
+            />
           </View>
 
-          <Button style={$submit} onPress={openImagePicker}>
-            <Text style={$submitText}>Upload Image</Text>
-          </Button>
+          <Button
+            style={$submit}
+            textStyle={$submitText}
+            onPress={openImagePicker}
+            tx="DemoCreateProductScreen.label.uploadImage"
+          />
         </View>
       </Screen>
     );
@@ -161,7 +181,6 @@ const $uploadArea: ViewStyle = {
   flexDirection: "column",
   justifyContent: "center",
   width: "100%",
-  alignItems: "center",
   marginTop: spacing.lg,
 };
 

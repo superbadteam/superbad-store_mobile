@@ -1,18 +1,18 @@
 import React from "react";
-import { View , StyleSheet, ViewStyle } from "react-native";
+import { View, StyleSheet, ViewStyle } from "react-native";
 import { Toggle } from "../components";
 import { spacing } from "../theme";
 
 export interface RadioOptions {
-    label: string;
-    value: string;
+  label: string;
+  value: string;
 }
 
 export const RadioGroup = (props: {
-  options: RadioOptions[],
-  value: RadioOptions,
-  onValueChange: (value: RadioOptions) => void,
-  style?: ViewStyle
+  options: RadioOptions[];
+  value: RadioOptions;
+  onValueChange: (value: RadioOptions) => void;
+  style?: ViewStyle;
 }) => {
   const handlePress = (option: RadioOptions) => {
     props.onValueChange(option);

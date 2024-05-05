@@ -16,12 +16,12 @@ import { colors, spacing, typography } from "../theme";
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator";
 
 export type DemoTabParamList = {
-  DemoCommunity: undefined
-  DemoShowroom: { queryIndex?: string; itemIndex?: string }
-  DemoDebug: undefined
-  DemoPodcastList: undefined
-  DemoCreateProduct: undefined
-}
+  DemoCommunity: undefined;
+  DemoShowroom: { queryIndex?: string; itemIndex?: string };
+  DemoDebug: undefined;
+  DemoPodcastList: undefined;
+  DemoCreateProduct: undefined;
+};
 
 /**
  * Helper for automatically generating navigation prop types for each route.
