@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { TextStyle, View, ViewStyle } from "react-native";
 import { Button, RadioGroup, Screen, Text, TextField, DropdownComponent } from "../components";
-import type { RadioOptions } from "../components/RadioGroup";
+import type { RadioOption } from "../components/RadioGroup";
 import { DemoTabScreenProps } from "../navigators/DemoNavigator";
 import { spacing, colors } from "../theme";
 import * as ImagePicker from "react-native-image-picker";
@@ -24,13 +24,13 @@ function openImagePicker() {
 
 export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">> =
   function DemoCreateProductScreen(_props) {
-    const conditions: RadioOptions[] = [
+    const conditions: RadioOption[] = [
       { label: "New", value: "new" },
       { label: "Like new", value: "likeNew" },
       { label: "Old", value: "old" },
     ];
 
-    const [radioValue, setRadioValue] = useState<RadioOptions>(conditions[0]);
+    const [radioValue, setRadioValue] = useState<RadioOption>(conditions[0]);
     const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
