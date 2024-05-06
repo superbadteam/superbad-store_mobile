@@ -12,7 +12,7 @@ interface DropdownComponentProps {
   valueField?: string;
   placeholder?: string;
   placeholderTx?: TextProps["tx"];
-  searchPlaceholder?: string;
+  searchPlaceholder: TextProps["tx"];
   value?: any;
   onFocus?: () => void;
   onBlur?: () => void;
@@ -21,11 +21,11 @@ interface DropdownComponentProps {
 }
 
 export const DropdownComponent = (props: DropdownComponentProps) => {
-  const { data, placeholder, placeholderTx } = props;
+  const { data, placeholder, placeholderTx, searchPlaceholder } = props;
   const [value, setValue] = useState<any>(null);
   const [isFocus, setIsFocus] = useState(false);
-  const i18nText = placeholderTx && translate(placeholderTx);
-  const contentTx = i18nText;
+  const contentTx = placeholderTx && translate(placeholderTx);
+  const searchPlaceholderTx = searchPlaceholder && translate(searchPlaceholder);
 
   return (
     <View style={$container}>
@@ -40,7 +40,7 @@ export const DropdownComponent = (props: DropdownComponentProps) => {
         labelField="name"
         valueField="id"
         placeholder={!isFocus ? contentTx ?? placeholder : "..."}
-        searchPlaceholder="Search..."
+        searchPlaceholder={searchPlaceholderTx}
         value={value}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}

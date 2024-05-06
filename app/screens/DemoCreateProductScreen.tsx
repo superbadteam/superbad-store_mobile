@@ -52,30 +52,20 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
           <Text size="xl" style={$title} tx="DemoCreateProductScreen.createProduct" />
 
           <TextField
-            autoCapitalize="none"
             containerStyle={$textField}
-            autoCorrect={false}
-            keyboardType="email-address"
-            label="Product Name"
             labelTx="DemoCreateProductScreen.label.productName"
             placeholderTx="DemoCreateProductScreen.placeholder.productName"
           />
 
           <View style={$informationField}>
             <TextField
-              autoCapitalize="none"
               containerStyle={$informationFieldTextField}
-              autoCorrect={false}
-              keyboardType="email-address"
               labelTx="DemoCreateProductScreen.label.price"
               placeholderTx="DemoCreateProductScreen.placeholder.price"
             />
 
             <TextField
-              autoCapitalize="none"
               containerStyle={$informationFieldTextField}
-              autoCorrect={false}
-              keyboardType="email-address"
               labelTx="DemoCreateProductScreen.label.discount"
               placeholderTx="DemoCreateProductScreen.placeholder.discount"
             />
@@ -92,6 +82,7 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
           <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.category" />
           {categories.length > 0 && (
             <DropdownComponent
+              searchPlaceholder="common.search"
               data={categories}
               placeholderTx="DemoCreateProductScreen.placeholder.selectCategory"
             />
