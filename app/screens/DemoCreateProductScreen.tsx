@@ -26,7 +26,7 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
   function DemoCreateProductScreen(_props) {
     const conditions: RadioOptions[] = [
       { label: "New", value: "new" },
-      { label: "Like new", value: "likenew" },
+      { label: "Like new", value: "likeNew" },
       { label: "Old", value: "old" },
     ];
 
@@ -89,11 +89,13 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
             />
           </View>
 
-          <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.category"/>
-          <DropdownComponent
-            data={categories}
-            placeholderTx="DemoCreateProductScreen.placeholder.selectCategory"
-          />
+          <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.category" />
+          {categories.length > 0 && (
+            <DropdownComponent
+              data={categories}
+              placeholderTx="DemoCreateProductScreen.placeholder.selectCategory"
+            />
+          )}
 
           <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.condition" />
           <RadioGroup
