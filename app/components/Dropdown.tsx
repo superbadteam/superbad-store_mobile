@@ -18,10 +18,11 @@ interface DropdownComponentProps {
   onBlur?: () => void;
   onChange?: (item: any) => void;
   renderLeftIcon?: () => void;
+  maxHeight?: number;
 }
 
 export const DropdownComponent = (props: DropdownComponentProps) => {
-  const { data, placeholder, placeholderTx, searchPlaceholder } = props;
+  const { data, placeholder, placeholderTx, searchPlaceholder, maxHeight } = props;
   const [value, setValue] = useState<any>(null);
   const [isFocus, setIsFocus] = useState(false);
   const contentTx = placeholderTx && translate(placeholderTx);
@@ -31,12 +32,10 @@ export const DropdownComponent = (props: DropdownComponentProps) => {
     <View style={$container}>
       <Dropdown
         style={$dropdown}
-        placeholderStyle={$placeholderStyle}
-        selectedTextStyle={$selectedTextStyle}
         inputSearchStyle={$inputSearchStyle}
         data={data}
         search
-        maxHeight={300}
+        maxHeight={maxHeight || 300}
         labelField="name"
         valueField="id"
         placeholder={!isFocus ? contentTx ?? placeholder : "..."}
@@ -73,5 +72,3 @@ const $icon: ViewStyle = {
 const $inputSearchStyle: ViewStyle = {
   height: 40,
 };
-const $placeholderStyle: ViewStyle = {};
-const $selectedTextStyle: ViewStyle = {};
