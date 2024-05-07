@@ -48,6 +48,7 @@ const ko: Translations = {
     debugTab: "디버그",
     communityTab: "커뮤니티",
     podcastListTab: "팟캐스트",
+    cartListTab :"카트",
   },
   demoCommunityScreen: {
     title: "커뮤니티와 함께해요",
@@ -101,6 +102,26 @@ const ko: Translations = {
       "만약에 동작하지 않는 경우, Reactotron 데스크탑 앱이 실행중인지 확인 후 앱을 다시 실행해보세요.",
   },
   demoPodcastListScreen: {
+    title: "React Native 라디오 에피소드",
+    onlyFavorites: "즐겨찾기만 보기",
+    favoriteButton: "즐겨찾기",
+    unfavoriteButton: "즐겨찾기 해제",
+    accessibility: {
+      cardHint:
+        "에피소드를 들으려면 두 번 탭하세요. 이 에피소드를 좋아하거나 싫어하려면 두 번 탭하고 길게 누르세요.",
+      switch: "즐겨찾기를 사용하려면 스위치를 사용하세요.",
+      favoriteAction: "즐겨찾기 토글",
+      favoriteIcon: "좋아하는 에피소드",
+      unfavoriteIcon: "즐겨찾기하지 않은 에피소드",
+      publishLabel: "{{date}} 에 발행됨",
+      durationLabel: "소요시간: {{hours}}시간 {{minutes}}분 {{seconds}}초",
+    },
+    noFavoritesEmptyState: {
+      heading: "조금 텅 비어 있네요.",
+      content: "즐겨찾기가 없습니다. 에피소드에 있는 하트를 눌러서 즐겨찾기에 추가하세요.",
+    },
+  },
+  demoCartListScreen: {
     title: "React Native 라디오 에피소드",
     onlyFavorites: "즐겨찾기만 보기",
     favoriteButton: "즐겨찾기",

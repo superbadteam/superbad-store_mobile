@@ -46,6 +46,7 @@ const en = {
     debugTab: "Debug",
     communityTab: "Community",
     podcastListTab: "Podcast",
+    cartListTab :"Cart",
   },
   demoCommunityScreen: {
     title: "Connect with the community",
@@ -71,7 +72,7 @@ const en = {
     hireUsLink: "Send us a message",
   },
   demoShowroomScreen: {
-    jumpStart: "Components to jump start your project!",
+    jumpStart: "Components to jump start your project! ",
     lorem2Sentences:
       "Nulla cupidatat deserunt amet quis aliquip nostrud do adipisicing. Adipisicing excepteur elit laborum Lorem adipisicing do duis.",
     demoHeaderTxExample: "Yay",
@@ -99,7 +100,28 @@ const en = {
       "If this doesn't work, ensure the Reactotron desktop app is running and reload app.",
   },
   demoPodcastListScreen: {
-    title: "React Native Radio episodes",
+    title: "My Cart",
+    onlyFavorites: "Only Show Favorites",
+    favoriteButton: "Favorite",
+    unfavoriteButton: "Unfavorite",
+    accessibility: {
+      cardHint:
+        "Double tap to listen to the episode. Double tap and hold to {{action}} this episode.",
+      switch: "Switch on to only show favorites",
+      favoriteAction: "Toggle Favorite",
+      favoriteIcon: "Episode not favorited",
+      unfavoriteIcon: "Episode favorited",
+      publishLabel: "Published {{date}}",
+      durationLabel: "Duration: {{hours}} hours {{minutes}} minutes {{seconds}} seconds",
+    },
+    noFavoritesEmptyState: {
+      heading: "This looks a bit empty",
+      content:
+        "No favorites have been added yet. Tap the heart on an episode to add it to your favorites!",
+    },
+  },
+  demoCartListScreen: {
+    title: "My Cart",
     onlyFavorites: "Only Show Favorites",
     favoriteButton: "Favorite",
     unfavoriteButton: "Unfavorite",

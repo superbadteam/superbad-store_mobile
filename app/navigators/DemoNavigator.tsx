@@ -7,6 +7,7 @@ import { Icon } from "../components"
 import { translate } from "../i18n"
 import { DemoCommunityScreen, DemoShowroomScreen, DemoDebugScreen } from "../screens"
 import { DemoPodcastListScreen } from "../screens/DemoPodcastListScreen"
+import  DemoCartScreen  from "../screens/DemoCartScreen/DemoCartScreen"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 
@@ -15,6 +16,7 @@ export type DemoTabParamList = {
   DemoShowroom: { queryIndex?: string; itemIndex?: string }
   DemoDebug: undefined
   DemoPodcastList: undefined
+  DemoCartList: undefined
 }
 
 /**
@@ -81,6 +83,17 @@ export function DemoNavigator() {
           tabBarLabel: translate("demoNavigator.podcastListTab"),
           tabBarIcon: ({ focused }) => (
             <Icon icon="podcast" color={focused ? colors.tint : undefined} size={30} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="DemoCartList"
+        component={DemoCartScreen}
+        options={{
+          tabBarAccessibilityLabel: translate("demoNavigator.cartListTab"),
+          tabBarLabel: translate("demoNavigator.cartListTab"),
+          tabBarIcon: ({ focused }) => (
+            <Icon icon="cart" color={focused ? colors.tint : undefined} size={30} />
           ),
         }}
       />
