@@ -1,36 +1,36 @@
 /* eslint-disable react-native/no-color-literals */
 /* eslint-disable react-native/no-inline-styles */
-import { Link, RouteProp, useRoute } from "@react-navigation/native"
-import React, { FC, ReactElement, useEffect, useRef, useState } from "react"
-import { Image, ImageStyle, Platform, SectionList, TextStyle, View, ViewStyle } from "react-native"
-import { Drawer } from "react-native-drawer-layout"
-import { type ContentStyle } from "@shopify/flash-list"
-import { ListItem, ListView, ListViewRef, Screen, Text, Icon, iconRegistry, IconTypes } from "../../components"
-import { isRTL } from "../../i18n"
-import { DemoTabParamList, DemoTabScreenProps } from "../../navigators/DemoNavigator"
-import { colors, spacing } from "../../theme"
-import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle"
-import * as Demos from "./demos"
-import { DrawerIconButton } from "./DrawerIconButton"
-import { TextInput } from "react-native-gesture-handler"
+import { Link, RouteProp, useRoute } from "@react-navigation/native";
+import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
+import { Image, ImageStyle, Platform, SectionList, TextStyle, View, ViewStyle } from "react-native";
+import { Drawer } from "react-native-drawer-layout";
+import { type ContentStyle } from "@shopify/flash-list";
+import { ListItem, ListView, ListViewRef, Screen, Text, Icon, iconRegistry, IconTypes } from "../../components";
+import { isRTL } from "../../i18n";
+import { DemoTabParamList, DemoTabScreenProps } from "../../navigators/DemoNavigator";
+import { colors, spacing } from "../../theme";
+import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle";
+import * as Demos from "./demos";
+import { DrawerIconButton } from "./DrawerIconButton";
+import { TextInput } from "react-native-gesture-handler";
 
-const iconSearch = require("../../../assets/icons/search.png")
-const iconRight = require("../../../assets/icons/arrowRight.png")
-const iconClothes = require("../../../assets/icons/clothes.png")
-const iconEletronic = require("../../../assets/icons/electronic.png")
-const iconBeauty = require("../../../assets/icons/beauty.png")
-const iconApplication = require("../../../assets/icons/application.png")
-const imgProduct = require("../../../assets/icons/product.jpg")
+const iconSearch = require("../../../assets/icons/search.png");
+const iconRight = require("../../../assets/icons/arrowRight.png");
+const iconClothes = require("../../../assets/icons/clothes.png");
+const iconEletronic = require("../../../assets/icons/electronic.png");
+const iconBeauty = require("../../../assets/icons/beauty.png");
+const iconApplication = require("../../../assets/icons/application.png");
+const imgProduct = require("../../../assets/icons/product.jpg");
 export interface Demo {
-  name: string
-  description: string
-  data: ReactElement[]
+  name: string;
+  description: string;
+  data: ReactElement[];
 }
 
 interface DemoListItem {
-  item: { name: string; useCases: string[] }
-  sectionIndex: number
-  handleScroll?: (sectionIndex: number, itemIndex?: number) => void
+  item: { name: string; useCases: string[] };
+  sectionIndex: number;
+  handleScroll?: (sectionIndex: number, itemIndex?: number) => void;
 }
 
 const slugify = (str: string) =>
@@ -39,10 +39,10 @@ const slugify = (str: string) =>
     .trim()
     .replace(/[^\w\s-]/g, "")
     .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "")
+    .replace(/^-+|-+$/g, "");
 
 const WebListItem: FC<DemoListItem> = ({ item, sectionIndex }) => {
-  const sectionSlug = item.name.toLowerCase()
+  const sectionSlug = item.name.toLowerCase();
 
   return (
     <View>
@@ -50,17 +50,17 @@ const WebListItem: FC<DemoListItem> = ({ item, sectionIndex }) => {
         <Text preset="bold">{item.name}</Text>
       </Link>
       {item.useCases.map((u) => {
-        const itemSlug = slugify(u)
+        const itemSlug = slugify(u);
 
         return (
           <Link key={`section${sectionIndex}-${u}`} to={`/showroom/${sectionSlug}/${itemSlug}`}>
             <Text>{u}</Text>
           </Link>
-        )
+        );
       })}
     </View>
-  )
-}
+  );
+};
 
 const NativeListItem: FC<DemoListItem> = ({ item, sectionIndex, handleScroll }) => (
   <View>
@@ -76,64 +76,64 @@ const NativeListItem: FC<DemoListItem> = ({ item, sectionIndex, handleScroll }) 
       />
     ))}
   </View>
-)
+);
 
-const ShowroomListItem = Platform.select({ web: WebListItem, default: NativeListItem })
+const ShowroomListItem = Platform.select({ web: WebListItem, default: NativeListItem });
 
 export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
   function DemoShowroomScreen(_props) {
-    const [open, setOpen] = useState(false)
-    const timeout = useRef<ReturnType<typeof setTimeout>>()
-    const listRef = useRef<SectionList>(null)
-    const menuRef = useRef<ListViewRef<DemoListItem["item"]>>(null)
-    const route = useRoute<RouteProp<DemoTabParamList, "DemoShowroom">>()
-    const params = route.params
+    const [open, setOpen] = useState(false);
+    const timeout = useRef<ReturnType<typeof setTimeout>>();
+    const listRef = useRef<SectionList>(null);
+    const menuRef = useRef<ListViewRef<DemoListItem["item"]>>(null);
+    const route = useRoute<RouteProp<DemoTabParamList, "DemoShowroom">>();
+    const params = route.params;
 
     // handle Web links
     React.useEffect(() => {
       if (params !== undefined && Object.keys(params).length > 0) {
-        const demoValues = Object.values(Demos)
+        const demoValues = Object.values(Demos);
         const findSectionIndex = demoValues.findIndex(
           (x) => x.name.toLowerCase() === params.queryIndex,
-        )
-        let findItemIndex = 0
+        );
+        let findItemIndex = 0;
         if (params.itemIndex) {
           try {
             findItemIndex =
               demoValues[findSectionIndex].data.findIndex(
                 (u) => slugify(u.props.name) === params.itemIndex,
-              ) + 1
+              ) + 1;
           } catch (err) {
-            console.error(err)
+            console.error(err);
           }
         }
-        handleScroll(findSectionIndex, findItemIndex)
+        handleScroll(findSectionIndex, findItemIndex);
       }
-    }, [params])
+    }, [params]);
 
     const toggleDrawer = () => {
       if (!open) {
-        setOpen(true)
+        setOpen(true);
       } else {
-        setOpen(false)
+        setOpen(false);
       }
-    }
+    };
 
     const handleScroll = (sectionIndex: number, itemIndex = 0) => {
       listRef.current?.scrollToLocation({
         animated: true,
         itemIndex,
         sectionIndex,
-      })
-      toggleDrawer()
-    }
+      });
+      toggleDrawer();
+    };
 
     const scrollToIndexFailed = (info: {
-      index: number
-      highestMeasuredFrameIndex: number
-      averageItemLength: number
+      index: number;
+      highestMeasuredFrameIndex: number;
+      averageItemLength: number;
     }) => {
-      listRef.current?.getScrollResponder()?.scrollToEnd()
+      listRef.current?.getScrollResponder()?.scrollToEnd();
       timeout.current = setTimeout(
         () =>
           listRef.current?.scrollToLocation({
@@ -142,14 +142,14 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
             sectionIndex: 0,
           }),
         50,
-      )
-    }
+      );
+    };
 
     useEffect(() => {
-      return () => timeout.current && clearTimeout(timeout.current)
-    }, [])
+      return () => timeout.current && clearTimeout(timeout.current);
+    }, []);
 
-    const $drawerInsets = useSafeAreaInsetsStyle(["top"])
+    const $drawerInsets = useSafeAreaInsetsStyle(["top"]);
 
     return (
       <Drawer
@@ -188,14 +188,14 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
                 <Image source={iconSearch} style={$iconSearch} />
                 <TextInput
                   style={$inputSearch}
-                  placeholder={'Search product'}
+                  placeholder={"Search product"}
                 />
               </View>
 
               <View style={$listCategory}>
                 <View style={$categoryHead}>
-                  <Text style={{fontWeight: 'bold', fontSize: 18}}>Category</Text>
-                  <View style={{flexDirection: 'row', alignItems: 'center', gap: -4}}>
+                  <Text style={{fontWeight: "bold", fontSize: 18}}>Category</Text>
+                  <View style={{flexDirection: "row", alignItems: "center", gap: -4}}>
                     <Text>View All</Text>
                     <Image source={iconRight} style={$iconSearch} />
                   </View>
@@ -225,14 +225,14 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
                     </View>
                     <Text>Fashion</Text>
                   </View>
-                  
+
                 </View>
               </View>
 
               <View style={$discountContainer}>
                 <View style={$categoryHead}>
-                  <Text style={{fontWeight: 'bold', fontSize: 18}}>Deal of the day</Text>
-                  <View style={{flexDirection: 'row', alignItems: 'center', gap: -4}}>
+                  <Text style={{fontWeight: "bold", fontSize: 18}}>Deal of the day</Text>
+                  <View style={{flexDirection: "row", alignItems: "center", gap: -4}}>
                     <Text>View All</Text>
                     <Image source={iconRight} style={$iconSearch} />
                   </View>
@@ -240,28 +240,18 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
                 <View style={$discountBody}>
                   <View style={$discountItem}>
                     <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{alignItems: 'center', gap: 4, marginTop: 4}}>
+                    <View style={{alignItems: "center", gap: 4, marginTop: 4}}>
                       <Text style={$discountItemName}>Running Shoe</Text>
-                      <View style={{borderRadius: 6, padding: 6, backgroundColor: 'red',}}>
+                      <View style={{borderRadius: 6, padding: 6, backgroundColor: "red"}}>
                         <Text style={$discountItemSale}>upto 40% OFF</Text>
                       </View>
                     </View>
                   </View>
                   <View style={$discountItem}>
                     <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{alignItems: 'center', gap: 4, marginTop: 4}}>
+                    <View style={{alignItems: "center", gap: 4, marginTop: 4}}>
                       <Text style={$discountItemName}>Running Shoe</Text>
-                      <View style={{borderRadius: 6, padding: 6, backgroundColor: 'red',}}>
-                        <Text style={$discountItemSale}>upto 40% OFF</Text>
-                      </View>
-                    </View>
-                  </View>
-                  
-                  <View style={$discountItem}>
-                    <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{alignItems: 'center', gap: 4, marginTop: 4}}>
-                      <Text style={$discountItemName}>Running Shoe</Text>
-                      <View style={{borderRadius: 6, padding: 6, backgroundColor: 'red',}}>
+                      <View style={{borderRadius: 6, padding: 6, backgroundColor: "red"}}>
                         <Text style={$discountItemSale}>upto 40% OFF</Text>
                       </View>
                     </View>
@@ -269,21 +259,31 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
 
                   <View style={$discountItem}>
                     <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{alignItems: 'center', gap: 4, marginTop: 4}}>
+                    <View style={{alignItems: "center", gap: 4, marginTop: 4}}>
                       <Text style={$discountItemName}>Running Shoe</Text>
-                      <View style={{borderRadius: 6, padding: 6, backgroundColor: 'red',}}>
+                      <View style={{borderRadius: 6, padding: 6, backgroundColor: "red"}}>
+                        <Text style={$discountItemSale}>upto 40% OFF</Text>
+                      </View>
+                    </View>
+                  </View>
+
+                  <View style={$discountItem}>
+                    <Image source={imgProduct} style={$imgProduct} />
+                    <View style={{alignItems: "center", gap: 4, marginTop: 4}}>
+                      <Text style={$discountItemName}>Running Shoe</Text>
+                      <View style={{borderRadius: 6, padding: 6, backgroundColor: "red"}}>
                         <Text style={$discountItemSale}>upto 40% OFF</Text>
                       </View>
                     </View>
                   </View>
 
                 </View>
-              </View> 
+              </View>
 
               <View style={$listProduct}>
                 <View style={$categoryHead}>
-                  <Text style={{fontWeight: 'bold', fontSize: 18}}>Recommoneded for you</Text>
-                  <View style={{flexDirection: 'row', alignItems: 'center', gap: -4}}>
+                  <Text style={{fontWeight: "bold", fontSize: 18}}>Recommoneded for you</Text>
+                  <View style={{flexDirection: "row", alignItems: "center", gap: -4}}>
                     <Text>View All</Text>
                     <Image source={iconRight} style={$iconSearch} />
                   </View>
@@ -292,14 +292,14 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
                 <View style={$listProductBody}>
                   <View style={$productItem}>
                     <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{flexDirection: 'column', gap: 6}}>
+                    <View style={{flexDirection: "column", gap: 6}}>
                       <Text style={$productName}>Adidas white sneakers for men</Text>
-                      <View style={{flexDirection: 'row', gap: 8}}>
+                      <View style={{flexDirection: "row", gap: 8}}>
                         <Text style={$productPrice}>$68</Text>
                         <Text style={$productSale}>$134</Text>
                         <Text style={$productDiscount}>50% OFF</Text>
                       </View>
-                      <View style={{flexDirection: 'row', gap: 6, alignItems: 'center'}}>
+                      <View style={{flexDirection: "row", gap: 6, alignItems: "center"}}>
                         <Image source={imgProduct} style={$iconstar} />
                         <Text style={$productRating}>4.8</Text>
                         <Text style={$productComment}>(545)</Text>
@@ -309,14 +309,14 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
 
                   <View style={$productItem}>
                     <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{flexDirection: 'column', gap: 6}}>
+                    <View style={{flexDirection: "column", gap: 6}}>
                       <Text style={$productName}>Adidas white sneakers for men</Text>
-                      <View style={{flexDirection: 'row', gap: 8}}>
+                      <View style={{flexDirection: "row", gap: 8}}>
                         <Text style={$productPrice}>$68</Text>
                         <Text style={$productSale}>$134</Text>
                         <Text style={$productDiscount}>50% OFF</Text>
                       </View>
-                      <View style={{flexDirection: 'row', gap: 6, alignItems: 'center'}}>
+                      <View style={{flexDirection: "row", gap: 6, alignItems: "center"}}>
                         <Image source={imgProduct} style={$iconstar} />
                         <Text style={$productRating}>4.8</Text>
                         <Text style={$productComment}>(545)</Text>
@@ -326,14 +326,14 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
 
                   <View style={$productItem}>
                     <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{flexDirection: 'column', gap: 6}}>
+                    <View style={{flexDirection: "column", gap: 6}}>
                       <Text style={$productName}>Adidas white sneakers for men</Text>
-                      <View style={{flexDirection: 'row', gap: 8}}>
+                      <View style={{flexDirection: "row", gap: 8}}>
                         <Text style={$productPrice}>$68</Text>
                         <Text style={$productSale}>$134</Text>
                         <Text style={$productDiscount}>50% OFF</Text>
                       </View>
-                      <View style={{flexDirection: 'row', gap: 6, alignItems: 'center'}}>
+                      <View style={{flexDirection: "row", gap: 6, alignItems: "center"}}>
                         <Image source={imgProduct} style={$iconstar} />
                         <Text style={$productRating}>4.8</Text>
                         <Text style={$productComment}>(545)</Text>
@@ -343,14 +343,14 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
 
                   <View style={$productItem}>
                     <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{flexDirection: 'column', gap: 6}}>
+                    <View style={{flexDirection: "column", gap: 6}}>
                       <Text style={$productName}>Adidas white sneakers for men</Text>
-                      <View style={{flexDirection: 'row', gap: 8}}>
+                      <View style={{flexDirection: "row", gap: 8}}>
                         <Text style={$productPrice}>$68</Text>
                         <Text style={$productSale}>$134</Text>
                         <Text style={$productDiscount}>50% OFF</Text>
                       </View>
-                      <View style={{flexDirection: 'row', gap: 6, alignItems: 'center'}}>
+                      <View style={{flexDirection: "row", gap: 6, alignItems: "center"}}>
                         <Image source={imgProduct} style={$iconstar} />
                         <Text style={$productRating}>4.8</Text>
                         <Text style={$productComment}>(545)</Text>
@@ -387,165 +387,165 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
           />  */}
         </Screen>
       </Drawer>
-    )
-  }
+    );
+  };
 
 const $screenContainer: ViewStyle = {
   // flex: 1,
-  backgroundColor: '#ffff'
-}
+  backgroundColor: "#ffff",
+};
 
 const $drawer: ViewStyle = {
-  backgroundColor: '#ffff',
+  backgroundColor: "#ffff",
   // flex: 1,
-}
+};
 
 const $search: ViewStyle = {
-  flexDirection: 'row',
-  alignItems: 'center',
+  flexDirection: "row",
+  alignItems: "center",
   margin: 16,
   borderWidth: 2,
-  borderColor: '#ddd',
+  borderColor: "#ddd",
   borderRadius: 6,
   height: 52,
   // flex: 1,
-}
+};
 
 const $iconSearch: ViewStyle = {
   height: 22,
   width: 22,
   margin: 12,
-}
+};
 
 const $inputSearch: ViewStyle = {
-  height: 52, 
+  height: 52,
   width: 282,
   fontSize: 20,
-  color: '#333', 
-}
+  color: "#333",
+};
 
 const $listCategory: ViewStyle = {
   margin: 16,
-}
+};
 
 const $categoryHead: ViewStyle = {
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-}
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+};
 
 
 const $categoryBody: ViewStyle = {
-  flexDirection: 'row',
+  flexDirection: "row",
   gap: 12,
-  alignItems: 'center',
-  justifyContent: 'space-between'
-}
+  alignItems: "center",
+  justifyContent: "space-between",
+};
 
 const $categoryList: ViewStyle = {
-  
-  
-}
+
+
+};
 
 const $categoryItem: ViewStyle = {
   width: 60,
   height: 60,
-  backgroundColor: '#ecfdf5',
-  alignItems: 'center',
-  justifyContent: 'center',
+  backgroundColor: "#ecfdf5",
+  alignItems: "center",
+  justifyContent: "center",
   borderRadius: 60,
   marginBottom: 4,
-}
+};
 
 const $discountContainer: ViewStyle = {
-  backgroundColor: '#eee',
-  padding: 16
-}
+  backgroundColor: "#eee",
+  padding: 16,
+};
 
 const $discountBody: ViewStyle = {
-  backgroundColor: '#ffff',
+  backgroundColor: "#ffff",
   borderRadius: 6,
   padding: 12,
   marginTop: 12,
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  width: '100%',
+  flexDirection: "row",
+  flexWrap: "wrap",
+  width: "100%",
   gap: 8,
-}
+};
 
 const $discountItem: ViewStyle = {
-  width: '48%',
-  flexDirection: 'column',
+  width: "48%",
+  flexDirection: "column",
   height: 200,
-}
+};
 
 const $imgProduct: ViewStyle = {
-  width: '100%',
+  width: "100%",
   height: 140,
   borderRadius: 8,
-}
+};
 
 const $discountItemName: ViewStyle = {
   fontSize: 16,
-  fontWeight: '700'
-}
+  fontWeight: "700",
+};
 
 const $discountItemSale: ViewStyle = {
   fontSize: 14,
-  color: '#fff',
-  lineHeight: 16
-}
+  color: "#fff",
+  lineHeight: 16,
+};
 
 const $listProduct: ViewStyle = {
   padding: 16,
-}
+};
 
 const $listProductBody: ViewStyle = {
-  flexDirection:'row',
-  width: '100%',
+  flexDirection:"row",
+  width: "100%",
   gap: 10,
-  flexWrap: 'wrap'
-}
+  flexWrap: "wrap",
+};
 
 const $productItem: ViewStyle = {
-  width: '48%',
+  width: "48%",
   // height: 200,
 
-}
+};
 
 const $iconstar: ViewStyle = {
   width: 18,
   height: 18,
-}
+};
 
 const $productName: ViewStyle = {
   fontSize: 16,
-  color: '#333',
+  color: "#333",
   lineHeight: 16,
-  marginTop: 4
-}
+  marginTop: 4,
+};
 
 const $productPrice: ViewStyle = {
   fontweight: 700,
   fontSize: 18,
-}
+};
 
 const $productSale: ViewStyle = {
   fontSize: 14,
-  color: '#ccc'
+  color: "#ccc",
 
-}
+};
 
 const $productDiscount: ViewStyle = {
-  color: '#ea580c',
-}
+  color: "#ea580c",
+};
 
 const $productRating: ViewStyle = {
-  flexDirection: 'row',
-  alignItems: 'center',
+  flexDirection: "row",
+  alignItems: "center",
   marginTop: 6,
-}
+};
 
 const $productComment: ViewStyle = {
 
-}
+};

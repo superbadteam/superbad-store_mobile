@@ -1,6 +1,6 @@
 // we always make sure 'react-native' gets included first
-import * as ReactNative from "react-native"
-import mockFile from "./mockFile"
+import * as ReactNative from "react-native";
+import mockFile from "./mockFile";
 
 // libraries to mock
 jest.doMock("react-native", () => {
@@ -20,27 +20,27 @@ jest.doMock("react-native", () => {
       },
     },
     ReactNative,
-  )
-})
+  );
+});
 
 jest.mock("@react-native-async-storage/async-storage", () =>
   require("@react-native-async-storage/async-storage/jest/async-storage-mock"),
-)
+);
 
 jest.mock("i18n-js", () => ({
   currentLocale: () => "en",
   t: (key: string, params: Record<string, string>) => {
-    return `${key} ${JSON.stringify(params)}`
+    return `${key} ${JSON.stringify(params)}`;
   },
-}))
+}));
 
 jest.mock("expo-localization", () => ({
   ...jest.requireActual("expo-localization"),
   getLocales: () => [{ languageTag: "en-US", textDirection: "ltr" }],
-}))
+}));
 
-declare const tron // eslint-disable-line @typescript-eslint/no-unused-vars
+declare const tron; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 declare global {
-  let __TEST__: boolean
+  let __TEST__: boolean;
 }

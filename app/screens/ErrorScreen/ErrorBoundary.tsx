@@ -1,14 +1,14 @@
-import React, { Component, ErrorInfo, ReactNode } from "react"
-import { ErrorDetails } from "./ErrorDetails"
+import React, { Component, ErrorInfo, ReactNode } from "react";
+import { ErrorDetails } from "./ErrorDetails";
 
 interface Props {
-  children: ReactNode
-  catchErrors: "always" | "dev" | "prod" | "never"
+  children: ReactNode;
+  catchErrors: "always" | "dev" | "prod" | "never";
 }
 
 interface State {
-  error: Error | null
-  errorInfo: ErrorInfo | null
+  error: Error | null;
+  errorInfo: ErrorInfo | null;
 }
 
 /**
@@ -22,19 +22,19 @@ interface State {
  * @returns {JSX.Element} The rendered `ErrorBoundary` component.
  */
 export class ErrorBoundary extends Component<Props, State> {
-  state = { error: null, errorInfo: null }
+  state = { error: null, errorInfo: null };
 
   // If an error in a child is encountered, this will run
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Only set errors if enabled
     if (!this.isEnabled()) {
-      return
+      return;
     }
     // Catch errors in any components below and re-render with error message
     this.setState({
       error,
       errorInfo,
-    })
+    });
 
     // You can also log error messages to an error reporting service here
     // This is a great place to put BugSnag, Sentry, crashlytics, etc:
@@ -43,12 +43,12 @@ export class ErrorBoundary extends Component<Props, State> {
 
   // Reset the error back to null
   resetError = () => {
-    this.setState({ error: null, errorInfo: null })
-  }
+    this.setState({ error: null, errorInfo: null });
+  };
 
   // To avoid unnecessary re-renders
   shouldComponentUpdate(nextProps: Readonly<Props>, nextState: Readonly<State>): boolean {
-    return nextState.error !== this.state.error
+    return nextState.error !== this.state.error;
   }
 
   // Only enable if we're catching errors in the right environment
@@ -57,7 +57,7 @@ export class ErrorBoundary extends Component<Props, State> {
       this.props.catchErrors === "always" ||
       (this.props.catchErrors === "dev" && __DEV__) ||
       (this.props.catchErrors === "prod" && !__DEV__)
-    )
+    );
   }
 
   // Render an error UI if there's an error; otherwise, render children
@@ -70,6 +70,6 @@ export class ErrorBoundary extends Component<Props, State> {
       />
     ) : (
       this.props.children
-    )
+    );
   }
 }

@@ -1,16 +1,16 @@
 /* eslint-disable react/jsx-key, react-native/no-inline-styles */
-import React from "react"
-import { TextStyle, View, ViewStyle } from "react-native"
-import { Icon, ListItem, ListView, Text } from "../../../components"
-import { colors, spacing } from "../../../theme"
-import { Demo } from "../DemoShowroomScreen"
-import { DemoDivider } from "../DemoDivider"
-import { DemoUseCase } from "../DemoUseCase"
+import React from "react";
+import { TextStyle, View, ViewStyle } from "react-native";
+import { Icon, ListItem, ListView, Text } from "../../../components";
+import { colors, spacing } from "../../../theme";
+import { Demo } from "../DemoShowroomScreen";
+import { DemoDivider } from "../DemoDivider";
+import { DemoUseCase } from "../DemoUseCase";
 
 const listData =
-  `Tempor Id Ea Aliqua Pariatur Aliquip. Irure Minim Voluptate Consectetur Consequat Sint Esse Proident Irure. Nostrud Elit Veniam Nostrud Excepteur Minim Deserunt Quis Dolore Velit Nulla Irure Voluptate Tempor. Occaecat Amet Laboris Nostrud Qui Do Quis Lorem Ex Elit Fugiat Deserunt. In Pariatur Excepteur Exercitation Ex Incididunt Qui Mollit Dolor Sit Non. Culpa Officia Minim Cillum Exercitation Voluptate Proident Laboris Et Est Reprehenderit Quis Pariatur Nisi`
+  "Tempor Id Ea Aliqua Pariatur Aliquip. Irure Minim Voluptate Consectetur Consequat Sint Esse Proident Irure. Nostrud Elit Veniam Nostrud Excepteur Minim Deserunt Quis Dolore Velit Nulla Irure Voluptate Tempor. Occaecat Amet Laboris Nostrud Qui Do Quis Lorem Ex Elit Fugiat Deserunt. In Pariatur Excepteur Exercitation Ex Incididunt Qui Mollit Dolor Sit Non. Culpa Officia Minim Cillum Exercitation Voluptate Proident Laboris Et Est Reprehenderit Quis Pariatur Nisi"
     .split(".")
-    .map((item) => item.trim())
+    .map((item) => item.trim());
 
 const $customLeft: ViewStyle = {
   backgroundColor: colors.error,
@@ -20,26 +20,26 @@ const $customLeft: ViewStyle = {
   flexDirection: "row",
   flexWrap: "wrap",
   overflow: "hidden",
-}
+};
 
 const $customTextStyle: TextStyle = {
   color: colors.error,
-}
+};
 
 const $customTouchableStyle: ViewStyle = {
   backgroundColor: colors.error,
-}
+};
 
 const $customContainerStyle: ViewStyle = {
   borderTopWidth: 5,
   borderTopColor: colors.palette.neutral100,
-}
+};
 
 const $listStyle: ViewStyle = {
   height: 148,
   paddingHorizontal: spacing.xs,
   backgroundColor: colors.palette.neutral200,
-}
+};
 
 export const DemoListItem: Demo = {
   name: "ListItem",
@@ -133,8 +133,7 @@ export const DemoListItem: Demo = {
       <ListItem topSeparator>Children - mostrud mollit</ListItem>
       <ListItem topSeparator bottomSeparator>
         <Text>
-          <Text preset="bold">Nested children - proident veniam.</Text>
-          {` `}
+          <Text preset="bold">Nested children - proident veniam.</Text>{" "}
           <Text preset="default">
             Ullamco cupidatat officia exercitation velit non ullamco nisi..
           </Text>
@@ -197,4 +196,4 @@ export const DemoListItem: Demo = {
       </ListItem>
     </DemoUseCase>,
   ],
-}
+};

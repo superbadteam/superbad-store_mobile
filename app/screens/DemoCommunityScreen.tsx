@@ -1,10 +1,10 @@
-import React, { FC } from "react"
-import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { ListItem, Screen, Text } from "../components"
-import { DemoTabScreenProps } from "../navigators/DemoNavigator"
-import { spacing } from "../theme"
-import { openLinkInBrowser } from "../utils/openLinkInBrowser"
-import { isRTL } from "../i18n"
+import React, { FC } from "react";
+import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native";
+import { ListItem, Screen, Text } from "../components";
+import { DemoTabScreenProps } from "../navigators/DemoNavigator";
+import { spacing } from "../theme";
+import { openLinkInBrowser } from "../utils/openLinkInBrowser";
+import { isRTL } from "../i18n";
 
 // const chainReactLogo = require("../../assets/images/demo/cr-logo.png")
 // const reactNativeLiveLogo = require("../../assets/images/demo/rnl-logo.png")
@@ -101,13 +101,13 @@ export const DemoCommunityScreen: FC<DemoTabScreenProps<"DemoCommunity">> =
           onPress={() => openLinkInBrowser("https://infinite.red/contact")}
         /> */}
       </Screen>
-    )
-  }
+    );
+  };
 
 const $container: ViewStyle = {
   paddingTop: spacing.lg + spacing.xl,
   paddingHorizontal: spacing.lg,
-}
+};
 
 // const $title: TextStyle = {
 //   marginBottom: spacing.sm,

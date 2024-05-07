@@ -1,34 +1,34 @@
 /* eslint-disable react/jsx-key */
-import React from "react"
-import { ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Icon, iconRegistry, IconTypes, Text } from "../../../components"
-import { colors, spacing } from "../../../theme"
-import { Demo } from "../DemoShowroomScreen"
-import { DemoUseCase } from "../DemoUseCase"
+import React from "react";
+import { ImageStyle, TextStyle, View, ViewStyle } from "react-native";
+import { Icon, iconRegistry, IconTypes, Text } from "../../../components";
+import { colors, spacing } from "../../../theme";
+import { Demo } from "../DemoShowroomScreen";
+import { DemoUseCase } from "../DemoUseCase";
 
 const $demoIconContainer: ViewStyle = {
   padding: spacing.xs,
-}
+};
 
 const $iconTile: ViewStyle = {
   width: "33.333%",
   alignItems: "center",
   paddingVertical: spacing.xs,
-}
+};
 
 const $iconTileLabel: TextStyle = {
   marginTop: spacing.xxs,
   color: colors.textDim,
-}
+};
 
 const $customIconContainer: ViewStyle = {
   padding: spacing.md,
   backgroundColor: colors.palette.angry500,
-}
+};
 
 const $customIcon: ImageStyle = {
   tintColor: colors.palette.neutral100,
-}
+};
 
 export const DemoIcon: Demo = {
   name: "Icon",
@@ -74,4 +74,4 @@ export const DemoIcon: Demo = {
       <Icon icon="ladybug" style={$customIcon} size={40} containerStyle={$customIconContainer} />
     </DemoUseCase>,
   ],
-}
+};
