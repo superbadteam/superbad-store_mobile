@@ -17,35 +17,39 @@ const MyCart: React.FC = () => {
         ))}
         <View style={styles.summaryCard}>
           <View style={styles.summaryItem}>
-            <Text text={"Sub Total"} style={styles.textMedium} />
+            <Text text={"Total Price"} style={styles.textMedium} />
             <View style={styles.textContainer}>
-              <Text text={"$30.00"} style={styles.textMedium} />
+              <Text text={"$3000"} style={styles.textMedium} />
             </View>
           </View>
           <View style={styles.summaryItem}>
-            <Text text={"Delivery Tax"} style={styles.textMedium} />
+            <Text text={"Discount"} style={styles.textMedium} />
             <View style={styles.textContainer}>
-              <Text text={"$5.00"} style={styles.textMedium} />
+              <Text text={"$5"} style={styles.textMedium} />
             </View>
           </View>
           <View style={styles.summaryItem}>
-            <Text text={"Tip"} style={styles.textMedium} />
+            <Text text={"Delivery fee"} style={styles.textMedium} />
             <View style={styles.textContainer}>
-              <Text text={"$2.00"} style={styles.textMedium} />
-            </View>
-          </View>
-          <View style={styles.summaryItem}>
-            <Text text={"Total"} style={styles.textMedium} />
-            <View style={styles.textContainer}>
-              <Text text={"$37.00"} style={styles.textMedium} />
+              <Text text={"$2"} style={styles.textMedium} />
             </View>
           </View>
         </View>
-        <Button
-          text={"Checkout"}
-          style={styles.button}
-          textStyle={styles.buttonLabel}
-        />
+        
+        <View style={styles.totalContainer}>
+           <Text  text={"Total"} style={styles.textTotal} />
+           <View style={styles.totalAmountContainer}>
+             <Text preset="bold" text={"$2997"} style={styles.textTotal} />
+             <Button
+               text={"Checkout"}
+               style={styles.button}
+               textStyle={styles.buttonLabel}
+             />
+         </View>
+       </View>
+
+
+        
       </ScrollView>
     </Screen>
       
@@ -60,12 +64,14 @@ const styles = StyleSheet.create({
     fontFamily: "Lato-Black",
     color: colors.text,
     fontSize: 20,
+    paddingVertical: 15,
+
   },
   summaryCard: {
     marginHorizontal: 10,
     width: "100%",
     alignSelf: "center",
-    borderBottomColor: colors.text,
+    borderBottomColor: colors.border,
     borderBottomWidth: 0.5,
   },
   summaryItem: {
@@ -75,23 +81,39 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderBottomWidth: 0.5,
-    borderBottomColor: colors.text,
+    borderBottomColor: colors.border,
   },
   textContainer: {
     width: "15%",
   },
+  textTotal : {
+    marginTop : 10,
+    marginLeft: 60,
+  },
   textMedium: {
-    fontFamily: "Lato-Bold",
     color: colors.text,
     textAlign: "left",
   },
   button: {
-    width: "90%",
-    alignSelf: "center",
-    marginTop: 20,
-    paddingVertical: 20,
+    width: "45%",
+    alignSelf : "flex-end",
+    backgroundColor: colors.palette.blue,
+    marginRight : 20,
   },
   buttonLabel: {
     textAlign: "center",
+    color : colors.background,
   },
+  totalContainer: {
+    marginTop: 0,
+    marginHorizontal: 10,
+  },
+  totalAmountContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom : 20,
+  },
+  
+  
 });
