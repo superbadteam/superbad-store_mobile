@@ -37,7 +37,7 @@ const ProductDetailScreen = () => {
     brand: "Gucci",
     price: 99.99,
     description:
-      "This is a fantastic example product. It's made with high-quality materials and designed to last. Whether you're using it at home or on the go, it's sure to meet your needs. ",
+      "This is a fantastic example product. It's made with high-quality materials and designed to last. Whether you're using it at home or on the go, it's sure to meet your needs. It's made with high-quality materials and designed to last. Whether you're using it at home or on the go, it's sure to meet your needs. It's made with high-quality materials and designed to last. Whether you're using it at home or on the go, it's sure to meet your needs.",
     imageUrl: "https://via.placeholder.com/200",
     sizes: ["S", "M", "L", "XL", "XXL"],
   };
@@ -58,9 +58,9 @@ const ProductDetailScreen = () => {
         <View style={styles.header}>
           <BackButton tintColor={colors.text} />
           <View style={styles.rightIcons}>
-            <Ionicons name="heart-outline" size={24} color={colors.text} style={styles.icon} />
-            <Ionicons name="share-outline" size={24} color={colors.text} style={styles.icon} />
-            <Ionicons name="cart-outline" size={24} color={colors.text} style={styles.icon} />
+            <Ionicons name="heart-outline" size={27} color={colors.text} style={styles.icon} />
+            <Ionicons name="share-outline" size={27} color={colors.text} style={styles.icon} />
+            <Ionicons name="cart-outline" size={27} color={colors.text} style={styles.icon} />
           </View>
         </View>
 
@@ -86,7 +86,11 @@ const ProductDetailScreen = () => {
 
         {/* Size options */}
         <View style={styles.sizeContainer}>
-          <Text style={[styles.price, styles.text, { color: colors.text }]}>Size</Text>
+          <View style={styles.sizeTextContainer}>
+            <Text style={[styles.price, styles.text, { color: colors.text }]}>Size</Text>
+            <Text style={{ color: colors.text }}>Size Chart</Text>
+          </View>
+          <View style={styles.sizeOptionContainer}>
           {product.sizes.map((size) => (
             <TouchableOpacity
               key={size}
@@ -100,6 +104,7 @@ const ProductDetailScreen = () => {
               </Text>
             </TouchableOpacity>
           ))}
+          </View>
         </View>
       </ScrollView>
 
@@ -126,17 +131,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 20,
-    paddingTop: 40,
+    padding: 12,
   },
   scrollView: {
     backgroundColor: colors.white,
     flex: 1,
+    marginBottom: 100,
   },
   icon: {
     marginLeft: 20,
   },
   iconContainer: {
-    padding: 10,
+    padding: 0,
   },
   productDetails: {
     padding: 20,
@@ -152,7 +158,6 @@ const styles = StyleSheet.create({
   },
   description: {
     marginTop: 20,
-    textAlign: "center",
   },
   buttonContainer: {
     flexDirection: "row",
@@ -193,17 +198,34 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   sizeContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
     marginTop: 20,
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
+  sizeTextContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 12,
+  },
+  sizeOptionContainer: {
+    flexDirection: "row",
+    gap: 12,
+    alignItems: "center",
   },
   sizeButton: {
     backgroundColor: colors.white,
-    borderColor: colors.blue,
+    borderColor: colors.gray,
     borderRadius: 5,
     borderWidth: 1,
     marginHorizontal: 5,
     padding: 10,
+    minWidth: 40,
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "center",
   },
   selectedSizeButton: {
     backgroundColor: colors.blue,
