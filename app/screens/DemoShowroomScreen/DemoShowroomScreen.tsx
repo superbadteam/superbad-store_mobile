@@ -1,16 +1,13 @@
 /* eslint-disable react-native/no-color-literals */
 /* eslint-disable react-native/no-inline-styles */
-import { Link, RouteProp, useRoute } from "@react-navigation/native";
 import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
-import { Image, ImageStyle, Platform, SectionList, TextStyle, View, ViewStyle } from "react-native";
+import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
-import { type ContentStyle } from "@shopify/flash-list";
-import { ListItem, ListView, ListViewRef, Screen, Text, Icon, iconRegistry, IconTypes } from "../../components";
+import { Screen, Text} from "../../components";
 import { isRTL } from "../../i18n";
-import { DemoTabParamList, DemoTabScreenProps } from "../../navigators/DemoNavigator";
+import { DemoTabScreenProps } from "../../navigators/DemoNavigator";
 import { colors, spacing } from "../../theme";
 import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle";
-import * as Demos from "./demos";
 import { DrawerIconButton } from "./DrawerIconButton";
 import { TextInput } from "react-native-gesture-handler";
 
@@ -27,90 +24,11 @@ export interface Demo {
   data: ReactElement[];
 }
 
-interface DemoListItem {
-  item: { name: string; useCases: string[] };
-  sectionIndex: number;
-  handleScroll?: (sectionIndex: number, itemIndex?: number) => void;
-}
-
-const slugify = (str: string) =>
-  str
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-
-const WebListItem: FC<DemoListItem> = ({ item, sectionIndex }) => {
-  const sectionSlug = item.name.toLowerCase();
-
-  return (
-    <View>
-      <Link to={`/showroom/${sectionSlug}`} style={$menuContainer}>
-        <Text preset="bold">{item.name}</Text>
-      </Link>
-      {item.useCases.map((u) => {
-        const itemSlug = slugify(u);
-
-        return (
-          <Link key={`section${sectionIndex}-${u}`} to={`/showroom/${sectionSlug}/${itemSlug}`}>
-            <Text>{u}</Text>
-          </Link>
-        );
-      })}
-    </View>
-  );
-};
-
-const NativeListItem: FC<DemoListItem> = ({ item, sectionIndex, handleScroll }) => (
-  <View>
-    <Text onPress={() => handleScroll?.(sectionIndex)} preset="bold" style={$menuContainer}>
-      {item.name}
-    </Text>
-    {item.useCases.map((u, index) => (
-      <ListItem
-        key={`section${sectionIndex}-${u}`}
-        onPress={() => handleScroll?.(sectionIndex, index + 1)}
-        text={u}
-        rightIcon={isRTL ? "caretLeft" : "caretRight"}
-      />
-    ))}
-  </View>
-);
-
-const ShowroomListItem = Platform.select({ web: WebListItem, default: NativeListItem });
 
 export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
   function DemoShowroomScreen(_props) {
     const [open, setOpen] = useState(false);
     const timeout = useRef<ReturnType<typeof setTimeout>>();
-    const listRef = useRef<SectionList>(null);
-    const menuRef = useRef<ListViewRef<DemoListItem["item"]>>(null);
-    const route = useRoute<RouteProp<DemoTabParamList, "DemoShowroom">>();
-    const params = route.params;
-
-    // handle Web links
-    React.useEffect(() => {
-      if (params !== undefined && Object.keys(params).length > 0) {
-        const demoValues = Object.values(Demos);
-        const findSectionIndex = demoValues.findIndex(
-          (x) => x.name.toLowerCase() === params.queryIndex,
-        );
-        let findItemIndex = 0;
-        if (params.itemIndex) {
-          try {
-            findItemIndex =
-              demoValues[findSectionIndex].data.findIndex(
-                (u) => slugify(u.props.name) === params.itemIndex,
-              ) + 1;
-          } catch (err) {
-            console.error(err);
-          }
-        }
-        handleScroll(findSectionIndex, findItemIndex);
-      }
-    }, [params]);
-
     const toggleDrawer = () => {
       if (!open) {
         setOpen(true);
@@ -118,33 +36,6 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
         setOpen(false);
       }
     };
-
-    const handleScroll = (sectionIndex: number, itemIndex = 0) => {
-      listRef.current?.scrollToLocation({
-        animated: true,
-        itemIndex,
-        sectionIndex,
-      });
-      toggleDrawer();
-    };
-
-    const scrollToIndexFailed = (info: {
-      index: number;
-      highestMeasuredFrameIndex: number;
-      averageItemLength: number;
-    }) => {
-      listRef.current?.getScrollResponder()?.scrollToEnd();
-      timeout.current = setTimeout(
-        () =>
-          listRef.current?.scrollToLocation({
-            animated: true,
-            itemIndex: info.index,
-            sectionIndex: 0,
-          }),
-        50,
-      );
-    };
-
     useEffect(() => {
       return () => timeout.current && clearTimeout(timeout.current);
     }, []);
@@ -160,25 +51,6 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
         drawerPosition={isRTL ? "right" : "left"}
         renderDrawerContent={() => (
           <View style={[$drawer, $drawerInsets]}>
-            {
-              <Text>Hello there</Text>
-            /* <View style={$logoContainer}>
-              <Image source={logo} style={$logoImage} />
-            </View>
-
-            <ListView<DemoListItem["item"]>
-              ref={menuRef}
-              contentContainerStyle={$listContentContainer}
-              estimatedItemSize={250}
-              data={Object.values(Demos).map((d) => ({
-                name: d.name,
-                useCases: d.data.map((u) => u.props.name as string),
-              }))}
-              keyExtractor={(item) => item.name}
-              renderItem={({ item, index: sectionIndex }) => (
-                <ShowroomListItem {...{ item, sectionIndex, handleScroll }} />
-              )}
-            /> */}
           </View>
         )}
       >
@@ -295,7 +167,7 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
                     <View style={{flexDirection: "column", gap: 6}}>
                       <Text style={$productName}>Adidas white sneakers for men</Text>
                       <View style={{flexDirection: "row", gap: 8}}>
-                        <Text style={$productPrice}>$68</Text>
+                        <Text weight="bold" style={$productPrice}>$68</Text>
                         <Text style={$productSale}>$134</Text>
                         <Text style={$productDiscount}>50% OFF</Text>
                       </View>
@@ -359,73 +231,46 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
                   </View>
                 </View>
               </View>
-
-
-           {/* <SectionList
-            ref={listRef}
-            // contentContainerStyle={$sectionListContentContainer}
-            stickySectionHeadersEnabled={false}
-            // sections={Object.values(Demos)}
-            // renderItem={({ item }) => item}
-            // renderSectionFooter={() => <View style={$demoUseCasesSpacer} />}
-            // ListHeaderComponent={
-            //   <View style={$heading}>
-            //     <Text preset="heading" tx="demoShowroomScreen.jumpStart" />
-            //   </View>
-            // }
-            onScrollToIndexFailed={scrollToIndexFailed}
-            // renderSectionHeader={({ section }) => {
-            //   return (
-            //     <View>
-            //       <Text preset="heading" style={$demoItemName}>
-            //         {section.name}
-            //       </Text>
-            //       <Text style={$demoItemDescription}>{section.description}</Text>
-            //     </View>
-            //   )
-            // }}
-          />  */}
         </Screen>
       </Drawer>
     );
   };
 
+
 const $screenContainer: ViewStyle = {
-  // flex: 1,
-  backgroundColor: "#ffff",
+  backgroundColor: colors.palette.neutral100,
 };
 
 const $drawer: ViewStyle = {
-  backgroundColor: "#ffff",
-  // flex: 1,
 };
 
 const $search: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
-  margin: 16,
+  margin: spacing.md,
   borderWidth: 2,
-  borderColor: "#ddd",
-  borderRadius: 6,
-  height: 52,
-  // flex: 1,
+  borderColor: colors.palette.neutral300,
+  borderRadius: spacing.xs,
+  height: spacing.xxl,
 };
 
 const $iconSearch: ViewStyle = {
   height: 22,
   width: 22,
-  margin: 12,
+  margin: spacing.sm,
 };
 
-const $inputSearch: ViewStyle = {
-  height: 52,
+
+
+const $inputSearch: TextStyle = {
+  height: spacing.xxl,
   width: 282,
-  fontSize: 20,
-  color: "#333",
+  fontSize: 16,
+  color: colors.palette.neutral600,
 };
 
 const $listCategory: ViewStyle = {
-  margin: 16,
+  margin: spacing.md,
 };
 
 const $categoryHead: ViewStyle = {
@@ -437,7 +282,7 @@ const $categoryHead: ViewStyle = {
 
 const $categoryBody: ViewStyle = {
   flexDirection: "row",
-  gap: 12,
+  gap: spacing.sm,
   alignItems: "center",
   justifyContent: "space-between",
 };
@@ -454,23 +299,23 @@ const $categoryItem: ViewStyle = {
   alignItems: "center",
   justifyContent: "center",
   borderRadius: 60,
-  marginBottom: 4,
+  marginBottom: spacing.xxs,
 };
 
 const $discountContainer: ViewStyle = {
   backgroundColor: "#eee",
-  padding: 16,
+  padding: spacing.md,
 };
 
 const $discountBody: ViewStyle = {
-  backgroundColor: "#ffff",
-  borderRadius: 6,
-  padding: 12,
-  marginTop: 12,
+  backgroundColor: colors.palette.neutral100,
+  borderRadius: spacing.xs,
+  padding: spacing.sm,
+  marginTop: spacing.sm,
   flexDirection: "row",
   flexWrap: "wrap",
   width: "100%",
-  gap: 8,
+  gap: spacing.xs,
 };
 
 const $discountItem: ViewStyle = {
@@ -482,22 +327,22 @@ const $discountItem: ViewStyle = {
 const $imgProduct: ViewStyle = {
   width: "100%",
   height: 140,
-  borderRadius: 8,
+  borderRadius: spacing.xs,
 };
 
-const $discountItemName: ViewStyle = {
+const $discountItemName: TextStyle = {
   fontSize: 16,
   fontWeight: "700",
 };
 
-const $discountItemSale: ViewStyle = {
+const $discountItemSale: TextStyle = {
   fontSize: 14,
-  color: "#fff",
+  color: colors.palette.neutral100,
   lineHeight: 16,
 };
 
 const $listProduct: ViewStyle = {
-  padding: 16,
+  padding: spacing.md,
 };
 
 const $listProductBody: ViewStyle = {
@@ -509,8 +354,6 @@ const $listProductBody: ViewStyle = {
 
 const $productItem: ViewStyle = {
   width: "48%",
-  // height: 200,
-
 };
 
 const $iconstar: ViewStyle = {
@@ -518,26 +361,25 @@ const $iconstar: ViewStyle = {
   height: 18,
 };
 
-const $productName: ViewStyle = {
+const $productName: TextStyle = {
   fontSize: 16,
   color: "#333",
   lineHeight: 16,
   marginTop: 4,
 };
 
-const $productPrice: ViewStyle = {
-  fontweight: 700,
+const $productPrice: TextStyle = {
   fontSize: 18,
 };
 
-const $productSale: ViewStyle = {
+const $productSale: TextStyle = {
   fontSize: 14,
   color: "#ccc",
 
 };
 
-const $productDiscount: ViewStyle = {
-  color: "#ea580c",
+const $productDiscount: TextStyle = {
+  color: colors.palette.primary600,
 };
 
 const $productRating: ViewStyle = {
