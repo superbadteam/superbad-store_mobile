@@ -36,9 +36,10 @@ const palette = {
   blue:"#3399EE",
   overlay20: "rgba(25, 16, 21, 0.2)",
   overlay50: "rgba(25, 16, 21, 0.5)",
-} as const
+} as const;
 
 export const colors = {
+  theme: "#384EC7",
   /**
    * The palette is available to use, but prefer using the name.
    * This is only included for rare, one-off cases. Try to use
@@ -82,4 +83,4 @@ export const colors = {
    *
    */
   errorBackground: palette.angry100,
-}
+};

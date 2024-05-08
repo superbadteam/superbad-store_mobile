@@ -6,6 +6,7 @@ const ko: Translations = {
     cancel: "취소",
     back: "뒤로",
     logOut: "로그아웃",
+    search: "Search"
   },
   welcomeScreen: {
     postscript:
@@ -42,6 +43,9 @@ const ko: Translations = {
     passwordFieldPlaceholder: "엄청 비밀스러운 암호를 입력하세요",
     tapToSignIn: "눌러서 로그인 하기!",
     hint: "힌트: 가장 좋아하는 암호와 아무런 아무 이메일 주소나 사용할 수 있어요 :)",
+    loginWithEmail: "Login with Email",
+    login: "Login",
+    forgotPassword: "Forgot Password?",
   },
   demoNavigator: {
     componentsTab: "컴포넌트",
@@ -140,6 +144,28 @@ const ko: Translations = {
       heading: "조금 텅 비어 있네요.",
       content: "즐겨찾기가 없습니다. 에피소드에 있는 하트를 눌러서 즐겨찾기에 추가하세요.",
     },
+  },
+  DemoCreateProductScreen: {
+    createProduct: "Create Product",
+    label: {
+      productName: "Product Name",
+      price: "Price ($)",
+      description: "Description",
+      discount: "Discount (%)",
+      category: "Category",
+      condition: "Condition",
+      uploadImage: "Upload Image",
+    },
+    placeholder: {
+      productName: "Enter product name",
+      price: "Ex: 100",
+      description: "Enter product description",
+      discount: "Ex: 10",
+      selectCategory: "Select category",
+    },
+    upload: "Upload",
+    title: "Create product",
+    submit: "Submit",
   },
 }
 

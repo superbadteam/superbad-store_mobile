@@ -6,6 +6,7 @@ const ar: Translations = {
     cancel: "حذف",
     back: "خلف",
     logOut: "تسجيل خروج",
+    search : "Search"
   },
   welcomeScreen: {
     postscript:
@@ -41,7 +42,10 @@ const ar: Translations = {
     emailFieldPlaceholder: "ادخل بريدك الالكتروني",
     passwordFieldPlaceholder: "كلمة السر هنا فائقة السر",
     tapToSignIn: "انقر لتسجيل الدخول!",
+    loginWithEmail: "Login with Email",
+    login : "Login",
     hint: "(: تلميح: يمكنك استخدام اي عنوان بريد الكتروني وكلمة السر المفضلة لديك",
+    forgotPassword: "Forgot Password?",
   },
   demoNavigator: {
     componentsTab: "عناصر",
@@ -137,6 +141,28 @@ const ar: Translations = {
       content:
         "لم تتم اضافة اي مفضلات حتى الان. اضغط على القلب في إحدى الحلقات لإضافته الى المفضلة.",
     },
+  },
+  DemoCreateProductScreen: {
+    createProduct: "Create Product",
+    label: {
+      productName: "Product Name",
+      price: "Price ($)",
+      description: "Description",
+      discount: "Discount (%)",
+      category: "Category",
+      condition: "Condition",
+      uploadImage: "Upload Image",
+    },
+    placeholder: {
+      productName: "Enter product name",
+      price: "Ex: 100",
+      description: "Enter product description",
+      discount: "Ex: 10",
+      selectCategory: "Select category",
+    },
+    upload: "Upload",
+    title: "Create product",
+    submit: "Submit",
   },
 }
 
