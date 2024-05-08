@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
-import SlideShow from "./SlideShow";
+import SlideShow from "app/components/SlideShow";
 import { Text } from "app/components";
 
 const colors = {
