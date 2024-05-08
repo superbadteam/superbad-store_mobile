@@ -15,10 +15,10 @@ interface Product {
     discount: number;
 }
 
-interface ProductItemScreenProps {
+interface ProductItemProps {
     item: Product,
 }
-const ProductItemScreen = (props: ProductItemScreenProps) => {
+const ProductItem = (props: ProductItemProps) => {
     const { id, name, price, imageUrl, description, rating, isFavorite, discount } = props.item;
     return (
         <View style={styles.container}>
@@ -135,4 +135,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ProductItemScreen;
+export default ProductItem;

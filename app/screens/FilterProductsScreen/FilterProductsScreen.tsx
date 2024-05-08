@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View, TouchableOpacity, Text } from "react-nati
 import { useNavigation } from "@react-navigation/native"
 import { Ionicons } from "@expo/vector-icons"
 import { FlatList, TextInput } from "react-native-gesture-handler"
-import ProductItemScreen from "./ProductItemScreen"
+import ProductItem from "../../components/ProductItem"
 import FilterSortByScreen from "./FilterSortByIconScreen"
 
 
@@ -177,7 +177,7 @@ const FilterProductsScreen = () => {
               <View style={styles.container}>
                 <FlatList
                   data={products}
-                  renderItem={ProductItemScreen}
+                  renderItem={ProductItem}
                   keyExtractor={item => item.id.toString()}
                   numColumns={2}
                   contentContainerStyle={styles.flatListContent}
