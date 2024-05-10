@@ -108,9 +108,9 @@ export const iconRegistry = {
   slack: require("../../assets/icons/demo/slack.png"),
   view: require("../../assets/icons/view.png"),
   x: require("../../assets/icons/x.png"),
-  cart: require("../../assets/icons/shoppingCart.png"),
-  bin: require("../../assets/icons/bin.png"),
-};
+  cart : require("../../assets/icons/shoppingCart.png"),
+  bin : require("../../assets/icons/bin.png"),
+}
 
 const $imageStyleBase: ImageStyle = {
   resizeMode: "contain",

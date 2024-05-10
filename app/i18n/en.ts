@@ -50,7 +50,7 @@ const en = {
     debugTab: "Debug",
     communityTab: "Community",
     podcastListTab: "Podcast",
-    cartListTab: "Cart",
+    cartListTab :"Cart",
   },
   demoCommunityScreen: {
     title: "Connect with the community",
