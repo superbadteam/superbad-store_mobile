@@ -14,7 +14,7 @@ import {
 import { DemoPodcastListScreen } from "../screens/DemoPodcastListScreen";
 import { colors, spacing, typography } from "../theme";
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator";
-import ProductDetailScreen from "app/screens/ProductDetailScreen/ProductDetailScreen"
+import ProductDetailScreen from "app/screens/ProductDetailScreen/ProductDetailScreen";
 
 export type DemoTabParamList = {
   DemoCommunity: undefined;
