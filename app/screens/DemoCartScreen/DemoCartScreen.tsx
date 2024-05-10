@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, View, ViewStyle, TextStyle } from "react-native";
 import { Text } from "../../components/Text";
 import CartItem from "../../components/CartItem/CartItem";
@@ -19,40 +19,40 @@ const MyCart: React.FC = () => {
   return (
     <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={$title} size="xl" text={"My Cart"} />
+        <Text style={$title} size="xl" tx={"demoCartListScreen.title"} />
         {clothItems.slice(0, 7).map((item) => (
           <CartItem key={item.title} item={item} updateTotalPrice={updateTotalPrice} />
         ))}
         <View style={$sumaryCard}>
           <View style={$summaryItem}>
             <Text
-              text={"Price Detail (" + `${7}` + " items)"}
+              text={"Price Detail (" + `${clothItems.length}` + " items)"}
               preset="formLabel"
               style={$textMedium}
             />
           </View>
           <View style={$summaryItem}>
-            <Text text={"Total Price"} style={$textMedium} />
+            <Text tx={"demoCartListScreen.totalPrice"} style={$textMedium} />
               <Text text={`$${totalPrice}`} style={$textPrice} />
           </View>
           <View style={$summaryItem}>
-            <Text text={"Discount"} style={$textMedium} />
+            <Text tx={"demoCartListScreen.discount"} style={$textMedium} />
               <Text text={"$5"} style={$textMedium} />
           </View>
           <View style={$summaryItem}>
-            <Text text={"Delivery fee"} style={$textMedium} />
+            <Text tx={"demoCartListScreen.totalAmount"} style={$textMedium} />
               <Text text={"$2"} style={$textMedium} />
           </View>
           <View style={$summaryItem}>
-            <Text text={"Total Amount"} preset="bold" style={$textTotal} />
+            <Text tx={"demoCartListScreen.totalAmount"} preset="bold" style={$textTotal} />
             <Text preset="bold" text={`$${totalAmount}`} style={$textTotal} />
           </View>
         </View>
         <View style={$totalContainer}>
-          <Text text={"Total Amount"} style={$textMedium} />
+          <Text tx={"demoCartListScreen.totalAmount"} style={$textMedium} />
           <View style={$totalAmountContainer}>
             <Text preset="bold" text={`$${totalAmount}`} style={$textTotal} />
-            <Button text={"Continue"} style={$button} textStyle={$buttonLabel} />
+            <Button tx={"demoCartListScreen.button.continue"} style={$button} textStyle={$buttonLabel} />
           </View>
         </View>
       </ScrollView>

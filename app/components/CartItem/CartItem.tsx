@@ -70,7 +70,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, updateTotalPrice }) => {
         <Image source={item.image} style={$image} />
         <TouchableOpacity onPress={handleDeletePress} style={$iconContainer}>
           <MaterialCommunityIcons name="delete" size={25} color={colors.palette.angry500} />
-          <Text text="Remove" style={$textRemove} />
+          <Text tx="demoCartListScreen.cartItem.remove" style={$textRemove} />
         </TouchableOpacity>
       </View>
       <View style={$itemInformations}>

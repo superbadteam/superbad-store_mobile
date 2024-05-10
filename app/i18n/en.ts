@@ -139,6 +139,18 @@ const en = {
       publishLabel: "Published {{date}}",
       durationLabel: "Duration: {{hours}} hours {{minutes}} minutes {{seconds}} seconds",
     },
+    totalPrice : "Total Price",
+    discount : "Discount",
+    deliveryFee :"Delivery fee",
+    totalAmount: "Total Amount",
+    button : {
+      continue : "Continue",
+    },
+    priceDetail : "Price detail (",
+    items : "items )",
+    cartItem : {
+      remove : "remove",
+    },
     noFavoritesEmptyState: {
       heading: "This looks a bit empty",
       content:
