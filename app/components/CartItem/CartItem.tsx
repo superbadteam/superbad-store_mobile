@@ -1,9 +1,17 @@
-import React, { useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  Image,
+  ImageStyle,
+  TextStyle,
+  View,
+  ViewStyle,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import {Text} from "../Text";
+import { Text } from "../Text";
 import Quantity from "../Quantity/Quantity";
-import { colors} from "../../theme/colors";
+import { colors } from "../../theme/colors";
 
 interface CartItemProps {
   item: {
@@ -12,88 +20,127 @@ interface CartItemProps {
     brand: string;
     price: number;
   };
+  updateTotalPrice: (price: number,quantityChange:number) => void;
 }
 
-const CartItem: React.FC<CartItemProps> = ({ item }) => {
-  const [quantity, setQuantity] = useState<number>(2);
-  
+const CartItem: React.FC<CartItemProps> = ({ item, updateTotalPrice }) => {
+  const [quantity, setQuantity] = useState<number>(1);
+
+  useEffect(() => {
+    updateTotalPrice(item.price * quantity,quantity);
+  }, [quantity]);
+
+  const increaseQuantity = () => {
+    setQuantity((prevQuantity) => {
+      prevQuantity++;
+      updateTotalPrice(item.price, 1); 
+      return prevQuantity;
+    });
+    
+  };
+
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => {
+        prevQuantity--;
+        updateTotalPrice(item.price, -1); 
+        return prevQuantity;;
+      });
+    }
+  };
+
+  const handleDeletePress = () => {
+    Alert.alert("Remove Item", "Are you sure you want to remove this item from your cart?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Remove",
+        onPress: () => {
+          console.log("Item removed from cart");
+        },
+      },
+    ]);
+  };
+
   return (
-    <View style={styles.container}>
-      <Image source={item.image} style={styles.image} />
-      <View style={styles.itemInformations}>
-        <View style={styles.directionRow}>
-          <Text text={item.title} style={styles.title} />
-          <View style={styles.iconContainer}>
-            <MaterialCommunityIcons
-              name="heart"
-              size={20}
-              color={colors.palette.angry500}
-            />
-          </View>
+    <View style={$container}>
+      <View style={$imageContainer}>
+        <Image source={item.image} style={$image} />
+        <TouchableOpacity onPress={handleDeletePress} style={$iconContainer}>
+          <MaterialCommunityIcons name="delete" size={25} color={colors.palette.angry500} />
+          <Text text="Remove" style={$textRemove} />
+        </TouchableOpacity>
+      </View>
+      <View style={$itemInformations}>
+        <View style={$directionRow}>
+          <Text text={item.title} style={$title} />
         </View>
-        <View style={styles.directionRow}>
-          <Text text={item.brand} style={styles.textMedium} />
-          <Text
-            text={`$${item.price}.00`}
-            style={styles.textMedium}
-          />
+        <View style={$directionRow}>
+          <Text text={item.brand} style={$textMedium} />
+          <Text text={`$${item.price}`} style={$textMedium} />
         </View>
-        <View style={styles.directionRow}>
-          <Text
-            text={`$${item.price}.00`}
-            style={styles.textMedium}
+        <View style={$directionRow}>
+          <Text text={`$${item.price * quantity}`} style={$textMedium} preset="bold" />
+          <Quantity
+            quantity={quantity}
+            increaseQuantity={increaseQuantity}
+            decreaseQuantity={decreaseQuantity}
           />
-          <Quantity quantity={quantity} increaseQuantity={function (): void {
-                      throw new Error("Function not implemented.");
-                  } } decreaseQuantity={function (): void {
-                      throw new Error("Function not implemented.");
-                  } } />
         </View>
       </View>
     </View>
+    
   );
 };
 
 export default CartItem;
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    width: "100%",
-    paddingHorizontal: 10,
-    height: 150,
-    paddingVertical: 20,
-    justifyContent: "space-between",
-  },
-  image: {
-    width: "40%",
-    height: "100%",
-    borderRadius: 10,
-  },
-  itemInformations: {
-    width: "60%",
-    paddingLeft: 10,
-  },
-  directionRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 5,
-  },
-  iconContainer: {
-    backgroundColor: colors.background,
-    alignItems: "center",
-    justifyContent: "center",
-    width: 25,
-    height: 25,
-    borderRadius: 5,
-  },
-  title: {
-    fontFamily: "Lato-Black",
-    fontSize: 16,
-  },
-  textMedium: {
-    fontFamily: "Lato-Black",
-    color: colors.border,
-  },
-});
+const $container: ViewStyle = {
+  flexDirection: "row",
+  width: "100%",
+  paddingHorizontal: 10,
+  height: 250,
+  justifyContent: "space-between",
+  paddingVertical: 10,
+  marginBottom: 30,
+  backgroundColor: "white",
+  elevation: 2,
+  borderRadius: 10,
+};
+const $imageContainer: ViewStyle = {
+  flexDirection: "column",
+  justifyContent: "space-between",
+};
+const $image: ImageStyle = {
+  width: "150%",
+  height: 170,
+  borderRadius: 5,
+};
+const $itemInformations: ViewStyle = {
+  width: "60%",
+  paddingLeft: 20,
+};
+const $directionRow: ViewStyle = {
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  paddingVertical: 5,
+};
+const $iconContainer: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+  borderRadius: 5,
+  marginBottom: 10,
+};
+const $title: TextStyle = {
+  fontSize: 16,
+};
+const $textMedium: TextStyle = {
+  color: colors.text,
+};
+const $textRemove: TextStyle = {
+  color: colors.error,
+  fontSize: 15,
+};

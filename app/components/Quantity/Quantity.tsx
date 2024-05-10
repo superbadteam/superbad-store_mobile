@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { colors } from "../../theme/colors";
 
@@ -9,19 +9,15 @@ interface QuantityProps {
   decreaseQuantity: () => void;
 }
 
-const Quantity: React.FC<QuantityProps> = ({
-  quantity,
-  increaseQuantity,
-  decreaseQuantity,
-}) => {
+const Quantity: React.FC<QuantityProps> = ({ quantity, increaseQuantity, decreaseQuantity }) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={decreaseQuantity}>
-        <Feather name="minus" size={15} color={colors.background} />
+    <View style={$container}>
+      <TouchableOpacity style={$button} onPress={decreaseQuantity}>
+        <Feather name="minus" size={15} />
       </TouchableOpacity>
-      <Text style={styles.quantity}>{quantity}</Text>
-      <TouchableOpacity style={styles.button} onPress={increaseQuantity}>
-        <Feather name="plus" size={15} color={colors.background} />
+      <Text style={$quantity}>{quantity}</Text>
+      <TouchableOpacity style={$button} onPress={increaseQuantity}>
+        <Feather name="plus" size={15} />
       </TouchableOpacity>
     </View>
   );
@@ -29,23 +25,19 @@ const Quantity: React.FC<QuantityProps> = ({
 
 export default Quantity;
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    padding: 5,
-    alignItems: "center",
-    backgroundColor: colors.border,
-    borderRadius: 5,
-  },
-  button: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  quantity: {
-    padding: 5,
-    color: colors.border,
-    fontFamily: "Lato-Black",
-  },
-});
+const $container: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+  backgroundColor: colors.gray_200,
+  borderRadius: 5,
+};
+const $button: ViewStyle = {
+  paddingHorizontal: 10,
+  paddingVertical: 5,
+  alignItems: "center",
+  justifyContent: "center",
+};
+const $quantity: TextStyle = {
+  padding: 5,
+  color: colors.text,
+};
