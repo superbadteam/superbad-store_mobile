@@ -154,6 +154,7 @@ const en = {
     sizeChart: "Size Chart",
     addToCart: "Add to Cart",
     buyNow: "Buy Now",
+    review: "Reviews",
   },
 };
 

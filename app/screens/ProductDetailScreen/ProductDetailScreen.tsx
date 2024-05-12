@@ -76,38 +76,31 @@ const ProductDetailScreen = () => {
               <Ionicons name="star" size={20} color="white" />{" "}
               <Text style={[$reviewText, { color: colors.white }]}>4.1</Text>
             </View>
-            <Text style={[{ color: colors.gray }, $countReview]}>87 Reviews</Text>
+            <Text style={[{ color: colors.gray }, $countReview]}>87</Text>
+            <Text
+              style={[{ color: colors.gray }, $countReviewText]}
+              tx="productDetailScreen.review"
+            />
           </View>
           <Text style={[$text, $price, { color: colors.text }]}>${product.price}</Text>
-          <Text style={[$text, $description, { color: colors.text }]}>
-            {product.description}
-          </Text>
+          <Text style={[$text, $description, { color: colors.text }]}>{product.description}</Text>
         </View>
 
         {/* Size options */}
         <View style={$sizeContainer}>
           <View style={$sizeTextContainer}>
-            <Text
-              style={[$price, $text, { color: colors.text }]}
-              tx="productDetailScreen.size"
-            />
+            <Text style={[$price, $text, { color: colors.text }]} tx="productDetailScreen.size" />
             <Text style={{ color: colors.text }} tx="productDetailScreen.sizeChart" />
           </View>
           <View style={$sizeOptionContainer}>
             {product.sizes.map((size) => (
               <TouchableOpacity
                 key={size}
-                style={[
-                  $sizeButton,
-                  selectedSize === size ? $selectedSizeButton : null,
-                ]}
+                style={[$sizeButton, selectedSize === size ? $selectedSizeButton : null]}
                 onPress={() => setSelectedSize(size)}
               >
                 <Text
-                  style={[
-                    $text,
-                    { color: selectedSize === size ? colors.white : colors.text },
-                  ]}
+                  style={[$text, { color: selectedSize === size ? colors.white : colors.text }]}
                 >
                   {size}
                 </Text>
@@ -178,6 +171,11 @@ const $container: ViewStyle = {
 
 const $countReview: TextStyle = {
   fontSize: 18,
+  marginRight: -15,
+};
+
+const $countReviewText: TextStyle = {
+  fontSize: 18,
 };
 
 const $description: TextStyle = {
@@ -231,6 +229,7 @@ const $reviewContainer: ViewStyle = {
 const $reviewText: TextStyle = {
   fontSize: 16,
   marginLeft: 5,
+  alignItems: "center",
 };
 
 const $rightIcons: ViewStyle = {
