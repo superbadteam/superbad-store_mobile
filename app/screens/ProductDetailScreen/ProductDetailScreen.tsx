@@ -5,16 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import SlideShow from "app/components/SlideShow";
 import { Text } from "app/components";
-
-const colors = {
-  white: "#fff",
-  text: "#000",
-  green: "green",
-  blue: "blue",
-  border: "#ccc",
-  gray: "gray",
-  orange: "orange",
-};
+import { colors } from "app/theme";
 
 interface BackButtonProps {
   tintColor: string;

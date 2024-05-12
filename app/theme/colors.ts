@@ -83,4 +83,10 @@ export const colors = {
    *
    */
   errorBackground: palette.angry100,
+
+  white: palette.neutral100,
+  green: "green",
+  blue: "blue",
+  gray: "gray",
+  orange: "orange",
 };
