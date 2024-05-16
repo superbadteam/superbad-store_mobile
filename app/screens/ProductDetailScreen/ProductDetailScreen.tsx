@@ -41,7 +41,7 @@ const ProductDetailScreen = () => {
     "https://via.placeholder.com/600/f66b97",
   ];
 
-  const [selectedSize, setSelectedSize] = useState<number>(-1);
+  const [selectedType, setSelectedType] = useState<number>(-1);
 
   return (
     <View style={$container}>
@@ -87,11 +87,11 @@ const ProductDetailScreen = () => {
             {product.sizes.map((size, index) => (
               <TouchableOpacity
                 key={index}
-                style={[$sizeButton, selectedSize === index ? $selectedSizeButton : null]}
-                onPress={() => setSelectedSize(index)}
+                style={[$sizeButton, selectedType === index ? $selectedSizeButton : null]}
+                onPress={() => setSelectedType(index)}
               >
                 <Text
-                  style={[$text, { color: selectedSize === index ? colors.white : colors.text }]}
+                  style={[$text, { color: selectedType === index ? colors.white : colors.text }]}
                 >
                   {size}
                 </Text>
