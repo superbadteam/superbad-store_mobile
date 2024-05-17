@@ -1,4 +1,3 @@
-
 import React, { FC, ReactElement, useEffect, useState } from "react";
 import { Image, TextStyle, View, ViewStyle } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
@@ -85,8 +84,9 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
                   </View>
                 </View>
                   <View >
-                  <ScrollView style={$categoryBody} horizontal={true} showsHorizontalScrollIndicator={false}>
-                    {
+                  <ScrollView
+                    style={$categoryBody} horizontal={true} showsHorizontalScrollIndicator={false}>
+                    { categories.length > 0 &&
                       categories.map((category, index) => (
                         <View key={index} style={$categoryList}>
                           <View style={$categoryItem}>
@@ -282,9 +282,6 @@ const $categoryHead: ViewStyle = {
 const $categoryBody: ViewStyle = {
   flexDirection: "row",
   gap: spacing.sm,
-  // alignItems: "center",
-  // justifyContent: "space-between",
-  // flexWrap: "nowrap",
 };
 
 const $categoryList: ViewStyle = {
