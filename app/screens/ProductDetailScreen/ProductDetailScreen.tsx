@@ -78,17 +78,16 @@ const ProductDetailScreen = () => {
           <Text style={[$description, { color: colors.text }]} size="md">{product.description}</Text>
         </View>
 
-        {/* Size options */}
-        <View style={$sizeContainer}>
-          <View style={$sizeTextContainer}>
+        {/* Type options */}
+        <View style={$typeContainer}>
+          <View style={$typeTextContainer}>
             <Text style={[$price, { color: colors.text }]} tx="productDetailScreen.size" size="lg"/>
-            <Text style={{ color: colors.text }} tx="productDetailScreen.sizeChart" size="lg"/>
           </View>
-          <View style={$sizeOptionContainer}>
+          <View style={$typeOptionContainer}>
             {product.sizes.map((size, index) => (
               <TouchableOpacity
                 key={index}
-                style={[$sizeButton, selectedType === index ? $selectedSizeButton : null]}
+                style={[$typeButton, selectedType === index ? $selectedTypeButton : null]}
                 onPress={() => setSelectedType(index)}
               >
                 <Text
@@ -227,11 +226,11 @@ const $scrollView: ViewStyle = {
   marginBottom: 100,
 };
 
-const $selectedSizeButton: TextStyle = {
+const $selectedTypeButton: TextStyle = {
   backgroundColor: colors.blue,
 };
 
-const $sizeButton: TextStyle = {
+const $typeButton: TextStyle = {
   alignItems: "center",
   backgroundColor: colors.white,
   borderColor: colors.gray,
@@ -244,7 +243,7 @@ const $sizeButton: TextStyle = {
   padding: 10,
 };
 
-const $sizeContainer: ViewStyle = {
+const $typeContainer: ViewStyle = {
   flexDirection: "column",
   justifyContent: "center",
   marginTop: 20,
@@ -252,13 +251,13 @@ const $sizeContainer: ViewStyle = {
   paddingRight: 16,
 };
 
-const $sizeOptionContainer: ViewStyle = {
+const $typeOptionContainer: ViewStyle = {
   alignItems: "center",
   flexDirection: "row",
   gap: 12,
 };
 
-const $sizeTextContainer: ViewStyle = {
+const $typeTextContainer: ViewStyle = {
   alignItems: "center",
   flexDirection: "row",
   justifyContent: "space-between",

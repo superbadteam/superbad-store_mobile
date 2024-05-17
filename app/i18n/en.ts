@@ -150,8 +150,7 @@ const en = {
     submit: "Submit",
   },
   productDetailScreen: {
-    size: "Size",
-    sizeChart: "Size Chart",
+    size: "Type",
     addToCart: "Add to Cart",
     buyNow: "Buy Now",
     review: "Reviews",
