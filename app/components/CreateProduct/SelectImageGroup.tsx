@@ -13,8 +13,6 @@ export const SelectImageGroup = () => {
   const [itemType, setItemType] = useState<ItemType[]>([]);
 
   const selectedImage = (image: string) => {
-    // setImage(image);
-    // push image to itemType
     const newId = itemType.length > 0 ? itemType[itemType.length - 1].id + 1 : 1;
     setItemType([
       ...itemType,
@@ -25,7 +23,6 @@ export const SelectImageGroup = () => {
         price: 0,
       },
     ]);
-    console.log("image", itemType);
   };
 
   const resetData = () => {
