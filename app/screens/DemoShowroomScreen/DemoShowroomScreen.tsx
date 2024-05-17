@@ -1,7 +1,8 @@
 /* eslint-disable react-native/no-color-literals */
 /* eslint-disable react-native/no-inline-styles */
+
 import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
-import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native";
+import { Image, TextStyle, View, ViewStyle } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { Screen, Text} from "../../components";
 import { isRTL } from "../../i18n";
@@ -9,14 +10,13 @@ import { DemoTabScreenProps } from "../../navigators/DemoNavigator";
 import { colors, spacing } from "../../theme";
 import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle";
 import { DrawerIconButton } from "./DrawerIconButton";
-import { TextInput } from "react-native-gesture-handler";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
+import { api } from "../../services/api";
+import type { Category } from "app/types";
 
 const iconSearch = require("../../../assets/icons/search.png");
 const iconRight = require("../../../assets/icons/arrowRight.png");
 const iconClothes = require("../../../assets/icons/clothes.png");
-const iconEletronic = require("../../../assets/icons/electronic.png");
-const iconBeauty = require("../../../assets/icons/beauty.png");
-const iconApplication = require("../../../assets/icons/application.png");
 const imgProduct = require("../../../assets/icons/product.jpg");
 export interface Demo {
   name: string;
@@ -36,8 +36,23 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
         setOpen(false);
       }
     };
+
+    const [categories, setCategories] = useState<Category[]>([]);
+
     useEffect(() => {
-      return () => timeout.current && clearTimeout(timeout.current);
+      // return () => timeout.current && clearTimeout(timeout.current);
+
+      const fetchCategories = async () => {
+        try {
+          const response = await api.getCategories();
+          setCategories(response);
+        } catch (error) {
+          console.error("Error fetching categories:", error);
+        }
+      };
+
+      console.log(categories, "check category");
+      fetchCategories();
     }, []);
 
     const $drawerInsets = useSafeAreaInsetsStyle(["top"]);
@@ -72,33 +87,20 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
                     <Image source={iconRight} style={$iconSearch} />
                   </View>
                 </View>
-                <View style={$categoryBody}>
-                  <View style={$categoryList}>
-                    <View style={$categoryItem}>
-                      <Image source={iconClothes} style={$iconSearch} />
-                    </View>
-                    <Text>Fashion</Text>
+                  <View >
+                  <ScrollView style={$categoryBody} horizontal={true} showsHorizontalScrollIndicator={false}>
+                    {
+                      categories.map((category, index) => (
+                        <View key={index} style={$categoryList}>
+                          <View style={$categoryItem}>
+                            <Image source={iconClothes} style={$iconSearch} />
+                          </View>
+                          <Text>{category.name}</Text>
+                      </View>
+                      ))
+                    }
+                  </ScrollView>
                   </View>
-                  <View style={$categoryList}>
-                    <View style={$categoryItem}>
-                      <Image source={iconEletronic} style={$iconSearch} />
-                    </View>
-                    <Text>Fashion</Text>
-                  </View>
-                  <View style={$categoryList}>
-                    <View style={$categoryItem}>
-                      <Image source={iconBeauty} style={$iconSearch} />
-                    </View>
-                    <Text>Fashion</Text>
-                  </View>
-                  <View style={$categoryList}>
-                    <View style={$categoryItem}>
-                      <Image source={iconApplication} style={$iconSearch} />
-                    </View>
-                    <Text>Fashion</Text>
-                  </View>
-
-                </View>
               </View>
 
               <View style={$discountContainer}>
@@ -283,12 +285,13 @@ const $categoryHead: ViewStyle = {
 const $categoryBody: ViewStyle = {
   flexDirection: "row",
   gap: spacing.sm,
-  alignItems: "center",
-  justifyContent: "space-between",
+  // alignItems: "center",
+  // justifyContent: "space-between",
+  // flexWrap: "nowrap",
 };
 
 const $categoryList: ViewStyle = {
-
+  paddingHorizontal: 20,
 
 };
 
@@ -300,6 +303,8 @@ const $categoryItem: ViewStyle = {
   justifyContent: "center",
   borderRadius: 60,
   marginBottom: spacing.xxs,
+  marginRight: "auto",
+  marginLeft: "auto",
 };
 
 const $discountContainer: ViewStyle = {
