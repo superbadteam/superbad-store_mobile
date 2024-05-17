@@ -1,26 +1,19 @@
 import React, { FC, useEffect, useState } from "react";
 import { TextStyle, View, ViewStyle } from "react-native";
-import { Button, RadioGroup, Screen, Text, TextField, DropdownComponent } from "../components";
+import {
+  Button,
+  RadioGroup,
+  Screen,
+  Text,
+  TextField,
+  DropdownComponent,
+  SelectImageGroup,
+} from "../components";
 import type { RadioOption } from "../components/RadioGroup";
 import { DemoTabScreenProps } from "../navigators/DemoNavigator";
 import { spacing, colors } from "../theme";
-import * as ImagePicker from "react-native-image-picker";
 import { api } from "../services/api";
 import type { Category } from "app/types";
-
-function openImagePicker() {
-  ImagePicker.launchImageLibrary(
-    {
-      mediaType: "photo",
-      includeBase64: false,
-      maxHeight: 200,
-      maxWidth: 200,
-    },
-    (response) => {
-      console.log(response);
-    },
-  );
-}
 
 export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">> =
   function DemoCreateProductScreen(_props) {
@@ -102,17 +95,12 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
               weight="medium"
               tx="DemoCreateProductScreen.label.uploadImage"
             />
-            <Button
-              style={$uploadButton}
-              onPress={openImagePicker}
-              tx="DemoCreateProductScreen.upload"
-            />
+            <SelectImageGroup />
           </View>
 
           <Button
             style={$submit}
             textStyle={$submitText}
-            onPress={openImagePicker}
             tx="DemoCreateProductScreen.label.uploadImage"
           />
         </View>
@@ -177,11 +165,6 @@ const $uploadArea: ViewStyle = {
 
 const $uploadText: TextStyle = {
   marginBottom: spacing.lg,
-};
-
-const $uploadButton: ViewStyle = {
-  width: "100%",
-  height: 200,
 };
 
 const $submitText: TextStyle = {
