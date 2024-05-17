@@ -54,6 +54,12 @@
       "bundler": "metro"
     },
     "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow SuperBad Store to access your photos"
+        }
+      ],
       "expo-localization",
       [
         "expo-build-properties",
