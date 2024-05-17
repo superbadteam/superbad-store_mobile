@@ -60,28 +60,29 @@ const ProductDetailScreen = () => {
 
         {/* Product details */}
         <View style={$productDetails}>
-          <Text style={[$brand, { color: colors.gray }]}>{product.brand}</Text>
-          <Text style={[$text, $name, { color: colors.text }]}>{product.name}</Text>
+          <Text style={[$brand, { color: colors.gray }]} size="md">{product.brand}</Text>
+          <Text style={[$name, { color: colors.text }]} size="lg">{product.name}</Text>
           <View style={$reviewContainer}>
             <View style={[$ratingReview, { backgroundColor: colors.orange }]}>
               <Ionicons name="star" size={20} color="white" />{" "}
               <Text style={[$reviewText, { color: colors.white }]}>4.1</Text>
             </View>
-            <Text style={[{ color: colors.gray }, $countReview]}>87</Text>
+            <Text style={[{ color: colors.gray }, $countReview]} size="md">87</Text>
             <Text
-              style={[{ color: colors.gray }, $countReviewText]}
+              style={{ color: colors.gray }}
               tx="productDetailScreen.review"
+              size="md"
             />
           </View>
-          <Text style={[$text, $price, { color: colors.text }]}>${product.price}</Text>
-          <Text style={[$text, $description, { color: colors.text }]}>{product.description}</Text>
+          <Text style={[$price, { color: colors.text }]} size="lg">${product.price}</Text>
+          <Text style={[$description, { color: colors.text }]} size="md">{product.description}</Text>
         </View>
 
         {/* Size options */}
         <View style={$sizeContainer}>
           <View style={$sizeTextContainer}>
-            <Text style={[$price, $text, { color: colors.text }]} tx="productDetailScreen.size" />
-            <Text style={{ color: colors.text }} tx="productDetailScreen.sizeChart" />
+            <Text style={[$price, { color: colors.text }]} tx="productDetailScreen.size" size="lg"/>
+            <Text style={{ color: colors.text }} tx="productDetailScreen.sizeChart" size="lg"/>
           </View>
           <View style={$sizeOptionContainer}>
             {product.sizes.map((size, index) => (
@@ -91,7 +92,8 @@ const ProductDetailScreen = () => {
                 onPress={() => setSelectedType(index)}
               >
                 <Text
-                  style={[$text, { color: selectedType === index ? colors.white : colors.text }]}
+                  style={{ color: selectedType === index ? colors.white : colors.text }}
+                  size="md"
                 >
                   {size}
                 </Text>
@@ -104,10 +106,10 @@ const ProductDetailScreen = () => {
       {/* Buttons */}
       <View style={$buttonContainer}>
         <TouchableOpacity style={[$button, $addToCartButton]}>
-          <Text style={[$buttonText, { color: colors.blue }]} tx="productDetailScreen.addToCart" />
+          <Text style={[$buttonText, { color: colors.blue }]} tx="productDetailScreen.addToCart" size="lg"/>
         </TouchableOpacity>
         <TouchableOpacity style={[$button, $buyNowButton]}>
-          <Text style={[$buttonText, { color: colors.white }]} tx="productDetailScreen.buyNow" />
+          <Text style={[$buttonText, { color: colors.white }]} tx="productDetailScreen.buyNow" size="lg"/>
         </TouchableOpacity>
       </View>
     </View>
@@ -121,7 +123,6 @@ const $addToCartButton: TextStyle = {
 };
 
 const $brand: TextStyle = {
-  fontSize: 14,
   marginBottom: 10,
   marginTop: 10,
 };
@@ -147,7 +148,6 @@ const $buttonContainer: ViewStyle = {
 };
 
 const $buttonText: TextStyle = {
-  fontSize: 18,
   fontWeight: "bold",
 };
 
@@ -161,12 +161,7 @@ const $container: ViewStyle = {
 };
 
 const $countReview: TextStyle = {
-  fontSize: 18,
   marginRight: -15,
-};
-
-const $countReviewText: TextStyle = {
-  fontSize: 18,
 };
 
 const $description: TextStyle = {
@@ -218,7 +213,6 @@ const $reviewContainer: ViewStyle = {
 };
 
 const $reviewText: TextStyle = {
-  fontSize: 16,
   marginLeft: 5,
   alignItems: "center",
 };
@@ -262,10 +256,6 @@ const $sizeOptionContainer: ViewStyle = {
   alignItems: "center",
   flexDirection: "row",
   gap: 12,
-};
-
-const $text: TextStyle = {
-  fontSize: 18,
 };
 
 const $sizeTextContainer: ViewStyle = {
