@@ -64,7 +64,7 @@ const ProductDetailScreen = () => {
           <Text style={[$name, { color: colors.text }]} size="lg">{product.name}</Text>
           <View style={$reviewContainer}>
             <View style={[$ratingReview, { backgroundColor: colors.orange }]}>
-              <Ionicons name="star" size={20} color="white" />{" "}
+              <Ionicons name="star" size={20} color="white" />
               <Text style={[$reviewText, { color: colors.white }]}>4.1</Text>
             </View>
             <Text style={[{ color: colors.gray }, $countReview]} size="md">87</Text>

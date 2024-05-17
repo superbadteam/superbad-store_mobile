@@ -86,3 +86,6 @@ web-build/
 !env.js
 
 /coverage
+
+package-lock.json
+yarn.lock
