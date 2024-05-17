@@ -50,7 +50,7 @@ const en = {
     debugTab: "Debug",
     communityTab: "Community",
     podcastListTab: "Podcast",
-    cartListTab :"Cart",
+    cartListTab: "Cart",
   },
   demoCommunityScreen: {
     title: "Connect with the community",
@@ -139,17 +139,17 @@ const en = {
       publishLabel: "Published {{date}}",
       durationLabel: "Duration: {{hours}} hours {{minutes}} minutes {{seconds}} seconds",
     },
-    totalPrice : "Total Price",
-    discount : "Discount",
-    deliveryFee :"Delivery fee",
+    totalPrice: "Total Price",
+    discount: "Discount",
+    deliveryFee: "Delivery fee",
     totalAmount: "Total Amount",
-    button : {
-      continue : "Continue",
+    button: {
+      continue: "Continue",
     },
-    priceDetail : "Price detail (",
-    items : "items )",
-    cartItem : {
-      remove : "remove",
+    priceDetail: "Price detail (",
+    items: "items )",
+    cartItem: {
+      delete: "delete",
     },
     noFavoritesEmptyState: {
       heading: "This looks a bit empty",

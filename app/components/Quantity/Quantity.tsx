@@ -28,7 +28,7 @@ export default Quantity;
 const $container: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
-  backgroundColor: colors.gray_200,
+  backgroundColor: colors.palette.gray_200,
   borderRadius: 5,
 };
 const $button: ViewStyle = {
