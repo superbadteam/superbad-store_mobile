@@ -1,138 +1,129 @@
-import { Ionicons } from "@expo/vector-icons"
-import { spacing } from 'app/theme';
-import React from 'react';
-import { View, Text, Image, StyleSheet, Alert } from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
+import { colors, spacing } from "app/theme";
+import React from "react";
+import { View, ViewStyle, ImageStyle, TextStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { AutoImage } from "./AutoImage";
+import { Text } from "./Text";
 
-interface Product {
-    id: number;
-    name: string;
-    price: number;
-    imageUrl: string;
-    description: string;
-    rating: number;
-    isFavorite: boolean;
-    discount: number;
+export interface Product {
+  id: number;
+  name: string;
+  price: number;
+  imageUrl: string;
+  description: string;
+  rating: number;
+  isFavorite: boolean;
+  discount: number;
 }
 
-interface ProductItemProps {
-    item: Product,
+export interface ProductItemProps {
+  product: Product;
 }
 const ProductItem = (props: ProductItemProps) => {
-    const { id, name, price, imageUrl, description, rating, isFavorite, discount } = props.item;
-    return (
-        <View style={styles.container}>
-            <Image
-                source={{ uri: imageUrl }}
-                style={styles.image}
-            />
+  const { name, price, imageUrl, rating, isFavorite, discount } = props.product;
+  const discountedPriceTx = price - (price * discount) / 100;
+  return (
+    <View style={$container}>
+      <AutoImage maxWidth={190} maxHeight={190} source={{ uri: imageUrl }} style={$image} />
 
-            <View style={styles.favoriteContainer}>
-                <TouchableOpacity onPress={() => {
-                    console.log('Favorite button pressed');
-                }} style={styles.favoriteButton}>
-                    <Ionicons name={isFavorite ? "heart" : "heart-outline"} size={24} color={isFavorite ? "red" : "black"} />
-                </TouchableOpacity>
-            </View>
+      <View style={$favoriteContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            console.log("Favorite button pressed");
+          }}
+          style={$favoriteButton}
+        >
+          <Ionicons
+            name={isFavorite ? "heart" : "heart-outline"}
+            size={24}
+            color={isFavorite ? "red" : "black"}
+          />
+        </TouchableOpacity>
+      </View>
 
-
-            <View style={styles.infor}>
-                <View>
-                    <Text style={styles.productName}>{name}</Text>
-                </View>
-                <View style={styles.priceContainer}>
-                    <Text style={styles.discountedPrice}>${price - price * discount / 100}</Text>
-                    <Text style={styles.originalPrice}>${price}</Text>
-                    <Text style={styles.discountAmount}>{discount}% OFF</Text>
-                </View>
-                <View style={styles.ratingContainer}>
-                    <Ionicons name="star-outline" size={20} color="gold" />
-                    <Text style={styles.productRating}> {rating} (100)</Text>
-                </View>
-            </View>
+      <View style={$infor}>
+        <View>
+          <Text style={$productName} text={name} />
         </View>
-    );
-}
+        <View style={$priceContainer}>
+          <Text style={$discountedPrice} text={`$${discountedPriceTx}`} size="sm" />
+          <Text style={$originalPrice} text={`$${price}`} size="xs" />
+          <Text style={$discountAmount} text={`${discount}% OFF`} size="xs" />
+        </View>
+        <View style={$ratingContainer}>
+          <Ionicons name="star-outline" size={20} color="gold" />
+          <Text text={`${rating} (100)`} size="md" />
+        </View>
+      </View>
+    </View>
+  );
+};
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        margin: 10,
-    },
-    image: {
-        width: 200,
-        height: 240,
-        marginBottom: spacing.xs,
-        borderRadius: 20,
-    },
-    favoriteContainer: {
-        position: 'absolute',
-        top: 10,
-        right: 10,
-        zIndex: 1,
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        borderWidth: 1,
-        borderBlockColor: 'black',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white'
-    },
-    favoriteButton: {
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    infor: {
-        alignItems: 'flex-start',
-    },
-    productName: {
-        fontSize: 15,
-        fontWeight: 'normal',
-        marginBottom: spacing.xxs,
-        textAlign: 'left',
-    },
-    priceContainer: {
-        flexDirection: 'row',
-        alignItems: 'flex-end'
-    },
-    discountedPrice: {
-        fontSize: 16,
-        color: 'green',
-        marginRight: spacing.xxs
-    },
-    originalPrice: {
-        fontSize: 14,
-        color: 'gray',
-        textDecorationLine: 'line-through',
-        marginRight: spacing.xxs,
-    },
-    discountAmount: {
-        fontSize: 14,
-        color: 'red',
-    },
-    ratingContainer: {
-        flexDirection: "row",
-        alignItems: "center"
-    },
-    productRating: {
-        fontSize: 18
-    },
-    buttonStyle: {
-        width: spacing.xl,
-        height: spacing.xl,
-        borderRadius: spacing.xl / 2,
-        backgroundColor: 'blue',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 2,
-        borderColor: 'red',
-    },
-    iconStyle: {
-        marginLeft: 5,
-    }
-});
+const $container: ViewStyle = {
+  flex: 1,
+  padding: spacing.sm,
+};
+
+const $image: ViewStyle & ImageStyle = {
+  borderRadius: 15,
+  marginBottom: spacing.xs,
+};
+
+const $infor: ViewStyle = {
+  alignItems: "flex-start",
+};
+
+const $favoriteContainer: ViewStyle = {
+  alignItems: "center",
+  backgroundColor: colors.palette.white,
+  borderBlockColor: "black",
+  borderRadius: spacing.md,
+  height: 40,
+  justifyContent: "center",
+  position: "absolute",
+  right: 20,
+  top: 20,
+  width: 40,
+  zIndex: 1,
+};
+
+const $favoriteButton: ViewStyle = {
+  alignItems: "center",
+  height: "100%",
+  justifyContent: "center",
+  width: "100%",
+};
+
+const $productName: TextStyle = {
+  fontWeight: "normal",
+  marginBottom: spacing.xxs,
+  textAlign: "left",
+};
+
+const $priceContainer: ViewStyle = {
+  alignItems: "flex-end",
+  flexDirection: "row",
+};
+
+const $discountedPrice: TextStyle = {
+  color: colors.palette.green,
+  marginRight: spacing.xxs,
+};
+
+const $originalPrice: TextStyle = {
+  color: colors.palette.gray,
+  marginRight: spacing.xxs,
+  textDecorationLine: "line-through",
+};
+
+const $discountAmount: TextStyle = {
+  color: colors.palette.red,
+};
+
+const $ratingContainer: TextStyle = {
+  alignItems: "center",
+  flexDirection: "row",
+};
 
 export default ProductItem;

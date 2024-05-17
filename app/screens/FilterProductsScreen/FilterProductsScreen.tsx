@@ -1,37 +1,28 @@
-import React, { useState } from "react"
-import { ScrollView, StyleSheet, View, TouchableOpacity, Text } from "react-native"
-import { useNavigation } from "@react-navigation/native"
-import { Ionicons } from "@expo/vector-icons"
-import { FlatList, TextInput } from "react-native-gesture-handler"
-import ProductItem from "../../components/ProductItem"
-import FilterSortByScreen from "./FilterSortByIconScreen"
-
-
-const colors = {
-  white: "#fff",
-  text: "#000",
-  green: "green",
-  border: "#ccc",
-}
+import React from "react";
+import { View, TouchableOpacity, ViewStyle, TextStyle } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
+import ProductItem, { Product } from "../../components/ProductItem";
+import FilterSortByScreen from "./FilterSortByIconScreen";
+import { colors, spacing } from "app/theme";
+import { Text, TextField } from "app/components";
 
 interface BackButtonProps {
-  tintColor: string
+  tintColor: string;
 }
 
 const BackButton: React.FC<BackButtonProps> = ({ tintColor }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.goBack()}>
+    <TouchableOpacity style={$iconContainer} onPress={() => navigation.goBack()}>
       <Ionicons name="arrow-back" size={24} color={tintColor} />
     </TouchableOpacity>
-  )
-}
+  );
+};
 
 const FilterProductsScreen = () => {
-  const [searchText, setSearchText] = useState('');
-  const [isShowIconSearchCart, setIsShowIconSearchCart] = useState(false);
-  const [totalProductFilter, setTotalProductFilter] = useState(0);
-  let products = [
+  const products: Product[] = [
     {
       id: 1,
       name: "Men's T-shirt",
@@ -55,7 +46,7 @@ const FilterProductsScreen = () => {
     {
       id: 3,
       name: "Product 3",
-      price: 8.70,
+      price: 8.7,
       description: "Description for Product 3",
       imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
       rating: 4.7,
@@ -65,7 +56,7 @@ const FilterProductsScreen = () => {
     {
       id: 4,
       name: "Product 4",
-      price: 8.70,
+      price: 8.7,
       description: "Description for Product 4",
       imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
       rating: 4.7,
@@ -75,7 +66,7 @@ const FilterProductsScreen = () => {
     {
       id: 5,
       name: "Product 5",
-      price: 8.70,
+      price: 8.7,
       description: "Description for Product 5",
       imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
       rating: 4.7,
@@ -85,7 +76,7 @@ const FilterProductsScreen = () => {
     {
       id: 6,
       name: "Product 6",
-      price: 8.70,
+      price: 8.7,
       description: "Description for Product 6",
       imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
       rating: 4.7,
@@ -95,7 +86,7 @@ const FilterProductsScreen = () => {
     {
       id: 7,
       name: "Product 7",
-      price: 8.70,
+      price: 8.7,
       description: "Description for Product 7",
       imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
       rating: 4.7,
@@ -105,7 +96,7 @@ const FilterProductsScreen = () => {
     {
       id: 8,
       name: "Product 8",
-      price: 8.70,
+      price: 8.7,
       description: "Description for Product 8",
       imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
       rating: 4.7,
@@ -115,7 +106,7 @@ const FilterProductsScreen = () => {
     {
       id: 9,
       name: "Product 9",
-      price: 8.70,
+      price: 8.7,
       description: "Description for Product 9",
       imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
       rating: 4.7,
@@ -125,7 +116,7 @@ const FilterProductsScreen = () => {
     {
       id: 10,
       name: "Product 10",
-      price: 8.70,
+      price: 8.7,
       description: "Description for Product 10",
       imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
       rating: 4.7,
@@ -135,7 +126,7 @@ const FilterProductsScreen = () => {
     {
       id: 11,
       name: "Product 11",
-      price: 8.70,
+      price: 8.7,
       description: "Description for Product 11",
       imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
       rating: 4.7,
@@ -145,7 +136,7 @@ const FilterProductsScreen = () => {
     {
       id: 12,
       name: "Product 12",
-      price: 8.70,
+      price: 8.7,
       description: "Description for Product 12",
       imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
       rating: 4.7,
@@ -153,116 +144,95 @@ const FilterProductsScreen = () => {
       discount: 15,
     },
   ];
-  let count = 13;
+
   return (
     <>
-      <View style={styles.header}>
-        <BackButton tintColor={colors.text} />
-        <TextInput
-          style={styles.input}
-          placeholder="Tìm kiếm..."
-
-        />
-        <View style={styles.rightIcons}>
-          <Ionicons name="close-circle-outline" size={24} color={colors.text} style={styles.icon} />
-          <Ionicons name="search" size={24} color={colors.text} style={styles.icon} />
-          <Ionicons name="cart-outline" size={24} color={colors.text} style={styles.icon} />
+      <View style={$header}>
+        <BackButton tintColor={colors.tint} />
+        <View style={$inputContainer}>
+          <TextField style={$input} placeholderTx="FilterProductsScreen.placeholder" focusable />
+        </View>
+        <View style={$rightIcons}>
+          <Ionicons name="close-circle-outline" size={30} color={colors.text} style={$icon} />
+          <Ionicons name="search" size={30} color={colors.text} style={$icon} />
+          <Ionicons name="cart-outline" size={30} color={colors.text} style={$icon} />
         </View>
       </View>
-      <ScrollView style={{ backgroundColor: colors.white }}>
-        {
-          products.length > 0
-            ?
-            (
-              <View style={styles.container}>
-                <FlatList
-                  data={products}
-                  renderItem={ProductItem}
-                  keyExtractor={item => item.id.toString()}
-                  numColumns={2}
-                  contentContainerStyle={styles.flatListContent}
-                />
-              </View>
-            )
-            :
-            (
-              <View style={styles.noResultsContainer}>
-                <Text>No Results Found</Text>
-              </View>
-            )
-        }
-      </ScrollView>
-      <View>
-        {products.length > 0 && <FilterSortByScreen></FilterSortByScreen>}
+      <View style={$numberResult}>
+        <Text>{products.length}</Text>
+        <Text tx="FilterProductsScreen.results"></Text>
       </View>
+      <ScrollView>
+        {products.length > 0 ? (
+          <FlatList
+            data={products}
+            renderItem={({ item }) => <ProductItem product={item} />}
+            keyExtractor={(item) => item.id.toString()}
+            numColumns={2}
+            style={$products}
+          />
+        ) : (
+          <View style={$noResultsContainer}>
+            <Text tx="FilterProductsScreen.notFound" />
+          </View>
+        )}
+      </ScrollView>
+      <View>{products.length > 0 && <FilterSortByScreen></FilterSortByScreen>}</View>
     </>
-  )
-}
+  );
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  flatListContent: {
-    paddingHorizontal: 5,
-    paddingTop: 5,
-    paddingBottom: 5,
-  },
-  description: {
-    fontSize: 16,
-    marginTop: 20,
-    textAlign: "center",
-  },
-  header: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingTop: 40,
-    backgroundColor: 'white'
-  },
-  icon: {
-    marginLeft: 20,
-  },
-  input: {
-    flex: 1,
-    marginLeft: 8,
-  },
-  iconContainer: {
-    padding: 10,
-  },
-  image: {
-    borderRadius: 10,
-    height: 300,
-    marginBottom: 20,
-    width: "100%",
-  },
-  name: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  price: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  rightIcons: {
-    flexDirection: "row",
-  },
+const $header: ViewStyle = {
+  alignItems: "center",
+  backgroundColor: colors.white,
+  flexDirection: "row",
+  justifyContent: "space-around",
+  padding: spacing.md,
+  borderBottomWidth: spacing.xxxs,
+  borderBottomColor: colors.palette.gray,
+};
 
-  filterSortByContainer: {
-    zIndex: 1000,
-  },
-  noResultsContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 20,
-  },
-  noResultsText: {
-    fontSize: 30,
-    color: 'black',
-  },
-})
+const $numberResult: ViewStyle = {
+  backgroundColor: colors.background,
+  padding: spacing.xxs,
+  flexDirection: "row",
+  gap: spacing.xxs,
+  alignItems: "center",
+  justifyContent: "center",
+};
+
+const $inputContainer: ViewStyle = {
+  alignItems: "flex-start",
+  borderRadius: spacing.sm,
+};
+
+const $input: TextStyle = {
+  fontSize: 14,
+  borderRadius: spacing.sm,
+};
+
+const $rightIcons: ViewStyle = {
+  flexDirection: "row",
+};
+
+const $products: ViewStyle = {
+  flex: 1,
+  backgroundColor: colors.palette.neutral100,
+};
+
+const $icon: ViewStyle = {
+  marginLeft: spacing.lg,
+};
+
+const $noResultsContainer: ViewStyle = {
+  alignItems: "center",
+  flex: 1,
+  justifyContent: "center",
+  paddingVertical: spacing.lg,
+};
+
+const $iconContainer: ViewStyle = {
+  padding: spacing.xs,
+};
 
 export default FilterProductsScreen;

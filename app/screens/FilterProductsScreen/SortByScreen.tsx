@@ -1,52 +1,48 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text } from "app/components";
+import { colors, spacing } from "app/theme";
+import React from "react";
+import { View, TouchableOpacity, ViewStyle } from "react-native";
 
 const SortByScreen = () => {
-
-
-    return (
-        <>
-            <View>
-                <Text style={styles.title}>Sort By</Text>
-            </View>
-            <View style={styles.container}>
-                <TouchableOpacity style={styles.sortItem}>
-                    <Text style={styles.sortText}>Price - High to Low</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.sortItem}>
-                    <Text style={styles.sortText}>Price Low to High</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.sortItem}>
-                    <Text style={styles.sortText}>Popularity</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.sortItem}>
-                    <Text style={styles.sortText}>Discount</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.sortItem}>
-                    <Text style={styles.sortText}>Customer Rating</Text>
-                </TouchableOpacity>
-            </View>
-        </>
-
-    );
+  return (
+    <View style={$container}>
+      <View>
+        <Text
+          style={{ marginBottom: spacing.sm }}
+          size="xl"
+          weight="bold"
+          tx="FilterProductsScreen.title.sortBy"
+        />
+      </View>
+      <View>
+        <TouchableOpacity style={$item}>
+          <Text size="md" tx="FilterProductsScreen.sortBy.priceHighToLow" />
+        </TouchableOpacity>
+        <TouchableOpacity style={$item}>
+          <Text tx="FilterProductsScreen.sortBy.priceLowToHigh" />
+        </TouchableOpacity>
+        <TouchableOpacity style={$item}>
+          <Text tx="FilterProductsScreen.sortBy.popularity" />
+        </TouchableOpacity>
+        <TouchableOpacity style={$item}>
+          <Text tx="FilterProductsScreen.sortBy.discount" />
+        </TouchableOpacity>
+        <TouchableOpacity style={$item}>
+          <Text tx="FilterProductsScreen.sortBy.customerRating" />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 };
 
-const styles = StyleSheet.create({
-    title: {
-        fontWeight: 'bold',
-        fontSize: 30,
-    },
-    container: {
-        flex: 1,
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-    },
-    sortItem: {
-        padding: 20,
-    },
-    sortText: {
-        fontSize: 18,
-    },
-});
+const $container: ViewStyle = {
+  backgroundColor: colors.palette.white,
+  padding: spacing.md,
+  borderRadius: spacing.sm,
+  height: "100%",
+};
 
+const $item: ViewStyle = {
+  padding: spacing.lg,
+};
 export default SortByScreen;

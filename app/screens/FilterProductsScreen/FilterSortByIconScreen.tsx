@@ -1,88 +1,88 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Modal, Dimensions } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import SortByScreen from './SortByScreen';
+import React, { useState } from "react";
+import { View, TouchableOpacity, Modal, Dimensions, ViewStyle } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import SortByScreen from "./SortByScreen";
+import { colors, spacing } from "app/theme";
+import { Text } from "app/components";
 
 const FilterSortByScreen = () => {
-    const [isShowSortByModal, setIsShowSortByModal] = useState(false);
+  const [isShowSortByModal, setIsShowSortByModal] = useState(false);
 
-    const handleFilterPress = () => {
+  const handleFilterPress = () => {
+    console.log("Filter button pressed");
+  };
 
-        console.log('Filter button pressed');
-    };
+  const handleSortByPress = () => {
+    setIsShowSortByModal(true);
+  };
 
-    const handleSortByPress = () => {
-        setIsShowSortByModal(true);
-    };
+  const handleCloseModal = () => {
+    setIsShowSortByModal(false);
+  };
 
-    const handleCloseModal = () => {
-        setIsShowSortByModal(false);
-    };
+  return (
+    <View style={$container}>
+      <View style={$iconContainer}>
+        <TouchableOpacity onPress={handleFilterPress} style={$iconContainer}>
+          <Ionicons name="options" size={20} color="#9494b8" />
+          <Text tx="FilterProductsScreen.title.filter" />
+        </TouchableOpacity>
+      </View>
+      <View style={$iconContainer}>
+        <TouchableOpacity onPress={handleSortByPress} style={$iconContainer}>
+          <Ionicons name="filter" size={20} color={colors.gray} />
+          <Text tx="FilterProductsScreen.title.sortBy" />
+        </TouchableOpacity>
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.iconContainer}>
-                <TouchableOpacity onPress={handleFilterPress} style={styles.iconButton}>
-                    <Ionicons name="options" size={40} color="#9494b8" />
-                    <Text>Filter</Text>
-                </TouchableOpacity>
+        <Modal
+          visible={isShowSortByModal}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={handleCloseModal}
+        >
+          <TouchableOpacity style={$modalBackground} onPress={handleCloseModal}>
+            <View style={[$modalContainer, { top: windowHeight / 2 }]}>
+              <SortByScreen />
             </View>
-            <View style={styles.iconContainer}>
-                <TouchableOpacity onPress={handleSortByPress} style={styles.iconButton}>
-                    <Ionicons name="filter" size={40} color="#9494b8" />
-                    <Text>Srort By</Text>
-                </TouchableOpacity>
-
-                <Modal
-                    visible={isShowSortByModal}
-                    animationType="slide"
-                    transparent={true}
-                    onRequestClose={handleCloseModal}
-                >
-                    <TouchableOpacity style={styles.modalBackground} onPress={handleCloseModal}>
-                        <View style={[styles.modalContainer, { top: windowHeight / 2 }]}>
-                            <SortByScreen />
-                        </View>
-                    </TouchableOpacity>
-                </Modal>
-            </View>
-        </View>
-    )
+          </TouchableOpacity>
+        </Modal>
+      </View>
+    </View>
+  );
 };
 
-const windowHeight = Dimensions.get('window').height;
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        backgroundColor: 'white',
-        zIndex: 1000,
-    },
-    iconContainer: {
-        flex: 1,
-        alignItems: 'center',
-    },
-    iconButton: {
+const windowHeight = Dimensions.get("window").height;
+const $container: ViewStyle = {
+  alignItems: "center",
+  backgroundColor: colors.palette.white,
+  flexDirection: "row",
+  justifyContent: "space-around",
+  paddingHorizontal: spacing.xs,
+  paddingVertical: spacing.xxs,
+  zIndex: 1000,
+};
 
-    },
-    modalBackground: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Màu nền mờ của modal
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    modalContainer: {
-        backgroundColor: 'white',
-        padding: 20,
-        borderRadius: 10,
-        elevation: 5,
-        position: 'absolute',
-        height: windowHeight / 2,
-        width: '100%',
-    },
-});
+const $iconContainer: ViewStyle = {
+  alignItems: "center",
+  flexDirection: "column",
+  justifyContent: "space-between",
+};
+
+const $modalBackground: ViewStyle = {
+  flex: 1,
+  backgroundColor: colors.palette.matte,
+  justifyContent: "center",
+  alignItems: "center",
+};
+
+const $modalContainer: ViewStyle = {
+  backgroundColor: colors.palette.white,
+  borderRadius: 10,
+  elevation: 5,
+  height: windowHeight / 2,
+  padding: 20,
+  position: "absolute",
+  width: "100%",
+};
 
 export default FilterSortByScreen;
