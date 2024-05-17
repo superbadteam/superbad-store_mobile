@@ -110,6 +110,7 @@ export const iconRegistry = {
   x: require("../../assets/icons/x.png"),
   cart: require("../../assets/icons/shoppingCart.png"),
   bin: require("../../assets/icons/bin.png"),
+  recycleBinSolid: require("../../assets/icons/recycleBinSolid.png"),
 };
 
 const $imageStyleBase: ImageStyle = {

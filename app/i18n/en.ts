@@ -5,6 +5,9 @@ const en = {
     back: "Back",
     logOut: "Log Out",
     search: "Search",
+    selectImage: "Select image",
+    removeAll: "Remove all",
+    type: "Type",
   },
   welcomeScreen: {
     postscript:
@@ -174,6 +177,7 @@ const en = {
       description: "Enter product description",
       discount: "Ex: 10",
       selectCategory: "Select category",
+      itemType: "Enter type",
     },
     upload: "Upload",
     title: "Create product",
