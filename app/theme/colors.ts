@@ -34,7 +34,10 @@ const palette = {
   angry400: "#ff4e4d",
   angry500: "#C03403",
 
-  blue: "#3399EE",
+  green: "green",
+  blue: "blue",
+  orange: "orange",
+
   overlay20: "rgba(25, 16, 21, 0.2)",
   overlay50: "rgba(25, 16, 21, 0.5)",
   gray_200: "#E5E7EB",
@@ -86,4 +89,10 @@ export const colors = {
    *
    */
   errorBackground: palette.angry100,
+
+  white: palette.neutral100,
+  green: palette.green,
+  blue: palette.blue,
+  gray: palette.neutral500,
+  orange: palette.orange,
 };
