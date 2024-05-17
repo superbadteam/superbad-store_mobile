@@ -149,6 +149,12 @@ const en = {
     title: "Create product",
     submit: "Submit",
   },
+  productDetailScreen: {
+    size: "Type",
+    addToCart: "Add to Cart",
+    buyNow: "Buy Now",
+    review: "Reviews",
+  },
 };
 
 export default en;
