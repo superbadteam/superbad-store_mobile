@@ -1,7 +1,5 @@
-/* eslint-disable react-native/no-color-literals */
-/* eslint-disable react-native/no-inline-styles */
 
-import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
+import React, { FC, ReactElement, useEffect, useState } from "react";
 import { Image, TextStyle, View, ViewStyle } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { Screen, Text} from "../../components";
@@ -28,7 +26,6 @@ export interface Demo {
 export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
   function DemoShowroomScreen(_props) {
     const [open, setOpen] = useState(false);
-    const timeout = useRef<ReturnType<typeof setTimeout>>();
     const toggleDrawer = () => {
       if (!open) {
         setOpen(true);
