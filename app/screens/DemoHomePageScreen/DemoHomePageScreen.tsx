@@ -22,8 +22,8 @@ export interface Demo {
 }
 
 
-export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
-  function DemoShowroomScreen(_props) {
+export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
+  function DemoHomePageScreen(_props) {
     const [open, setOpen] = useState(false);
     const toggleDrawer = () => {
       if (!open) {

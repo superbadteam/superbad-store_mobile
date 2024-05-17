@@ -7,7 +7,7 @@ import { Icon } from "../components";
 import { translate } from "../i18n";
 import {
   DemoCommunityScreen,
-  DemoShowroomScreen,
+  DemoHomePageScreen,
   DemoDebugScreen,
   DemoCreateProductScreen,
 } from "../screens";
@@ -17,7 +17,7 @@ import { AppStackParamList, AppStackScreenProps } from "./AppNavigator";
 
 export type DemoTabParamList = {
   DemoCommunity: undefined;
-  DemoShowroom: { queryIndex?: string; itemIndex?: string };
+  DemoHomPage: { queryIndex?: string; itemIndex?: string };
   DemoDebug: undefined;
   DemoPodcastList: undefined;
   DemoCreateProduct: undefined;
@@ -58,8 +58,8 @@ export function DemoNavigator() {
       }}
     >
       <Tab.Screen
-        name="DemoShowroom"
-        component={DemoShowroomScreen}
+        name="DemoHomePage"
+        component={DemoHomePageScreen}
         options={{
           tabBarLabel: translate("demoNavigator.componentsTab"),
           tabBarIcon: ({ focused }) => (
