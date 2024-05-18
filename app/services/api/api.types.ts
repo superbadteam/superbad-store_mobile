@@ -34,6 +34,14 @@ export interface ApiFeedResponse {
   items: EpisodeItem[];
 }
 
+export interface ApiLoginResponse {
+  emailConfirmed: boolean;
+  token: {
+    accessToken: string;
+    refreshToken: string;
+  };
+}
+
 /**
  * The options used to configure apisauce.
  */
@@ -47,4 +55,36 @@ export interface ApiConfig {
    * Milliseconds before we timeout the request.
    */
   timeout: number;
+}
+
+export interface ApiErrorResponse {
+  title: string;
+  status: number;
+  traceId: string;
+}
+
+export class ApiError extends Error {
+  title: string;
+  status: number;
+  traceId: string;
+
+  constructor(response: ApiErrorResponse | null = null) {
+    const title = response?.title ?? "An unknown error occurred";
+    const status = response?.status ?? 500;
+    const traceId = response?.traceId ?? "";
+
+    super(title);
+
+    this.name = "ApiError";
+
+    this.title = title;
+    this.status = status;
+    this.traceId = traceId;
+
+    Object.setPrototypeOf(this, ApiError.prototype);
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, ApiError);
+    }
+  }
 }

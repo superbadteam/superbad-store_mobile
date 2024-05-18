@@ -8,10 +8,15 @@
 import { ApiResponse, ApisauceInstance, create } from "apisauce";
 import Config from "../../config";
 import { GeneralApiProblem, getGeneralApiProblem } from "./apiProblem";
-import type { ApiConfig, ApiFeedResponse } from "./api.types";
+import {
+  ApiConfig,
+  ApiFeedResponse,
+  ApiLoginResponse,
+  ApiError,
+  ApiErrorResponse,
+} from "./api.types";
 import type { EpisodeSnapshotIn } from "../../models/Episode";
 import { Category } from "app/types";
-
 /**
  * Configuring the apisauce instance.
  */
@@ -89,6 +94,22 @@ export class Api {
     } catch (e) {
       return { kind: "unknown-error", temporary: true };
     }
+  }
+
+  async loginByEmail(email: string, password: string): Promise<ApiLoginResponse> {
+    const response: ApiResponse<ApiLoginResponse | ApiErrorResponse> = await this.apisauce.post(
+      "identity/auth/login",
+      {
+        email,
+        password,
+      },
+    );
+
+    if (!response.ok) {
+      throw new ApiError(response.data as ApiErrorResponse);
+    }
+
+    return response.data as ApiLoginResponse;
   }
 }
 

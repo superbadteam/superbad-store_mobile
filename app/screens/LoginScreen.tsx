@@ -5,50 +5,28 @@ import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "
 import { useStores } from "../models";
 import { AppStackScreenProps } from "../navigators";
 import { colors, spacing } from "../theme";
+import { useLogin } from "../services/hooks/useLogin";
 
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
 export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_props) {
   const authPasswordInput = useRef<TextInput>(null);
-
+  const { loginByEmail, isMutating } = useLogin();
   const [authPassword, setAuthPassword] = useState("");
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [attemptsCount, setAttemptsCount] = useState(0);
   const {
-    authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
+    authenticationStore: { authEmail, setAuthEmail },
   } = useStores();
 
   useEffect(() => {
-    // Here is where you could fetch credentials from keychain or storage
-    // and pre-fill the form fields.
-    setAuthEmail("ignite@infinite.red");
-    setAuthPassword("ign1teIsAwes0m3");
+    setAuthEmail("user@123");
+    setAuthPassword("User@123");
 
-    // Return a "cleanup" function that React will run when the component unmounts
     return () => {
       setAuthPassword("");
       setAuthEmail("");
     };
   }, []);
-
-  const error = isSubmitted ? validationError : "";
-
-  function login() {
-    setIsSubmitted(true);
-    setAttemptsCount(attemptsCount + 1);
-
-    if (validationError) return;
-
-    // Make a request to your server to get an authentication token.
-    // If successful, reset the fields and set the token.
-    setIsSubmitted(false);
-    setAuthPassword("");
-    setAuthEmail("");
-
-    // We'll mock this with a fake token.
-    setAuthToken(String(Date.now()));
-  }
 
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
     () =>
@@ -90,8 +68,6 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         keyboardType="email-address"
         labelTx="loginScreen.emailFieldLabel"
         placeholderTx="loginScreen.emailFieldPlaceholder"
-        helper={error}
-        status={error ? "error" : undefined}
         onSubmitEditing={() => authPasswordInput.current?.focus()}
       />
 
@@ -106,7 +82,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         secureTextEntry={isAuthPasswordHidden}
         labelTx="loginScreen.passwordFieldLabel"
         placeholderTx="loginScreen.passwordFieldPlaceholder"
-        onSubmitEditing={login}
+        onSubmitEditing={() => loginByEmail({ email: authEmail, password: authPassword })}
         RightAccessory={PasswordRightAccessory}
       />
 
@@ -117,7 +93,8 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         tx="loginScreen.login"
         style={$tapButton}
         preset="reversed"
-        onPress={login}
+        onPress={() => loginByEmail({ email: authEmail, password: authPassword })}
+        disabled={isMutating}
       />
     </Screen>
   );
