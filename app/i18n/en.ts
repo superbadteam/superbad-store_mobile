@@ -155,6 +155,22 @@ const en = {
     buyNow: "Buy Now",
     review: "Reviews",
   },
+  FilterProductsScreen: {
+    placeholder: "Name product",
+    title: {
+      filter: "Filters",
+      sortBy: "Sort By",
+    },
+    sortBy: {
+      priceHighToLow: "Price High to Low",
+      priceLowToHigh: "Price Low to High",
+      popularity: "Popularity",
+      discount: "Discount",
+      customerRating: "Customer Rating",
+    },
+    notFound: "No Results Found",
+    results: "results",
+  },
 };
 
 export default en;
