@@ -152,7 +152,7 @@ const en = {
     priceDetail: "Price detail (",
     items: "items )",
     cartItem: {
-      delete: "delete",
+      delete: "Delete",
       cancel: "cancel",
     },
     noFavoritesEmptyState: {

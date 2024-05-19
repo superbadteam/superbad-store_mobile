@@ -13,14 +13,15 @@ import { Text } from "../Text";
 import Quantity from "../Quantity/Quantity";
 import { colors } from "../../theme/colors";
 import { spacing } from "app/theme";
-
-interface CartItemProps {
-  item: {
-    image: any;
-    title: string;
-    brand: string;
-    price: number;
-  };
+interface CartItem{
+  id : number;
+  title: string;
+  brand: string;
+  price: number;
+  image : string;
+}
+export interface CartItemProps {
+  item: CartItem;
   updateTotalPrice: (price: number, quantityChange: number) => void;
 }
 
@@ -72,7 +73,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, updateTotalPrice }) => {
   return (
     <View style={$container}>
       <View style={$imageContainer}>
-        <Image source={item.image} style={$image} />
+        <Image source={{uri : item.image}} style={$image} />
         <TouchableOpacity onPress={handleDeletePress} style={$iconContainer}>
           <MaterialCommunityIcons name="delete" size={25} color={colors.palette.angry500} />
           <Text tx="demoCartListScreen.cartItem.delete" style={$textDelete} />
