@@ -80,6 +80,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                             <Image source={iconClothes} style={$iconSearch} />
                           </View>
                           <Text style={$categoryText}>{category.name}</Text>
+                          <Text>{category.name}</Text>
                       </View>
                       ))
                     }
@@ -247,7 +248,6 @@ const $categoryText: TextStyle = {
   maxWidth: 120,
   textAlign: "center",
 };
-
 const $imgProduct: ViewStyle = {
   width: "100%",
   height: 140,
