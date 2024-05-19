@@ -1,25 +1,11 @@
 import React, { useState } from "react";
 import { ScrollView, View, TouchableOpacity, TextStyle, ViewStyle } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
 import SlideShow from "app/components/SlideShow";
 import { Text } from "app/components";
 import { colors } from "app/theme";
-
-interface BackButtonProps {
-  tintColor: string;
-}
-
-const BackButton: React.FC<BackButtonProps> = ({ tintColor }) => {
-  const navigation = useNavigation();
-
-  return (
-    <TouchableOpacity style={$iconContainer} onPress={() => navigation.goBack()}>
-      <Ionicons name="arrow-back" size={24} color={tintColor} />
-    </TouchableOpacity>
-  );
-};
+import CustomHeader from "app/components/CustomHeader";
 
 const ProductDetailScreen = () => {
   const product = {
@@ -41,19 +27,14 @@ const ProductDetailScreen = () => {
     "https://via.placeholder.com/600/f66b97",
   ];
 
+  const rightContents = ["heart-outline", "share-outline", "cart-outline"];
+
   const [selectedType, setSelectedType] = useState<number>(-1);
 
   return (
     <View style={$container}>
       <ScrollView style={$scrollView}>
-        <View style={$header}>
-          <BackButton tintColor={colors.text} />
-          <View style={$rightIcons}>
-            <Ionicons name="heart-outline" size={27} color={colors.text} style={$icon} />
-            <Ionicons name="share-outline" size={27} color={colors.text} style={$icon} />
-            <Ionicons name="cart-outline" size={27} color={colors.text} style={$icon} />
-          </View>
-        </View>
+        <CustomHeader rightContents={rightContents} leftContents={[]} isHasBackButton={true} />
 
         {/* SlideShow component */}
         <SlideShow images={images} />
@@ -185,22 +166,6 @@ const $description: TextStyle = {
   marginTop: 20,
 };
 
-const $header: ViewStyle = {
-  alignItems: "center",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  paddingHorizontal: 20,
-  padding: 12,
-};
-
-const $icon: TextStyle = {
-  marginLeft: 20,
-};
-
-const $iconContainer: TextStyle = {
-  padding: 0,
-};
-
 const $name: TextStyle = {
   marginBottom: 10,
 };
@@ -232,10 +197,6 @@ const $reviewContainer: ViewStyle = {
 const $reviewText: TextStyle = {
   marginLeft: 5,
   alignItems: "center",
-};
-
-const $rightIcons: ViewStyle = {
-  flexDirection: "row",
 };
 
 const $scrollView: ViewStyle = {
