@@ -1,26 +1,24 @@
 import React, { ViewStyle, View } from "react-native";
 import { ImagePicker, AutoImage, TextField, Button, Icon } from "../";
-import { useState } from "react";
 import { spacing, colors } from "../../theme";
+import type { ProductItemType } from "app/types";
 
-interface ItemType {
-  id: number;
-  img: string;
-  name: string;
-  price: number;
+interface SelectImageGroupProps {
+  itemType: ProductItemType[];
+  setItemType: (types: ProductItemType[]) => void;
 }
-export const SelectImageGroup = () => {
-  const [itemType, setItemType] = useState<ItemType[]>([]);
-
+export const SelectImageGroup = (props: SelectImageGroupProps) => {
+  const { itemType, setItemType } = props;
   const selectedImage = (image: string) => {
     const newId = itemType.length > 0 ? itemType[itemType.length - 1].id + 1 : 1;
     setItemType([
       ...itemType,
       {
         id: newId,
-        img: image,
+        imageUrl: image,
         name: "",
         price: 0,
+        quantity: 0,
       },
     ]);
   };
@@ -34,32 +32,75 @@ export const SelectImageGroup = () => {
     setItemType(newItems);
   };
 
+  function onChangeName(text: string, id: number) {
+    const newItems = itemType.map((item) => {
+      if (item.id === id) {
+        return { ...item, name: text };
+      }
+      return item;
+    });
+    setItemType(newItems);
+  }
+
+  function onChangePrice(text: string, id: number) {
+    const newItems = itemType.map((item) => {
+      if (item.id === id) {
+        return { ...item, price: Number(text) };
+      }
+      return item;
+    });
+    setItemType(newItems);
+  }
+
+  function onChangeQuantity(text: string, id: number) {
+    const newItems = itemType.map((item) => {
+      if (item.id === id) {
+        return { ...item, quantity: Number(text) };
+      }
+      return item;
+    });
+    setItemType(newItems);
+  }
+
   return (
     <View style={$container}>
       <ImagePicker type="gallery" titleTx="common.selectImage" onSelectedImage={selectedImage} />
       {itemType.length > 0 && <Button tx="common.removeAll" onPress={resetData} />}
       {itemType.map((item) => {
         return (
-          item.img && (
+          item.imageUrl && (
             <View key={item.id} style={$itemContainer}>
               <AutoImage
                 maxWidth={300}
                 maxHeight={200}
                 resizeMode="contain"
-                source={{ uri: item.img }}
+                source={{ uri: item.imageUrl }}
               />
               <View style={$itemContainerField}>
                 <View style={$itemContainerFieldInput}>
                   <TextField
+                    value={item.name}
+                    onChangeText={(text) => onChangeName(text, item.id)}
                     containerStyle={$textField}
                     labelTx="common.type"
                     placeholderTx="DemoCreateProductScreen.placeholder.itemType"
                   />
-                  <TextField
-                    containerStyle={$textField}
-                    labelTx="DemoCreateProductScreen.label.price"
-                    placeholderTx="DemoCreateProductScreen.placeholder.price"
-                  />
+                  <View style={$itemContainerFieldInput}>
+                    <TextField
+                      value={String(item.price)}
+                      onChangeText={(text) => onChangePrice(text, item.id)}
+                      containerStyle={$textField}
+                      labelTx="DemoCreateProductScreen.label.price"
+                      placeholderTx="DemoCreateProductScreen.placeholder.price"
+                    />
+                    <TextField
+                      value={String(item.quantity)}
+                      onChangeText={(text) => onChangeQuantity(text, item.id)}
+                      containerStyle={$textField}
+                      labelTx="DemoCreateProductScreen.label.quantity"
+                      placeholderTx="DemoCreateProductScreen.placeholder.quantity"
+                    />
+                  </View>
                 </View>
                 <Button style={$recycleBinSolid} onPress={() => removeItem(item.id)}>
                   <Icon icon="recycleBinSolid" size={16} color={colors.palette.neutral100} />

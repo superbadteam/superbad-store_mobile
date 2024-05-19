@@ -9,7 +9,7 @@ interface DropdownComponentProps {
   data?: any;
   search?: boolean;
   labelField?: string;
-  valueField?: string;
+  valueField: string;
   placeholder?: string;
   placeholderTx?: TextProps["tx"];
   searchPlaceholder: TextProps["tx"];
@@ -22,11 +22,17 @@ interface DropdownComponentProps {
 }
 
 export const DropdownComponent = (props: DropdownComponentProps) => {
-  const { data, placeholder, placeholderTx, searchPlaceholder, maxHeight } = props;
+  const { data, placeholder, valueField, placeholderTx, searchPlaceholder, maxHeight } = props;
   const [value, setValue] = useState<any>(null);
   const [isFocus, setIsFocus] = useState(false);
   const contentTx = placeholderTx && translate(placeholderTx);
   const searchPlaceholderTx = searchPlaceholder && translate(searchPlaceholder);
+
+  function onChangeSelect(item: any) {
+    setValue(item[valueField]);
+    setIsFocus(false);
+    props.onChange && props.onChange(item);
+  }
 
   return (
     <View style={$container}>
@@ -43,10 +49,7 @@ export const DropdownComponent = (props: DropdownComponentProps) => {
         value={value}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
-        onChange={(item) => {
-          setValue(item.value);
-          setIsFocus(false);
-        }}
+        onChange={onChangeSelect}
         renderLeftIcon={() => (
           <AntDesign style={$icon} color={isFocus ? "blue" : "black"} name="Safety" size={20} />
         )}

@@ -12,24 +12,39 @@ import {
 import type { RadioOption } from "../components/RadioGroup";
 import { DemoTabScreenProps } from "../navigators/DemoNavigator";
 import { spacing, colors } from "../theme";
-import { api } from "../services/api";
-import type { Category } from "app/types";
+// import { ApiService } from "../services/api";
+import ApiService from "app/services/module";
+import type { Category, SubCategory, Product } from "app/types";
 
 export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">> =
   function DemoCreateProductScreen(_props) {
     const conditions: RadioOption[] = [
-      { label: "New", value: "new" },
-      { label: "Like new", value: "likeNew" },
-      { label: "Old", value: "old" },
+      { label: "New", value: "New" },
+      { label: "Like new", value: "LikeNew" },
+      { label: "Old", value: "Old" },
     ];
 
     const [radioValue, setRadioValue] = useState<RadioOption>(conditions[0]);
     const [categories, setCategories] = useState<Category[]>([]);
+    const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
+
+    const [product, setProduct] = useState<Product>({
+      name: "",
+      description: "",
+      categoryId: "",
+      types: [],
+      images: [],
+      condition: "New",
+    });
+
+    function onSelectParentCategory(item: Category) {
+      setSubCategories(item.subCategories);
+    }
 
     useEffect(() => {
       const fetchCategories = async () => {
         try {
-          const response = await api.getCategories();
+          const response = await ApiService.inventory.getCategories();
           setCategories(response);
         } catch (error) {
           console.error("Error fetching categories:", error);
@@ -45,27 +60,32 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
           <Text size="xl" style={$title} tx="DemoCreateProductScreen.createProduct" />
 
           <TextField
+            value={product.name}
+            onChangeText={(text) => setProduct({ ...product, name: text })}
             containerStyle={$textField}
             labelTx="DemoCreateProductScreen.label.productName"
             placeholderTx="DemoCreateProductScreen.placeholder.productName"
           />
 
           <View style={$informationField}>
-            <TextField
+            {/* <TextField
+            value={product.types}
               containerStyle={$informationFieldTextField}
               labelTx="DemoCreateProductScreen.label.price"
               placeholderTx="DemoCreateProductScreen.placeholder.price"
-            />
+            /> */}
 
-            <TextField
+            {/* <TextField
               containerStyle={$informationFieldTextField}
               labelTx="DemoCreateProductScreen.label.discount"
               placeholderTx="DemoCreateProductScreen.placeholder.discount"
-            />
+            /> */}
           </View>
 
           <View style={$descriptionField}>
             <TextField
+              value={product.description}
+              onChangeText={(text) => setProduct({ ...product, description: text })}
               labelTx="DemoCreateProductScreen.label.description"
               placeholderTx="DemoCreateProductScreen.label.description"
               multiline
@@ -75,9 +95,24 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
           <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.category" />
           {categories.length > 0 && (
             <DropdownComponent
+              valueField="id"
               searchPlaceholder="common.search"
               data={categories}
+              onChange={onSelectParentCategory}
               placeholderTx="DemoCreateProductScreen.placeholder.selectCategory"
+            />
+          )}
+
+          <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.subCategory" />
+          {categories.length > 0 && (
+            <DropdownComponent
+              valueField="id"
+              searchPlaceholder="common.search"
+              data={subCategories}
+              onChange={(item) => {
+                setProduct({ ...product, categoryId: item.id });
+              }}
+              placeholderTx="DemoCreateProductScreen.placeholder.selectSubCategory"
             />
           )}
 
@@ -85,7 +120,10 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
           <RadioGroup
             options={conditions}
             value={radioValue}
-            onValueChange={setRadioValue}
+            onValueChange={(value) => {
+              setProduct({ ...product, condition: value.value });
+              setRadioValue(value);
+            }}
             style={$radioToggleGroupContainer}
           />
 
@@ -95,12 +133,18 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
               weight="medium"
               tx="DemoCreateProductScreen.label.uploadImage"
             />
-            <SelectImageGroup />
+            <SelectImageGroup
+              itemType={product.types}
+              setItemType={(types) => setProduct({ ...product, types })}
+            />
           </View>
 
           <Button
             style={$submit}
             textStyle={$submitText}
+            onPress={() => {
+              console.log("Submit product:", product);
+            }}
             tx="DemoCreateProductScreen.label.uploadImage"
           />
         </View>
@@ -132,7 +176,6 @@ const $createContainer: ViewStyle = {
 };
 
 const $textField: ViewStyle = {
-  marginBottom: spacing.lg,
   width: "100%",
 };
 
@@ -150,10 +193,6 @@ const $informationField: ViewStyle = {
   justifyContent: "space-between",
   width: "100%",
   gap: spacing.lg,
-};
-
-const $informationFieldTextField: ViewStyle = {
-  flex: 1,
 };
 
 const $uploadArea: ViewStyle = {
