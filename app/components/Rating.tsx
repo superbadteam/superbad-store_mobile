@@ -31,11 +31,11 @@ const Rating: React.FC<SlideShowProps> = () => {
       </View>
       <View style={$reviewContainer}>
         <View style={$reviewStar}>
-          <Ionicons name="star" size={20} color="yellow" />
-          <Ionicons name="star" size={20} color="yellow" />
-          <Ionicons name="star" size={20} color="yellow" />
-          <Ionicons name="star" size={20} color="yellow" />
-          <Ionicons name="star" size={20} color="yellow" />
+          <Ionicons name="star" size={20} color={colors.palette.yellow500} />
+          <Ionicons name="star" size={20} color={colors.palette.yellow500} />
+          <Ionicons name="star" size={20} color={colors.palette.yellow500} />
+          <Ionicons name="star" size={20} color={colors.palette.yellow500} />
+          <Ionicons name="star" size={20} color={colors.palette.yellow500} />
         </View>
 
         <Text weight="bold" size="xl">
