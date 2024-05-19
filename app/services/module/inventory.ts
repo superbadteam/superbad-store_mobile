@@ -1,53 +1,35 @@
 import { api } from "../api";
 import { ApiResponse } from "apisauce";
-import { Category, ProductsResponse } from "app/types";
-import { getGeneralApiProblem } from "../api/apiProblem";
+import { Category, Product, ProductsResponse } from "app/types";
+import { ApiError, ApiErrorResponse } from "../api/api.types";
 
-export const getCategories = async (): Promise<any> => {
-  try {
-    const response: ApiResponse<Category[]> = await api.apisauce.get("/inventory/categories");
+const BASE_URL = "/inventory";
 
-    if (!response.ok) {
-      const problem = getGeneralApiProblem(response);
-      if (problem) return problem;
-    }
-
-    return response.data;
-  } catch (e) {
-    return { kind: "unknown-error", temporary: true };
+export const getCategories = async (): Promise<Category[]> => {
+  const response: ApiResponse<Category[] | ApiErrorResponse> = await api.apisauce.get(
+    `${BASE_URL}/categories`,
+  );
+  if (!response.ok) {
+    throw new ApiError(response.data as ApiErrorResponse);
   }
+
+  return response.data as Category[];
 };
 
-export const getMyProducts = async (): Promise<any> => {
-  try {
-    const response: ApiResponse<ProductsResponse> = await api.apisauce.get(
-      "/inventory/products/me",
-    );
+export const createProduct = async (product: Product, authToken: string): Promise<any> => {
+  const response: ApiResponse<ProductsResponse | ApiErrorResponse> = await api.apisauce.post(
+    `${BASE_URL}/products/`,
+    product,
+    {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    },
+  );
 
-    if (!response.ok) {
-      const problem = getGeneralApiProblem(response);
-      if (problem) return problem;
-    }
-
-    return response.data;
-  } catch (e) {
-    return { kind: "unknown-error", temporary: true };
+  if (!response.ok) {
+    throw new ApiError(response.data as ApiErrorResponse);
   }
-};
 
-export const getMyProductById = async (id: string): Promise<any> => {
-  try {
-    const response: ApiResponse<ProductsResponse> = await api.apisauce.get(
-      `/inventory/products/me/${id}`,
-    );
-
-    if (!response.ok) {
-      const problem = getGeneralApiProblem(response);
-      if (problem) return problem;
-    }
-
-    return response.data;
-  } catch (e) {
-    return { kind: "unknown-error", temporary: true };
-  }
+  return response.data as ProductsResponse;
 };
