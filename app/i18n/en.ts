@@ -82,7 +82,6 @@ const en = {
     categoryList: "Category",
     viewAll: "View All",
     recommended: "Recommended for you",
-
   },
   demoDebugScreen: {
     howTo: "HOW TO",
