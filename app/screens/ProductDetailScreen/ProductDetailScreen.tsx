@@ -110,7 +110,9 @@ const ProductDetailScreen = () => {
           />
         </TouchableOpacity>
       </View>
+
     </View>
+
   );
 };
 
