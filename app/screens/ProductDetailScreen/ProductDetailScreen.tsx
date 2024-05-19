@@ -60,28 +60,38 @@ const ProductDetailScreen = () => {
 
         {/* Product details */}
         <View style={$productDetails}>
-          <Text style={[$brand, { color: colors.gray }]} size="md">{product.brand}</Text>
-          <Text style={[$name, { color: colors.text }]} size="lg">{product.name}</Text>
+          <Text style={[$brand, { color: colors.gray }]} size="md">
+            {product.brand}
+          </Text>
+          <Text style={[$name, { color: colors.text }]} size="lg">
+            {product.name}
+          </Text>
           <View style={$reviewContainer}>
             <View style={[$ratingReview, { backgroundColor: colors.orange }]}>
               <Ionicons name="star" size={20} color="white" />
               <Text style={[$reviewText, { color: colors.white }]}>4.1</Text>
             </View>
-            <Text style={[{ color: colors.gray }, $countReview]} size="md">87</Text>
-            <Text
-              style={{ color: colors.gray }}
-              tx="productDetailScreen.review"
-              size="md"
-            />
+            <Text style={[{ color: colors.gray }, $countReview]} size="md">
+              87
+            </Text>
+            <Text style={{ color: colors.gray }} tx="productDetailScreen.review" size="md" />
           </View>
-          <Text style={[$price, { color: colors.text }]} size="lg">${product.price}</Text>
-          <Text style={[$description, { color: colors.text }]} size="md">{product.description}</Text>
+          <Text style={[$price, { color: colors.text }]} size="lg">
+            ${product.price}
+          </Text>
+          <Text style={[$description, { color: colors.text }]} size="md">
+            {product.description}
+          </Text>
         </View>
 
         {/* Type options */}
         <View style={$typeContainer}>
           <View style={$typeTextContainer}>
-            <Text style={[$price, { color: colors.text }]} tx="productDetailScreen.size" size="lg"/>
+            <Text
+              style={[$price, { color: colors.text }]}
+              tx="productDetailScreen.size"
+              size="lg"
+            />
           </View>
           <View style={$typeOptionContainer}>
             {product.sizes.map((size, index) => (
@@ -105,10 +115,18 @@ const ProductDetailScreen = () => {
       {/* Buttons */}
       <View style={$buttonContainer}>
         <TouchableOpacity style={[$button, $addToCartButton]}>
-          <Text style={[$buttonText, { color: colors.blue }]} tx="productDetailScreen.addToCart" size="lg"/>
+          <Text
+            style={[$buttonText, { color: colors.blue }]}
+            tx="productDetailScreen.addToCart"
+            size="lg"
+          />
         </TouchableOpacity>
         <TouchableOpacity style={[$button, $buyNowButton]}>
-          <Text style={[$buttonText, { color: colors.white }]} tx="productDetailScreen.buyNow" size="lg"/>
+          <Text
+            style={[$buttonText, { color: colors.white }]}
+            tx="productDetailScreen.buyNow"
+            size="lg"
+          />
         </TouchableOpacity>
       </View>
 
