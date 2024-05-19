@@ -111,7 +111,9 @@ const ProductDetailScreen = () => {
           <Text style={[$buttonText, { color: colors.white }]} tx="productDetailScreen.buyNow" size="lg"/>
         </TouchableOpacity>
       </View>
+
     </View>
+
   );
 };
 

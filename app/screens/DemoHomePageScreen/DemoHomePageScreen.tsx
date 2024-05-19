@@ -1,15 +1,12 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
 import { Image, TextStyle, View, ViewStyle } from "react-native";
-import { Drawer } from "react-native-drawer-layout";
-import { Screen, Text} from "../../components";
-import { isRTL } from "../../i18n";
+import { Screen, Text, TextField} from "../../components";
 import { DemoTabScreenProps } from "../../navigators/DemoNavigator";
 import { colors, spacing } from "../../theme";
-import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle";
-import { DrawerIconButton } from "./DrawerIconButton";
-import { ScrollView, TextInput } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import { api } from "../../services/api";
 import type { Category } from "app/types";
+import SlideShow from "app/components/SlideShow";
 
 const iconSearch = require("../../../assets/icons/search.png");
 const iconRight = require("../../../assets/icons/arrowRight.png");
@@ -24,19 +21,18 @@ export interface Demo {
 
 export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
   function DemoHomePageScreen(_props) {
-    const [open, setOpen] = useState(false);
-    const toggleDrawer = () => {
-      if (!open) {
-        setOpen(true);
-      } else {
-        setOpen(false);
-      }
-    };
+
+    const images = [
+      "https://via.placeholder.com/600/92c952",
+      "https://via.placeholder.com/600/771796",
+      "https://via.placeholder.com/600/24f355",
+      "https://via.placeholder.com/600/d32776",
+      "https://via.placeholder.com/600/f66b97",
+    ];
 
     const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
-      // return () => timeout.current && clearTimeout(timeout.current);
 
       const fetchCategories = async () => {
         try {
@@ -51,35 +47,26 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
       fetchCategories();
     }, []);
 
-    const $drawerInsets = useSafeAreaInsetsStyle(["top"]);
-
     return (
-      <Drawer
-        open={open}
-        onOpen={() => setOpen(true)}
-        onClose={() => setOpen(false)}
-        drawerType={"slide"}
-        drawerPosition={isRTL ? "right" : "left"}
-        renderDrawerContent={() => (
-          <View style={[$drawer, $drawerInsets]}>
-          </View>
-        )}
-      >
         <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$screenContainer}>
-          <DrawerIconButton onPress={toggleDrawer} />
               <View style={$search}>
                 <Image source={iconSearch} style={$iconSearch} />
-                <TextInput
+                <TextField
                   style={$inputSearch}
-                  placeholder={"Search product"}
+                  placeholderTx="demoHomePageScreen.placeholderSearch"
                 />
               </View>
 
               <View style={$listCategory}>
                 <View style={$categoryHead}>
-                  <Text style={{fontWeight: "bold", fontSize: 18}}>Category</Text>
+                    <Text
+                      tx="demoHomePageScreen.categoryList"
+                      weight="bold"
+                    />
                   <View style={{flexDirection: "row", alignItems: "center", gap: -4}}>
-                    <Text>View All</Text>
+                    <Text
+                      tx="demoHomePageScreen.viewAll"
+                    />
                     <Image source={iconRight} style={$iconSearch} />
                   </View>
                 </View>
@@ -100,62 +87,18 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                   </View>
               </View>
 
-              <View style={$discountContainer}>
-                <View style={$categoryHead}>
-                  <Text style={{fontWeight: "bold", fontSize: 18}}>Deal of the day</Text>
-                  <View style={{flexDirection: "row", alignItems: "center", gap: -4}}>
-                    <Text>View All</Text>
-                    <Image source={iconRight} style={$iconSearch} />
-                  </View>
-                </View>
-                <View style={$discountBody}>
-                  <View style={$discountItem}>
-                    <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{alignItems: "center", gap: 4, marginTop: 4}}>
-                      <Text style={$discountItemName}>Running Shoe</Text>
-                      <View style={{borderRadius: 6, padding: 6, backgroundColor: "red"}}>
-                        <Text style={$discountItemSale}>upto 40% OFF</Text>
-                      </View>
-                    </View>
-                  </View>
-                  <View style={$discountItem}>
-                    <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{alignItems: "center", gap: 4, marginTop: 4}}>
-                      <Text style={$discountItemName}>Running Shoe</Text>
-                      <View style={{borderRadius: 6, padding: 6, backgroundColor: "red"}}>
-                        <Text style={$discountItemSale}>upto 40% OFF</Text>
-                      </View>
-                    </View>
-                  </View>
-
-                  <View style={$discountItem}>
-                    <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{alignItems: "center", gap: 4, marginTop: 4}}>
-                      <Text style={$discountItemName}>Running Shoe</Text>
-                      <View style={{borderRadius: 6, padding: 6, backgroundColor: "red"}}>
-                        <Text style={$discountItemSale}>upto 40% OFF</Text>
-                      </View>
-                    </View>
-                  </View>
-
-                  <View style={$discountItem}>
-                    <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{alignItems: "center", gap: 4, marginTop: 4}}>
-                      <Text style={$discountItemName}>Running Shoe</Text>
-                      <View style={{borderRadius: 6, padding: 6, backgroundColor: "red"}}>
-                        <Text style={$discountItemSale}>upto 40% OFF</Text>
-                      </View>
-                    </View>
-                  </View>
-
-                </View>
-              </View>
+              <SlideShow images={images} />
 
               <View style={$listProduct}>
                 <View style={$categoryHead}>
-                  <Text style={{fontWeight: "bold", fontSize: 18}}>Recommoneded for you</Text>
+                  <Text
+                    tx="demoHomePageScreen.recommended"
+                    weight="bold"
+                  />
                   <View style={{flexDirection: "row", alignItems: "center", gap: -4}}>
-                    <Text>View All</Text>
+                    <Text
+                      tx="demoHomePageScreen.viewAll"
+                    />
                     <Image source={iconRight} style={$iconSearch} />
                   </View>
                 </View>
@@ -231,16 +174,12 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                 </View>
               </View>
         </Screen>
-      </Drawer>
     );
   };
 
 
 const $screenContainer: ViewStyle = {
   backgroundColor: colors.palette.neutral100,
-};
-
-const $drawer: ViewStyle = {
 };
 
 const $search: ViewStyle = {
@@ -262,10 +201,7 @@ const $iconSearch: ViewStyle = {
 
 
 const $inputSearch: TextStyle = {
-  height: spacing.xxl,
-  width: 282,
-  fontSize: 16,
-  color: colors.palette.neutral600,
+  width: 350,
 };
 
 const $listCategory: ViewStyle = {
@@ -285,7 +221,7 @@ const $categoryBody: ViewStyle = {
 };
 
 const $categoryList: ViewStyle = {
-  paddingHorizontal: 20,
+  paddingHorizontal: 10,
 
 };
 
@@ -301,43 +237,10 @@ const $categoryItem: ViewStyle = {
   marginLeft: "auto",
 };
 
-const $discountContainer: ViewStyle = {
-  backgroundColor: "#eee",
-  padding: spacing.md,
-};
-
-const $discountBody: ViewStyle = {
-  backgroundColor: colors.palette.neutral100,
-  borderRadius: spacing.xs,
-  padding: spacing.sm,
-  marginTop: spacing.sm,
-  flexDirection: "row",
-  flexWrap: "wrap",
-  width: "100%",
-  gap: spacing.xs,
-};
-
-const $discountItem: ViewStyle = {
-  width: "48%",
-  flexDirection: "column",
-  height: 200,
-};
-
 const $imgProduct: ViewStyle = {
   width: "100%",
   height: 140,
   borderRadius: spacing.xs,
-};
-
-const $discountItemName: TextStyle = {
-  fontSize: 16,
-  fontWeight: "700",
-};
-
-const $discountItemSale: TextStyle = {
-  fontSize: 14,
-  color: colors.palette.neutral100,
-  lineHeight: 16,
 };
 
 const $listProduct: ViewStyle = {
