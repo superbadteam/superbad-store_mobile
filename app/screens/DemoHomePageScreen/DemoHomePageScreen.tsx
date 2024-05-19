@@ -4,7 +4,7 @@ import { Screen, Text, TextField } from "../../components";
 import { DemoTabScreenProps } from "../../navigators/DemoNavigator";
 import { colors, spacing } from "../../theme";
 import { ScrollView } from "react-native-gesture-handler";
-import { api } from "../../services/api";
+import { useGetCategories } from "app/services/hooks/useInventory";
 import type { Category } from "app/types";
 import SlideShow from "app/components/SlideShow";
 import { Ionicons } from "@expo/vector-icons";
@@ -19,6 +19,8 @@ export interface Demo {
 
 export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
   function DemoHomePageScreen(_props) {
+    const { getCategories } = useGetCategories();
+
     const images = [
       "https://img.freepik.com/vecteurs-libre/modele-banniere-vente-horizontale-realiste-photo_23-2149017940.jpg",
       "https://img.freepik.com/vecteurs-premium/banniere-vente-horizontale-remise-shopping-degrade_23-2150321976.jpg",
@@ -32,7 +34,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
     useEffect(() => {
       const fetchCategories = async () => {
         try {
-          const response = await api.getCategories();
+          const response = await getCategories();
           setCategories(response);
         } catch (error) {
           console.error("Error fetching categories:", error);
