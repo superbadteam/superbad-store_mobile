@@ -3,12 +3,15 @@ import { ApiResponse } from "apisauce";
 import { ImageUploadResponse } from "app/types";
 import { ApiError, ApiErrorResponse } from "../api/api.types";
 
-const BASE_URL = "/shared";
+const BASE_ENDPOINT = "/shared";
 
-export const uploadsImage = async (images: FormData, authToken: string): Promise<ImageUploadResponse> => {
+export const uploadsImage = async (
+  images: FormData,
+  authToken: string,
+): Promise<ImageUploadResponse> => {
   const response: ApiResponse<ImageUploadResponse | ApiErrorResponse> = await api.apisauce.post(
-    `${BASE_URL}/uploads/images`,
-        images,
+    `${BASE_ENDPOINT}/uploads/images`,
+    images,
     {
       headers: {
         Accept: "application/json",

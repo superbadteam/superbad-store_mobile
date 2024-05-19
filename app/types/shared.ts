@@ -1,3 +1,3 @@
 export interface ImageUploadResponse {
-    urls: string[]
+  urls: string[];
 }
