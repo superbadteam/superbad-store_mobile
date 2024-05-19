@@ -9,12 +9,14 @@ import {
   DropdownComponent,
   SelectImageGroup,
 } from "../components";
+import { notification } from "antd";
 import type { RadioOption } from "../components/RadioGroup";
 import { DemoTabScreenProps } from "../navigators/DemoNavigator";
 import { spacing, colors } from "../theme";
-// import { ApiService } from "../services/api";
 import ApiService from "app/services/module";
 import type { Category, SubCategory, Product } from "app/types";
+import { useStores } from "app/models";
+import { useGetCategories } from "app/services/hooks/useInventory";
 
 export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">> =
   function DemoCreateProductScreen(_props) {
@@ -23,7 +25,11 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
       { label: "Like new", value: "LikeNew" },
       { label: "Old", value: "Old" },
     ];
+    const {
+      authenticationStore: { authToken },
+    } = useStores();
 
+    const { getCategories } = useGetCategories();
     const [radioValue, setRadioValue] = useState<RadioOption>(conditions[0]);
     const [categories, setCategories] = useState<Category[]>([]);
     const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
@@ -33,7 +39,7 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
       description: "",
       categoryId: "",
       types: [],
-      images: [],
+      images: [{ url: "xxx" }],
       condition: "New",
     });
 
@@ -41,10 +47,24 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
       setSubCategories(item.subCategories);
     }
 
+    async function createProduct() {
+      try {
+        if (!authToken) return;
+        await ApiService.inventory.createProduct(product, authToken);
+        notification.success({
+          message: "Product created successfully",
+        });
+      } catch (error) {
+        notification.error({
+          message: "Error creating product",
+        });
+      }
+    }
+
     useEffect(() => {
       const fetchCategories = async () => {
         try {
-          const response = await ApiService.inventory.getCategories();
+          const response = await getCategories();
           setCategories(response);
         } catch (error) {
           console.error("Error fetching categories:", error);
@@ -66,21 +86,6 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
             labelTx="DemoCreateProductScreen.label.productName"
             placeholderTx="DemoCreateProductScreen.placeholder.productName"
           />
-
-          <View style={$informationField}>
-            {/* <TextField
-            value={product.types}
-              containerStyle={$informationFieldTextField}
-              labelTx="DemoCreateProductScreen.label.price"
-              placeholderTx="DemoCreateProductScreen.placeholder.price"
-            /> */}
-
-            {/* <TextField
-              containerStyle={$informationFieldTextField}
-              labelTx="DemoCreateProductScreen.label.discount"
-              placeholderTx="DemoCreateProductScreen.placeholder.discount"
-            /> */}
-          </View>
 
           <View style={$descriptionField}>
             <TextField
@@ -144,6 +149,7 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
             textStyle={$submitText}
             onPress={() => {
               console.log("Submit product:", product);
+              createProduct();
             }}
             tx="DemoCreateProductScreen.label.uploadImage"
           />
@@ -186,13 +192,6 @@ const $descriptionField: ViewStyle = {
 
 const $title: TextStyle = {
   marginBottom: spacing.lg,
-};
-
-const $informationField: ViewStyle = {
-  flexDirection: "row",
-  justifyContent: "space-between",
-  width: "100%",
-  gap: spacing.lg,
 };
 
 const $uploadArea: ViewStyle = {
