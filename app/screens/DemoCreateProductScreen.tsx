@@ -17,6 +17,7 @@ import ApiService from "app/services/module";
 import type { Category, SubCategory, Product } from "app/types";
 import { useStores } from "app/models";
 import { useGetCategories } from "app/services/hooks/useInventory";
+import { translate } from "../i18n";
 
 export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">> =
   function DemoCreateProductScreen(_props) {
@@ -65,11 +66,11 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
         await Promise.all(imageCalls);
         await ApiService.inventory.createProduct(product, authToken);
         notification.success({
-          message: "Product created successfully",
+          message: translate("DemoCreateProductScreen.notification.createSuccess"),
         });
       } catch (error) {
         notification.error({
-          message: "Error creating product",
+          message: translate("DemoCreateProductScreen.notification.createError"),
         });
       }
     }
@@ -161,10 +162,9 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
             style={$submit}
             textStyle={$submitText}
             onPress={() => {
-              console.log("Submit product:", product);
               createProduct();
             }}
-            tx="DemoCreateProductScreen.label.uploadImage"
+            tx="DemoCreateProductScreen.createProduct"
           />
         </View>
       </Screen>

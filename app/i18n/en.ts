@@ -193,6 +193,10 @@ const en = {
       uploadImage: "Upload Image",
       quantity: "Quantity",
     },
+    notification: {
+      createSuccess: "Product created successfully",
+      createError: "Error creating product",
+    },
     placeholder: {
       productName: "Enter product name",
       price: "Ex: 100",
