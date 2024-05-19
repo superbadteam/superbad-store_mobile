@@ -7,20 +7,19 @@ import { Icon } from "../components";
 import { translate } from "../i18n";
 import {
   DemoCommunityScreen,
-  DemoShowroomScreen,
+  DemoHomePageScreen,
   DemoDebugScreen,
   DemoCreateProductScreen,
 } from "../screens";
 import { DemoPodcastListScreen } from "../screens/DemoPodcastListScreen";
-import DemoCartScreen from "../screens/DemoCartScreen/DemoCartScreen";
+import DemoCartScreen from "../screens/DemoCartScreen";
 import { colors, spacing, typography } from "../theme";
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator";
 import ProductDetailScreen from "app/screens/ProductDetailScreen/ProductDetailScreen";
 
 export type DemoTabParamList = {
   DemoCommunity: undefined;
-  FilterProducts: undefined;
-  DemoShowroom: { queryIndex?: string; itemIndex?: string };
+  DemoHomePage: { queryIndex?: string; itemIndex?: string };
   DemoDebug: undefined;
   DemoPodcastList: undefined;
   DemoCartList: undefined;
@@ -63,8 +62,8 @@ export function DemoNavigator() {
       }}
     >
       <Tab.Screen
-        name="DemoShowroom"
-        component={DemoShowroomScreen}
+        name="DemoHomePage"
+        component={DemoHomePageScreen}
         options={{
           tabBarLabel: translate("demoNavigator.componentsTab"),
           tabBarIcon: ({ focused }) => (

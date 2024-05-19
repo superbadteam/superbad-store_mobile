@@ -13,7 +13,7 @@ import { Text } from "../Text";
 import Quantity from "../Quantity/Quantity";
 import { colors } from "../../theme/colors";
 import { spacing } from "app/theme";
-interface CartItem{
+interface CartItems {
   id : number;
   title: string;
   brand: string;
@@ -21,11 +21,11 @@ interface CartItem{
   image : string;
 }
 export interface CartItemProps {
-  item: CartItem;
+  item: CartItems;
   updateTotalPrice: (price: number, quantityChange: number) => void;
 }
 
-const CartItem: React.FC<CartItemProps> = ({ item, updateTotalPrice }) => {
+const CartItems : React.FC<CartItemProps> = ({ item, updateTotalPrice }) => {
   const [quantity, setQuantity] = useState<number>(1);
 
   useEffect(() => {
@@ -100,7 +100,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, updateTotalPrice }) => {
   );
 };
 
-export default CartItem;
+export default CartItems;
 
 const $container: ViewStyle = {
   flexDirection: "row",

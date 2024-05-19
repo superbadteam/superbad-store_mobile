@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, View, ViewStyle, TextStyle } from "react-native";
-import { colors } from "../../theme/colors";
-import { Text, Button, Screen } from "../../components";
+import { colors } from "../theme/colors";
+import { Text, Button, Screen } from "../components";
 import { spacing } from "app/theme";
 import BackButton from "app/components/BackButton";
 import CartItem from "app/components/CartItem/CartItem";
 
-const MyCart: React.FC = () => {
+const DemoCartScreen: React.FC = () => {
   const clothItems : CartItem[]=[
     {
     id : 1,
@@ -88,8 +88,6 @@ const MyCart: React.FC = () => {
   const updateTotalPrice = (price: number, quantityChange: number) => {
     setTotalPrice((prevTotalPrice) => prevTotalPrice + price * quantityChange);
   };
-  const deliveryFee = 2;
-  const discount = 5;
   const totalAmount = totalPrice ;
   return (
     <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
@@ -134,7 +132,7 @@ const MyCart: React.FC = () => {
   );
 };
 
-export default MyCart;
+export default DemoCartScreen;
 
 const $container: ViewStyle = {
   paddingTop: spacing.xs,
@@ -145,7 +143,7 @@ const $container: ViewStyle = {
 const $title: ViewStyle = {
   alignSelf: "center",
   marginLeft : 20,
-  marginBottom : 10,  
+  marginBottom : 10,
 };
 const $summaryCard: ViewStyle = {
   width: "100%",
@@ -204,4 +202,4 @@ const $totalAmountContainer: ViewStyle = {
 };
 const $cartHeader : ViewStyle ={
   flexDirection: "row",
-}
+};
