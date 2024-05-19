@@ -55,6 +55,7 @@ const $header: ViewStyle = {
 const $rightIcons: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
+  justifyContent: "center",
 };
 
 const $icon: TextStyle = {
