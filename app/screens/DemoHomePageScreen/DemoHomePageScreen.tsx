@@ -7,6 +7,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { api } from "../../services/api";
 import type { Category } from "app/types";
 import SlideShow from "app/components/SlideShow";
+import { l } from "i18n-js";
 
 const iconSearch = require("../../../assets/icons/search.png");
 const iconRight = require("../../../assets/icons/arrowRight.png");
@@ -63,7 +64,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                       tx="demoHomePageScreen.categoryList"
                       weight="bold"
                     />
-                  <View style={{flexDirection: "row", alignItems: "center", gap: -4}}>
+                  <View style={$categoryNav}>
                     <Text
                       tx="demoHomePageScreen.viewAll"
                     />
@@ -95,7 +96,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                     tx="demoHomePageScreen.recommended"
                     weight="bold"
                   />
-                  <View style={{flexDirection: "row", alignItems: "center", gap: -4}}>
+                  <View style={$categoryNav}>
                     <Text
                       tx="demoHomePageScreen.viewAll"
                     />
@@ -106,14 +107,14 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                 <View style={$listProductBody}>
                   <View style={$productItem}>
                     <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{flexDirection: "column", gap: 6}}>
+                    <View style={$productItemContain}>
                       <Text style={$productName}>Adidas white sneakers for men</Text>
-                      <View style={{flexDirection: "row", gap: 8}}>
+                      <View style={$productItemContain}>
                         <Text weight="bold" style={$productPrice}>$68</Text>
                         <Text style={$productSale}>$134</Text>
                         <Text style={$productDiscount}>50% OFF</Text>
                       </View>
-                      <View style={{flexDirection: "row", gap: 6, alignItems: "center"}}>
+                      <View style={$productRatingContain}>
                         <Image source={imgProduct} style={$iconstar} />
                         <Text style={$productRating}>4.8</Text>
                         <Text style={$productComment}>(545)</Text>
@@ -123,14 +124,14 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
 
                   <View style={$productItem}>
                     <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{flexDirection: "column", gap: 6}}>
+                    <View style={$productItemContain}>
                       <Text style={$productName}>Adidas white sneakers for men</Text>
-                      <View style={{flexDirection: "row", gap: 8}}>
+                      <View style={$productItemContain}>
                         <Text style={$productPrice}>$68</Text>
                         <Text style={$productSale}>$134</Text>
                         <Text style={$productDiscount}>50% OFF</Text>
                       </View>
-                      <View style={{flexDirection: "row", gap: 6, alignItems: "center"}}>
+                      <View style={$productRatingContain}>
                         <Image source={imgProduct} style={$iconstar} />
                         <Text style={$productRating}>4.8</Text>
                         <Text style={$productComment}>(545)</Text>
@@ -140,14 +141,14 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
 
                   <View style={$productItem}>
                     <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{flexDirection: "column", gap: 6}}>
+                    <View style={$productItemContain}>
                       <Text style={$productName}>Adidas white sneakers for men</Text>
-                      <View style={{flexDirection: "row", gap: 8}}>
+                      <View style={$productItemContain}>
                         <Text style={$productPrice}>$68</Text>
                         <Text style={$productSale}>$134</Text>
                         <Text style={$productDiscount}>50% OFF</Text>
                       </View>
-                      <View style={{flexDirection: "row", gap: 6, alignItems: "center"}}>
+                      <View style={$productRatingContain}>
                         <Image source={imgProduct} style={$iconstar} />
                         <Text style={$productRating}>4.8</Text>
                         <Text style={$productComment}>(545)</Text>
@@ -157,14 +158,14 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
 
                   <View style={$productItem}>
                     <Image source={imgProduct} style={$imgProduct} />
-                    <View style={{flexDirection: "column", gap: 6}}>
+                    <View style={$productItemContain}>
                       <Text style={$productName}>Adidas white sneakers for men</Text>
-                      <View style={{flexDirection: "row", gap: 8}}>
+                      <View style={$productItemContain}>
                         <Text style={$productPrice}>$68</Text>
                         <Text style={$productSale}>$134</Text>
                         <Text style={$productDiscount}>50% OFF</Text>
                       </View>
-                      <View style={{flexDirection: "row", gap: 6, alignItems: "center"}}>
+                      <View style={$productRatingContain}>
                         <Image source={imgProduct} style={$iconstar} />
                         <Text style={$productRating}>4.8</Text>
                         <Text style={$productComment}>(545)</Text>
@@ -214,6 +215,12 @@ const $categoryHead: ViewStyle = {
   alignItems: "center",
 };
 
+const $categoryNav: ViewStyle = {
+  flexDirection: "row",
+   alignItems: "center",
+    gap: -4,
+};
+
 
 const $categoryBody: ViewStyle = {
   flexDirection: "row",
@@ -256,6 +263,16 @@ const $listProductBody: ViewStyle = {
 
 const $productItem: ViewStyle = {
   width: "48%",
+};
+
+const $productRatingContain: ViewStyle = {
+  flexDirection: "row",
+   gap: 6,
+    alignItems: "center",
+};
+const $productItemContain: ViewStyle = {
+  flexDirection: "column",
+   gap: 6,
 };
 
 const $iconstar: ViewStyle = {

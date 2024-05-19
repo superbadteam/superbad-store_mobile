@@ -154,6 +154,11 @@ const en = {
     buyNow: "Buy Now",
     review: "Reviews",
   },
+  listReview: {
+    title: "Rating & Reviews",
+    overal: "Overall Rating",
+    btnRate: "Rate",
+  },
 };
 
 export default en;
