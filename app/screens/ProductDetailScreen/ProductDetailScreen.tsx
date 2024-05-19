@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
 import SlideShow from "app/components/SlideShow";
+import ListRating from "app/components/ListRating";
 import { Text } from "app/components";
 import { colors } from "app/theme";
 
@@ -108,6 +109,9 @@ const ProductDetailScreen = () => {
                 </Text>
               </TouchableOpacity>
             ))}
+          </View>
+          <View>
+            <ListRating images={images} />
           </View>
         </View>
       </ScrollView>

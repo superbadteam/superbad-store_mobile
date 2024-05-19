@@ -7,7 +7,6 @@ import { ScrollView } from "react-native-gesture-handler";
 import { api } from "../../services/api";
 import type { Category } from "app/types";
 import SlideShow from "app/components/SlideShow";
-import { l } from "i18n-js";
 
 const iconSearch = require("../../../assets/icons/search.png");
 const iconRight = require("../../../assets/icons/arrowRight.png");
@@ -80,7 +79,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                           <View style={$categoryItem}>
                             <Image source={iconClothes} style={$iconSearch} />
                           </View>
-                          <Text>{category.name}</Text>
+                          <Text style={$categoryText}>{category.name}</Text>
                       </View>
                       ))
                     }
@@ -242,6 +241,11 @@ const $categoryItem: ViewStyle = {
   marginBottom: spacing.xxs,
   marginRight: "auto",
   marginLeft: "auto",
+};
+
+const $categoryText: TextStyle = {
+  maxWidth: 120,
+  textAlign: "center",
 };
 
 const $imgProduct: ViewStyle = {

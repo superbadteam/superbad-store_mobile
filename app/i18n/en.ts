@@ -154,6 +154,12 @@ const en = {
     buyNow: "Buy Now",
     review: "Reviews",
   },
+  listReview: {
+    title: "Rating & Reviews",
+    overal: "Overall Rating",
+    ratingText: "Rating",
+    rateBtn: "Rate",
+  },
   FilterProductsScreen: {
     placeholder: "Name product",
     title: {
