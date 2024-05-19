@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View, ViewStyle, TextStyle } from "react-native";
-import { Text } from "../../components/Text";
 import CartItem from "../../components/CartItem/CartItem";
 import { colors } from "../../theme/colors";
 import { clothItems } from "../../data/data";
-import { Button, Screen } from "../../components";
+import { Text, Button, Screen } from "../../components";
 import { spacing } from "app/theme";
 
 const MyCart: React.FC = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
+
+  useEffect(() => {
+    const initialTotalPrice = clothItems.reduce((total, item) => {
+      return total + item.price;
+    }, 0);
+    setTotalPrice(initialTotalPrice);
+  }, []);
 
   const updateTotalPrice = (price: number, quantityChange: number) => {
     setTotalPrice((prevTotalPrice) => prevTotalPrice + price * quantityChange);
@@ -67,39 +73,39 @@ const MyCart: React.FC = () => {
 export default MyCart;
 
 const $container: ViewStyle = {
-  paddingTop: spacing.lg,
+  paddingTop: spacing.xs,
   paddingBottom: spacing.xxs,
   paddingHorizontal: spacing.md,
   backgroundColor: "white",
 };
 const $title: ViewStyle = {
   alignSelf: "center",
-  paddingVertical: 10,
+  paddingVertical: spacing.sm,
 };
 const $summaryCard: ViewStyle = {
   width: "100%",
-  paddingHorizontal: 5,
+  paddingHorizontal: spacing.xxs,
   height: 250,
   justifyContent: "space-between",
-  paddingVertical: 15,
-  marginBottom: 15,
+  paddingVertical: spacing.md,
+  marginBottom: spacing.md,
   backgroundColor: "white",
-  elevation: 2,
-  borderRadius: 5,
+  elevation: spacing.xxxs,
+  borderRadius: spacing.xxs,
 };
 const $summaryItem: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-between",
-  paddingHorizontal: 20,
-  paddingVertical: 5,
-  marginRight: 5,
+  paddingHorizontal: spacing.md,
+  paddingVertical: spacing.xxs,
+  marginRight: spacing.xxs,
   borderBottomColor: colors.border,
 };
 
 const $textTotal: TextStyle = {
-  marginTop: 10,
-  fontSize: 20,
+  marginTop: spacing.md,
+  fontSize: spacing.md,
 };
 const $textMedium: TextStyle = {
   flexDirection: "row",
@@ -114,20 +120,20 @@ const $textPrice: TextStyle = {
 const $button: ViewStyle = {
   width: "50%",
   alignSelf: "flex-end",
-  backgroundColor: colors.theme,
-  borderRadius: 10,
+  backgroundColor: colors.blue,
+  borderRadius: spacing.sm,
 };
 const $buttonLabel: TextStyle = {
   textAlign: "center",
   color: colors.background,
 };
 const $totalContainer: ViewStyle = {
-  marginTop: 30,
+  marginTop: spacing.md,
 };
 const $totalAmountContainer: ViewStyle = {
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
-  marginBottom: 20,
-  marginLeft: 20,
+  marginBottom: spacing.md,
+  marginLeft: spacing.md,
 };

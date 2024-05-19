@@ -2,6 +2,7 @@ import React from "react";
 import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { colors } from "../../theme/colors";
+import { spacing } from "app/theme";
 
 interface QuantityProps {
   quantity: number;
@@ -29,15 +30,15 @@ const $container: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
   backgroundColor: colors.palette.gray_200,
-  borderRadius: 5,
+  borderRadius: spacing.xxs,
 };
 const $button: ViewStyle = {
-  paddingHorizontal: 10,
-  paddingVertical: 5,
+  paddingHorizontal: spacing.sm,
+  paddingVertical: spacing.xxs,
   alignItems: "center",
   justifyContent: "center",
 };
 const $quantity: TextStyle = {
-  padding: 5,
+  padding: spacing.xxs,
   color: colors.text,
 };

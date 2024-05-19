@@ -107,7 +107,7 @@ const en = {
       "If this doesn't work, ensure the Reactotron desktop app is running and reload app.",
   },
   demoPodcastListScreen: {
-    title: "My Cart",
+    title: "React Native Radio episodes",
     onlyFavorites: "Only Show Favorites",
     favoriteButton: "Favorite",
     unfavoriteButton: "Unfavorite",
@@ -153,6 +153,7 @@ const en = {
     items: "items )",
     cartItem: {
       delete: "delete",
+      cancel: "cancel",
     },
     noFavoritesEmptyState: {
       heading: "This looks a bit empty",

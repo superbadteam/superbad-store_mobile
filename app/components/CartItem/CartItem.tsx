@@ -28,37 +28,42 @@ const CartItem: React.FC<CartItemProps> = ({ item, updateTotalPrice }) => {
   const [quantity, setQuantity] = useState<number>(1);
 
   useEffect(() => {
-    updateTotalPrice(item.price * quantity, quantity);
-  }, [quantity]);
+    updateTotalPrice(item.price * quantity, 0);
+  }, []);
 
   const increaseQuantity = () => {
     setQuantity((prevQuantity) => {
-      prevQuantity++;
+      const newQuantity = prevQuantity + 1;
       updateTotalPrice(item.price, 1);
-      return prevQuantity;
+      return newQuantity;
     });
   };
 
   const decreaseQuantity = () => {
-    if (quantity > 1) {
+    if (quantity > 0) {
       setQuantity((prevQuantity) => {
-        prevQuantity--;
-        updateTotalPrice(item.price, -1);
-        return prevQuantity;
+        const newQuantity = prevQuantity - 1;
+        if (newQuantity === 0) {
+          handleDeletePress();
+        } else {
+          updateTotalPrice(item.price, -1);
+        }
+        return newQuantity > 0 ? newQuantity : prevQuantity;
       });
     }
   };
-
   const handleDeletePress = () => {
-    Alert.alert("Remove Item", "Are you sure you want to remove this item from your cart?", [
+    Alert.alert("Delete Item", "Are you sure you want to delete this item from your cart?", [
       {
         text: "Cancel",
         style: "cancel",
       },
       {
-        text: "Remove",
+        text: "delete",
         onPress: () => {
-          console.log("Item removed from cart");
+          console.log("Item deleted from cart");
+          setQuantity(0);
+          updateTotalPrice(item.price, -quantity);
         },
       },
     ]);
