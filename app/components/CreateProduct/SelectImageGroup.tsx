@@ -2,6 +2,7 @@ import React, { ViewStyle, View } from "react-native";
 import { ImagePicker, AutoImage, TextField, Button, Icon } from "../";
 import { spacing, colors } from "../../theme";
 import type { ProductItemType } from "app/types";
+const { v4 } = require("uuid");
 
 interface SelectImageGroupProps {
   itemType: ProductItemType[];
@@ -10,11 +11,10 @@ interface SelectImageGroupProps {
 export const SelectImageGroup = (props: SelectImageGroupProps) => {
   const { itemType, setItemType } = props;
   const selectedImage = (image: string) => {
-    const newId = itemType.length > 0 ? itemType[itemType.length - 1].id + 1 : 1;
     setItemType([
       ...itemType,
       {
-        id: newId,
+        id: v4(),
         imageUrl: image,
         name: "",
         price: 0,
@@ -27,12 +27,12 @@ export const SelectImageGroup = (props: SelectImageGroupProps) => {
     setItemType([]);
   };
 
-  const removeItem = (id: number) => {
+  const removeItem = (id: string) => {
     const newItems = itemType.filter((item) => item.id !== id);
     setItemType(newItems);
   };
 
-  function onChangeName(text: string, id: number) {
+  function onChangeName(text: string, id: string) {
     const newItems = itemType.map((item) => {
       if (item.id === id) {
         return { ...item, name: text };
@@ -42,7 +42,7 @@ export const SelectImageGroup = (props: SelectImageGroupProps) => {
     setItemType(newItems);
   }
 
-  function onChangePrice(text: string, id: number) {
+  function onChangePrice(text: string, id: string) {
     const newItems = itemType.map((item) => {
       if (item.id === id) {
         return { ...item, price: Number(text) };
@@ -52,7 +52,7 @@ export const SelectImageGroup = (props: SelectImageGroupProps) => {
     setItemType(newItems);
   }
 
-  function onChangeQuantity(text: string, id: number) {
+  function onChangeQuantity(text: string, id: string) {
     const newItems = itemType.map((item) => {
       if (item.id === id) {
         return { ...item, quantity: Number(text) };

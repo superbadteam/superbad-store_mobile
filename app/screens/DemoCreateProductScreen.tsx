@@ -50,6 +50,19 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
     async function createProduct() {
       try {
         if (!authToken) return;
+
+        const imageCalls = product.types.map(async (type,index) => {
+            const res = await fetch(type.imageUrl);
+            const blob = await res.blob();
+            const fd = new FormData();
+            const file = new File([blob], "filename", { type: "image/jpeg" });
+            fd.append("images", file);
+            const response = await ApiService.shared.uploadsImage(fd, authToken);
+            product.types[index].imageUrl = response.urls[0];
+            setProduct({ ...product });
+        });
+
+        await Promise.all(imageCalls);
         await ApiService.inventory.createProduct(product, authToken);
         notification.success({
           message: "Product created successfully",

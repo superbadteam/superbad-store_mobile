@@ -6,7 +6,7 @@ import { Category } from "app/types";
 
 export const useGetCategories = () => {
   const { trigger: getCategories, isMutating } = useSWRMutation(
-    "api/identity/categories",
+    "api/inventory/categories",
     async () => {
       return await ApiService.inventory.getCategories();
     },
