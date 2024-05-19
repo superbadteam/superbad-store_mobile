@@ -4,11 +4,9 @@ import { Text } from "app/components";
 import { colors, spacing } from "app/theme";
 import { Ionicons } from "@expo/vector-icons";
 
-interface SlideShowProps {
-  images: string[];
-}
+interface RatingProps {}
 
-const Rating: React.FC<SlideShowProps> = () => {
+const Rating: React.FC<RatingProps> = () => {
   return (
     <View style={$container}>
       <View style={$reviewHeader}>
@@ -58,7 +56,6 @@ const Rating: React.FC<SlideShowProps> = () => {
 };
 
 const $container: ViewStyle = {
-  //   height: 300,
   shadowColor: "#000",
   shadowOffset: {
     width: 0,

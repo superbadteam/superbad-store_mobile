@@ -92,7 +92,7 @@ const ProductDetailScreen = () => {
             ))}
           </View>
           <View>
-            <Rating images={images} />
+            <Rating />
           </View>
         </View>
       </ScrollView>
