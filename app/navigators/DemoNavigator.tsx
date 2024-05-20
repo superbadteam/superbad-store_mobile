@@ -18,7 +18,7 @@ import ProductDetailScreen from "app/screens/ProductDetailScreen/ProductDetailSc
 
 export type DemoTabParamList = {
   DemoCommunity: undefined;
-  DemoHomPage: { queryIndex?: string; itemIndex?: string };
+  DemoHomePage: { queryIndex?: string; itemIndex?: string };
   DemoDebug: undefined;
   DemoPodcastList: undefined;
   DemoCreateProduct: undefined;
