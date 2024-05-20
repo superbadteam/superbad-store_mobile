@@ -56,7 +56,7 @@ const Rating: React.FC<RatingProps> = () => {
 };
 
 const $container: ViewStyle = {
-  shadowColor: "#000",
+  shadowColor: colors.palette.neutral900,
   shadowOffset: {
     width: 0,
     height: 2,
