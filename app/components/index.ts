@@ -12,6 +12,7 @@ export * from "./Toggle";
 export * from "./EmptyState";
 export * from "./Dropdown";
 export * from "./RadioGroup";
+export * from "./Rating";
 export * from "./ImagePicker";
 export * from "./CreateProduct/SelectImageGroup";
 export * from "./CartItem/CartItem";

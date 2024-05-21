@@ -3,6 +3,7 @@ import { ScrollView, View, TouchableOpacity, TextStyle, ViewStyle } from "react-
 import { Ionicons } from "@expo/vector-icons";
 
 import SlideShow from "app/components/SlideShow";
+import Rating from "app/components/Rating";
 import { Text } from "app/components";
 import { colors } from "app/theme";
 import CustomHeader from "app/components/CustomHeader";
@@ -96,6 +97,9 @@ const ProductDetailScreen = () => {
               </TouchableOpacity>
             ))}
           </View>
+          <View>
+            <Rating />
+          </View>
         </View>
       </ScrollView>
 
@@ -117,9 +121,7 @@ const ProductDetailScreen = () => {
           />
         </TouchableOpacity>
       </View>
-
     </View>
-
   );
 };
 

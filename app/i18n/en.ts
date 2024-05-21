@@ -83,7 +83,6 @@ const en = {
     categoryList: "Category",
     viewAll: "View All",
     recommended: "Recommended for you",
-
   },
   demoDebugScreen: {
     howTo: "HOW TO",
@@ -188,6 +187,12 @@ const en = {
     addToCart: "Add to Cart",
     buyNow: "Buy Now",
     review: "Reviews",
+  },
+  listReview: {
+    title: "Rating & Reviews",
+    overal: "Overall Rating",
+    ratingText: "Rating",
+    rateBtn: "Rate",
   },
   FilterProductsScreen: {
     placeholder: "Name product",

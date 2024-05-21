@@ -34,6 +34,8 @@ const palette = {
   angry400: "#ff4e4d",
   angry500: "#C03403",
 
+  yellow500: "#F59E0B",
+
   green: "green",
   blue: "blue",
   orange: "orange",
