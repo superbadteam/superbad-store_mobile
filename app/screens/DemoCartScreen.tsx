@@ -76,18 +76,25 @@ const DemoCartScreen: React.FC = () => {
     image: "https://via.placeholder.com/600/92c952",
   },
 ];
+  const [cartItems, setCartItems] = useState<CartItem[]>(clothItems);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
-    const initialTotalPrice = clothItems.reduce((total, item) => {
+    const initialTotalPrice = cartItems.reduce((total, item) => {
       return total + item.price;
     }, 0);
     setTotalPrice(initialTotalPrice);
-  }, []);
+  }, [cartItems]);
 
   const updateTotalPrice = (price: number, quantityChange: number) => {
     setTotalPrice((prevTotalPrice) => prevTotalPrice + price * quantityChange);
   };
+  
+  const removeItem = (itemId: number, itemPrice: number, itemQuantity: number) => {
+    setCartItems((prevItems) => prevItems.filter(item => item.id !== itemId));
+    updateTotalPrice(itemPrice, -itemQuantity);
+  };
+
   const totalAmount = totalPrice ;
   return (
     <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
@@ -96,13 +103,13 @@ const DemoCartScreen: React.FC = () => {
           <BackButton tintColor={colors.text} />
           <Text style={$title} size="xl" tx={"demoCartListScreen.title"} />
         </View>
-        {clothItems.map((item) => (
-          <CartItem key={item.title} item={item} updateTotalPrice={updateTotalPrice} />
+        {cartItems.map((item) => (
+          <CartItem key={item.title} item={item} updateTotalPrice={updateTotalPrice} removeItem={removeItem}/>
         ))}
         <View style={$summaryCard}>
           <View style={$summaryItem}>
             <Text
-              text={"Price Detail (" + `${clothItems.length}` + " items)"}
+              text={"Price Detail (" + `${cartItems.length}` + " items)"}
               preset="formLabel"
               style={$textMedium}
             />

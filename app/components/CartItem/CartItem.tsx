@@ -23,11 +23,11 @@ interface CartItems {
 export interface CartItemProps {
   item: CartItems;
   updateTotalPrice: (price: number, quantityChange: number) => void;
+  removeItem: (itemId: number, itemPrice: number, itemQuantity: number) => void; 
 }
 
-const CartItems : React.FC<CartItemProps> = ({ item, updateTotalPrice }) => {
+const CartItems : React.FC<CartItemProps> = ({ item, updateTotalPrice,removeItem }) => {
   const [quantity, setQuantity] = useState<number>(1);
-
   useEffect(() => {
     updateTotalPrice(item.price * quantity, 0);
   }, []);
@@ -64,7 +64,7 @@ const CartItems : React.FC<CartItemProps> = ({ item, updateTotalPrice }) => {
         onPress: () => {
           console.log("Item deleted from cart");
           setQuantity(0);
-          updateTotalPrice(item.price, -quantity);
+          removeItem(item.id, item.price, quantity); 
         },
       },
     ]);
