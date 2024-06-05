@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
-import { Image, ImageStyle, Keyboard, TextStyle, TouchableOpacity, View, ViewStyle} from "react-native";
-import { Screen, Text, TextField } from "../../components";
+import { Image,Keyboard, ImageStyle, TextStyle, TouchableOpacity, View, ViewStyle} from "react-native";
+import { Screen, Text, TextField  } from "../../components";
 import { DemoTabScreenProps } from "../../navigators/DemoNavigator";
 import { colors, spacing } from "../../theme";
 import { ScrollView } from "react-native-gesture-handler";
@@ -99,7 +99,8 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
           </View>
 
           <View style={$listProductBody}>
-            <View style={$productItem}>
+          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
+          <View style={$productItem}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
                 <Text style={$productName}>Adidas white sneakers for men</Text>
@@ -117,7 +118,9 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                 </View>
               </View>
             </View>
-
+          </TouchableOpacity>
+            
+          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
             <View style={$productItem}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
@@ -134,7 +137,9 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                 </View>
               </View>
             </View>
-
+          </TouchableOpacity>
+           
+          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
             <View style={$productItem}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
@@ -151,7 +156,9 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                 </View>
               </View>
             </View>
+          </TouchableOpacity>
 
+          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
             <View style={$productItem}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
@@ -168,6 +175,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                 </View>
               </View>
             </View>
+          </TouchableOpacity>
           </View>
         </View>
       </Screen>
