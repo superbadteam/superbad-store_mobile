@@ -77,13 +77,11 @@ const en = {
       "Whether it's running a full project or getting teams up to speed with our hands-on training, Infinite Red can help with just about any React Native project.",
     hireUsLink: "Send us a message",
   },
-  demoShowroomScreen: {
-    jumpStart: "Components to jump start your project!",
-    lorem2Sentences:
-      "Nulla cupidatat deserunt amet quis aliquip nostrud do adipisicing. Adipisicing excepteur elit laborum Lorem adipisicing do duis.",
-    demoHeaderTxExample: "Yay",
-    demoViaTxProp: "Via `tx` Prop",
-    demoViaSpecifiedTxProp: "Via `{{prop}}Tx` Prop",
+  demoHomePageScreen: {
+    placeholderSearch: "Search product",
+    categoryList: "Category",
+    viewAll: "View All",
+    recommended: "Recommended for you",
   },
   demoDebugScreen: {
     howTo: "HOW TO",
@@ -158,6 +156,12 @@ const en = {
     addToCart: "Add to Cart",
     buyNow: "Buy Now",
     review: "Reviews",
+  },
+  listReview: {
+    title: "Rating & Reviews",
+    overal: "Overall Rating",
+    ratingText: "Rating",
+    rateBtn: "Rate",
   },
   FilterProductsScreen: {
     placeholder: "Name product",
