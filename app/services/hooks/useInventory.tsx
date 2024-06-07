@@ -1,6 +1,6 @@
 import useSWRMutation from "swr/mutation";
 import { notification } from "antd";
-import ApiService from "../module";
+import ApiService from "../modules";
 import { ApiErrorResponse } from "../api/api.types";
 import { Category } from "app/types";
 

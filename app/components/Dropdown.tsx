@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ViewStyle, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import { TextProps } from "./Text";
 import { translate } from "../i18n";
 
@@ -50,9 +49,6 @@ export const DropdownComponent = (props: DropdownComponentProps) => {
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={onChangeSelect}
-        renderLeftIcon={() => (
-          <AntDesign style={$icon} color={isFocus ? "blue" : "black"} name="Safety" size={20} />
-        )}
       />
     </View>
   );
@@ -68,9 +64,6 @@ const $dropdown: ViewStyle = {
   borderWidth: 0.5,
   height: 50,
   paddingHorizontal: 8,
-};
-const $icon: ViewStyle = {
-  marginRight: 5,
 };
 const $inputSearchStyle: ViewStyle = {
   height: 40,
