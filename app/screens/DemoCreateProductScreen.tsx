@@ -233,3 +233,11 @@ const $inpField: ViewStyle = {
   borderRadius: spacing.xs,
   minHeight: spacing.xxl,
 };
+
+const $loading: ViewStyle = {
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+  position: "absolute",
+  top: 0,
+};

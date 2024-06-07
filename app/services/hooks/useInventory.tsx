@@ -6,7 +6,6 @@ import { ApiErrorResponse } from "../api/api.types";
 export const useGetCategories = () => {
   const {
     data: categories,
-    error,
     mutate: getCategories,
     isValidating: isMutating,
   } = useSWR(
@@ -16,14 +15,13 @@ export const useGetCategories = () => {
     },
     {
       revalidateOnFocus: false,
+      onError: (error: ApiErrorResponse) => {
+        notification.error({
+          message: error.title,
+        });
+      },
     },
   );
-
-  if (error) {
-    notification.error({
-      message: (error as ApiErrorResponse).title,
-    });
-  }
 
   return {
     categories,
