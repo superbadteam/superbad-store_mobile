@@ -25,6 +25,8 @@ export type DemoTabParamList = {
   DemoCartList: undefined;
   DemoCreateProduct: undefined;
   ProductDetail: undefined;
+  LoginScreen: undefined;
+  SignUpScreen: undefined;
 };
 
 /**

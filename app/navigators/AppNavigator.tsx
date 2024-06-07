@@ -41,6 +41,7 @@ import DemoWriteReviewScreen from "app/screens/DemoWriteReviewScreen";
 export type AppStackParamList = {
   Welcome: undefined;
   Login: undefined;
+  SignUp: undefined;
   Demo: NavigatorScreenParams<DemoTabParamList>;
   ProductDetailScreen : undefined;
   CartScreen : undefined;
@@ -86,6 +87,7 @@ const AppStack = observer(function AppStack() {
       ) : (
         <>
           <Stack.Screen name="Login" component={Screens.LoginScreen} />
+          <Stack.Screen name="SignUp" component={Screens.SignUpScreen} />
         </>
       )}
 

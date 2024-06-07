@@ -37,7 +37,7 @@ const prefix = Linking.createURL("/");
 const config = {
   screens: {
     Login: {
-      path: "",
+      path: "Login",
     },
     Welcome: "welcome",
     Demo: {
@@ -52,6 +52,9 @@ const config = {
         DemoWriteReviewScreen : "writeReview",
         DemoCartScreen : "cart",
       },
+    },
+    SignUp: {
+      path: "SignUp",
     },
   },
 };
