@@ -35,7 +35,7 @@ const ProductDetailScreen = () => {
 
   const navigation = useNavigation<any>();
   const handleAddToCart = () => {
-    navigation.navigate("CartScreen");
+    navigation.navigate("WriteReviewScreen");
   };
 
   return (

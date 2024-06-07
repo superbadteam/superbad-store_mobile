@@ -182,6 +182,15 @@ const en = {
     title: "Create product",
     submit: "Submit",
   },
+  demoWriteReviewScreen:{
+     title : "Write Review",
+     addPhoto : "Add Photo",
+     submitReview : "Submit Review",
+     label : {
+      headingReview : "Heading of your review",
+      writeYourReview : "Write your review",
+    }
+  },
   productDetailScreen: {
     size: "Type",
     addToCart: "Add to Cart",

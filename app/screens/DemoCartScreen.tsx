@@ -96,6 +96,7 @@ const DemoCartScreen: React.FC = () => {
   };
 
   const totalAmount = totalPrice ;
+  
   return (
     <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -131,6 +132,7 @@ const DemoCartScreen: React.FC = () => {
               tx={"demoCartListScreen.button.continue"}
               style={$button}
               textStyle={$buttonLabel}
+              
             />
           </View>
         </View>

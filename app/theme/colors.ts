@@ -44,8 +44,8 @@ const palette = {
 
   overlay20: "rgba(25, 16, 21, 0.2)",
   overlay50: "rgba(25, 16, 21, 0.5)",
-  gray_200: "#E5E7EB",
-  gray_100: "#F3F4F6",
+  gray200: "#E5E7EB",
+  gray100: "#F3F4F6",
   white: "white",
   matte: "rgba(0, 0, 0, 0.5)",
 } as const;

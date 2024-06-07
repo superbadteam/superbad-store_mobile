@@ -57,7 +57,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
       <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$screenContainer}>
         <View style={$search}>
           <Ionicons style={$iconSearch} name="search-outline" size={20} color="black" />
-          <TextField style={$inputSearch} placeholderTx="demoHomePageScreen.placeholderSearch" />
+          <TextField style={$inputSearch} placeholderTx="demoHomePageScreen.placeholderSearch" onSubmitEditing={(event) => handleSearch(event.nativeEvent.text)}/>
         </View>
 
         <View style={$listCategory}>
