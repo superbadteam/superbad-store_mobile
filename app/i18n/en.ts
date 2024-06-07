@@ -11,8 +11,8 @@ const en = {
   },
   welcomeScreen: {
     postscript:
-      "psst  — This probably isn't what your app looks like. (Unless your designer handed you these screens, and in that case, ship it!)",
-    readyForLaunch: "Your app, almost ready for launch!",
+      "Let's go shopping! Find the best deals on the latest products. You can even create your own products to sell!",
+    readyForLaunch: "Ready for launch!",
     exciting: "(ohh, this is exciting!)",
     letsGo: "Let's go!",
   },
