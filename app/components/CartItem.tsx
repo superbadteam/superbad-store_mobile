@@ -6,14 +6,12 @@ import {
   View,
   ViewStyle,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Text } from "./Text";
 import Quantity from "./Quantity";
 import { colors } from "../theme/colors";
 import { spacing } from "app/theme";
-import { translate } from "../i18n";
 interface CartItems {
   id : number;
   title: string;
@@ -55,23 +53,8 @@ const CartItems : React.FC<CartItemProps> = ({ item, updateTotalPrice,removeItem
     }
   };
   const handleDeletePress = () => {
-    Alert.alert(
-      translate("demoCartListScreen.cartItem.titleAlert")
-      ,
-      translate("demoCartListScreen.cartItem.question")
-      , [
-      {
-        text:  translate("demoCartListScreen.cartItem.cancel"),
-        style: "cancel",
-      },
-      {
-        text:  translate("demoCartListScreen.cartItem.delete"),
-        onPress: () => {
-          setQuantity(0);
-          removeItem(item.id, item.price, quantity);
-        },
-      },
-    ]);
+    setQuantity(0);
+    removeItem(item.id, item.price, quantity);
   };
 
   return (
