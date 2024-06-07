@@ -2,7 +2,8 @@ import React, { ViewStyle, View } from "react-native";
 import { ImagePicker, AutoImage, TextField, Button, Icon } from "../";
 import { spacing, colors } from "../../theme";
 import type { ProductItemType } from "app/types";
-const { v4 } = require("uuid");
+import { v4 } from "uuid";
+import { Text } from "../Text";
 
 interface SelectImageGroupProps {
   itemType: ProductItemType[];
@@ -78,28 +79,34 @@ export const SelectImageGroup = (props: SelectImageGroupProps) => {
               />
               <View style={$itemContainerField}>
                 <View style={$itemContainerFieldInput}>
-                  <TextField
-                    value={item.name}
-                    onChangeText={(text) => onChangeName(text, item.id)}
-                    containerStyle={$textField}
-                    labelTx="common.type"
-                    placeholderTx="DemoCreateProductScreen.placeholder.itemType"
-                  />
+                  <Text weight="medium" tx="common.type" />
+                  <View style={$inpField}>
+                    <TextField
+                      value={item.name}
+                      onChangeText={(text) => onChangeName(text, item.id)}
+                      containerStyle={$textField}
+                      placeholderTx="DemoCreateProductScreen.placeholder.itemType"
+                    />
+                  </View>
                   <View style={$itemContainerFieldInput}>
-                    <TextField
-                      value={String(item.price)}
-                      onChangeText={(text) => onChangePrice(text, item.id)}
-                      containerStyle={$textField}
-                      labelTx="DemoCreateProductScreen.label.price"
-                      placeholderTx="DemoCreateProductScreen.placeholder.price"
-                    />
-                    <TextField
-                      value={String(item.quantity)}
-                      onChangeText={(text) => onChangeQuantity(text, item.id)}
-                      containerStyle={$textField}
-                      labelTx="DemoCreateProductScreen.label.quantity"
-                      placeholderTx="DemoCreateProductScreen.placeholder.quantity"
-                    />
+                    <Text weight="medium" tx="DemoCreateProductScreen.label.price" />
+                    <View style={$inpField}>
+                      <TextField
+                        value={String(item.price)}
+                        onChangeText={(text) => onChangePrice(text, item.id)}
+                        containerStyle={$textField}
+                        placeholderTx="DemoCreateProductScreen.placeholder.price"
+                      />
+                    </View>
+                    <Text weight="medium" tx="DemoCreateProductScreen.label.quantity" />
+                    <View style={$inpField}>
+                      <TextField
+                        value={String(item.quantity)}
+                        onChangeText={(text) => onChangeQuantity(text, item.id)}
+                        containerStyle={$textField}
+                        placeholderTx="DemoCreateProductScreen.placeholder.quantity"
+                      />
+                    </View>
                   </View>
                 </View>
                 <Button style={$recycleBinSolid} onPress={() => removeItem(item.id)}>
@@ -162,4 +169,13 @@ const $recycleBinSolid: ViewStyle = {
   zIndex: 1,
   borderWidth: 0,
   marginTop: spacing.xl,
+};
+
+const $inpField: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+  borderWidth: 2,
+  borderColor: colors.palette.neutral300,
+  borderRadius: spacing.xs,
+  minHeight: spacing.xxl,
 };

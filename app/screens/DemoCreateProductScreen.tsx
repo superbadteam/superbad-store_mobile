@@ -93,20 +93,23 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
         <View style={$createContainer}>
           <Text size="xl" style={$title} tx="DemoCreateProductScreen.createProduct" />
 
-          <TextField
-            value={product.name}
-            onChangeText={(text) => setProduct({ ...product, name: text })}
-            containerStyle={$textField}
-            labelTx="DemoCreateProductScreen.label.productName"
-            placeholderTx="DemoCreateProductScreen.placeholder.productName"
-          />
+          <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.productName" />
+          <View style={$inpField}>
+            <TextField
+              value={product.name}
+              onChangeText={(text) => setProduct({ ...product, name: text })}
+              containerStyle={$textField}
+              placeholderTx="DemoCreateProductScreen.placeholder.productName"
+            />
+          </View>
 
-          <View style={$descriptionField}>
+          <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.description" />
+          <View style={$inpField}>
             <TextField
               value={product.description}
               onChangeText={(text) => setProduct({ ...product, description: text })}
-              labelTx="DemoCreateProductScreen.label.description"
               placeholderTx="DemoCreateProductScreen.label.description"
+              containerStyle={$textField}
               multiline
             />
           </View>
@@ -198,11 +201,6 @@ const $textField: ViewStyle = {
   width: "100%",
 };
 
-const $descriptionField: ViewStyle = {
-  marginTop: spacing.lg,
-  width: "100%",
-};
-
 const $title: TextStyle = {
   marginBottom: spacing.lg,
 };
@@ -229,4 +227,13 @@ const $radioToggleGroupContainer: ViewStyle = {
   marginTop: spacing.lg,
   width: "100%",
   gap: spacing.lg,
+};
+
+const $inpField: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+  borderWidth: 2,
+  borderColor: colors.palette.neutral300,
+  borderRadius: spacing.xs,
+  minHeight: spacing.xxl,
 };

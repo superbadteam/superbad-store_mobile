@@ -37,6 +37,7 @@
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
     "@shopify/flash-list": "1.6.3",
+    "@types/uuid": "^9.0.8",
     "antd": "^5.17.2",
     "apisauce": "3.0.1",
     "date-fns": "^2.30.0",
