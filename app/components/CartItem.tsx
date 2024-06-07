@@ -85,14 +85,14 @@ const CartItems : React.FC<CartItemProps> = ({ item, updateTotalPrice,removeItem
       </View>
       <View style={$itemInformation}>
         <View style={$directionRow}>
-          <Text text={item.title} style={$title} />
+          <Text tx="demoCartListScreen.cartItem.title" txOptions={{title : item.title}} style={$title} />
         </View>
         <View style={$directionRow}>
-          <Text text={item.brand} style={$textMedium} />
-          <Text text={`$${item.price}`} style={$textMedium} />
+          <Text tx="demoCartListScreen.cartItem.brand" txOptions={{brand : item.brand}} style={$textMedium} />
+          <Text tx="demoCartListScreen.cartItem.itemPrice" txOptions={{itemPrice : item.price}} style={$textMedium} />
         </View>
         <View style={$directionRow}>
-          <Text text={`$${item.price * quantity}`} style={$textMedium} preset="bold" />
+          <Text tx="demoCartListScreen.cartItem.quantityPrice" txOptions={{quantityPrice : item.price*quantity}} style={$textMedium} preset="bold" />
           <Quantity
             quantity={quantity}
             increaseQuantity={increaseQuantity}
@@ -114,7 +114,13 @@ const $container: ViewStyle = {
   justifyContent: "space-between",
   paddingVertical: spacing.sm,
   marginBottom: spacing.xl,
-  backgroundColor: "white",
+  shadowColor: colors.palette.neutral900,
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 3.84,
   elevation: spacing.xxxs,
   borderRadius: spacing.sm,
 };

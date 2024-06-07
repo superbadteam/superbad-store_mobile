@@ -154,12 +154,18 @@ const en = {
       titleAlert : "Delete Item",
       question : "Are you sure you want to delete this item from your cart?",
       success: "Item deleted from cart",
+      brand : "{{brand}}",
+      itemPrice : "{{itemPrice}}",
+      title : "{{title}}",
+      quantityPrice : "${{quantityPrice}}",
     },
+    quantity : "{{quantity}}",
     noFavoritesEmptyState: {
       heading: "This looks a bit empty",
       content:
         "No favorites have been added yet. Tap the heart on an episode to add it to your favorites!",
     },
+    summaryPrice : "${{summaryPrice}}",
   },
   DemoCreateProductScreen: {
     createProduct: "Create Product",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image,ImageStyle, TextStyle, View, ViewStyle } from "react-native";
 import {
   Screen,
@@ -7,6 +7,7 @@ import {
 } from "../components";
 import { spacing, colors } from "../theme";
 import BackButton from "app/components/BackButton";
+import StarRating from "react-native-star-rating-widget";
 
 const DemoWriteReviewScreen : React.FC = ()=>{
   const product = {
@@ -14,6 +15,10 @@ const DemoWriteReviewScreen : React.FC = ()=>{
     name: "Calvin Clein Regular fit slim fit shirt ",
     imageUrl: "https://via.placeholder.com/200",
   };
+  const [rating, setRating] = useState(0);
+  useEffect(() => {
+    console.log("Current rating:", rating);
+  }, [rating]);
    return (
     <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
       <View style={$writeReviewHeader}>
@@ -24,6 +29,10 @@ const DemoWriteReviewScreen : React.FC = ()=>{
         <Image source={{uri : product.imageUrl}} style ={$image} />
         <View style={$containTitle}>
            <Text style = {$nameProduct} size="md" text={product.name}/>
+           <StarRating
+            rating={rating}
+            onChange={setRating}
+            />
         </View>
       </View>
       <TextField
@@ -46,7 +55,7 @@ const DemoWriteReviewScreen : React.FC = ()=>{
 export default DemoWriteReviewScreen;
 
 const $container: ViewStyle = {
-  paddingTop: spacing.lg,
+  paddingTop: spacing.sm,
   paddingBottom: spacing.xs,
   paddingHorizontal: spacing.lg,
 };
@@ -57,16 +66,17 @@ const $writeReviewHeader : ViewStyle ={
   flexDirection: "row",
 };
 const $containerInformation : ViewStyle = {
-  paddingTop : spacing.xl,
+  paddingTop : spacing.lg,
   flexDirection : "row",
   paddingBottom : spacing.sm,
 };
 const $containTitle : ViewStyle = {
   flexDirection : "column",
+  flexShrink: 1,
 };
 const $image: ImageStyle = {
-  width: spacing.xxxl+spacing.xxl,
-  height: spacing.xxxl+spacing.xxl,
+  width: spacing.xxxl+spacing.lg,
+  height: spacing.xxxl+spacing.lg,
   borderRadius: spacing.xxs,
 };
 const $textField: ViewStyle = {
@@ -85,3 +95,4 @@ const $nameProduct : TextStyle ={
    flexWrap: "wrap",
    width: "100%",
 };
+

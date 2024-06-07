@@ -1,8 +1,10 @@
 import React from "react";
-import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
+import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { colors } from "../theme/colors";
 import { spacing } from "app/theme";
+import { Text } from "./Text";
+
 
 interface QuantityProps {
   quantity: number;
@@ -16,7 +18,7 @@ const Quantity: React.FC<QuantityProps> = ({ quantity, increaseQuantity, decreas
       <TouchableOpacity style={$button} onPress={decreaseQuantity}>
         <Feather name="minus" size={15} />
       </TouchableOpacity>
-      <Text style={$quantity}>{quantity}</Text>
+      <Text style={$quantity} tx="demoCartListScreen.quantity" txOptions={{quantity: quantity}}></Text>
       <TouchableOpacity style={$button} onPress={increaseQuantity}>
         <Feather name="plus" size={15} />
       </TouchableOpacity>

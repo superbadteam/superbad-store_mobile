@@ -118,22 +118,21 @@ const DemoCartScreen: React.FC = () => {
           </View>
           <View style={$summaryItem}>
             <Text tx={"demoCartListScreen.totalPrice"} style={$textMedium} />
-            <Text text={`$${totalPrice}`} style={$textPrice} />
+            <Text tx={"demoCartListScreen.summaryPrice"} txOptions={{summaryPrice : totalAmount}} style={$textPrice} />
           </View>
           <View style={$summaryItem}>
             <Text tx={"demoCartListScreen.totalAmount"} preset="bold" style={$textTotal} />
-            <Text preset="bold" text={`$${totalAmount}`} style={$textTotal} />
+            <Text preset="bold" tx={"demoCartListScreen.summaryPrice"} txOptions={{summaryPrice : totalAmount}} style={$textTotal} />
           </View>
         </View>
         <View style={$totalContainer}>
           <Text tx={"demoCartListScreen.totalAmount"} style={$textMedium} />
           <View style={$totalAmountContainer}>
-            <Text preset="bold" text={`$${totalAmount}`} style={$textTotal} />
+            <Text preset="bold"  tx={"demoCartListScreen.summaryPrice"} txOptions={{summaryPrice : totalAmount}} style={$textTotal} />
             <Button
               tx={"demoCartListScreen.button.continue"}
               style={$button}
               textStyle={$buttonLabel}
-
             />
           </View>
         </View>
@@ -163,6 +162,13 @@ const $summaryCard: ViewStyle = {
   paddingVertical: spacing.md,
   marginBottom: spacing.md,
   backgroundColor: "white",
+  shadowColor: colors.palette.neutral900,
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 3.84,
   elevation: spacing.xxxs,
   borderRadius: spacing.xxs,
 };
