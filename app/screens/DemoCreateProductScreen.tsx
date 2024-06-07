@@ -78,7 +78,7 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
     useEffect(() => {
       const fetchCategories = async () => {
         const response = await getCategories();
-        setCategories(response);
+        if (response) setCategories(response);
       };
 
       fetchCategories();

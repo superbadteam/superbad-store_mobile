@@ -34,7 +34,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
     useEffect(() => {
       const fetchCategories = async () => {
           const response = await getCategories();
-          setCategories(response);
+          if (response) setCategories(response);
       };
 
       console.log(categories, "check category");

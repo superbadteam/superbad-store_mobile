@@ -2,7 +2,6 @@ import useSWR from "swr";
 import { notification } from "antd";
 import ApiService from "../modules";
 import { ApiErrorResponse } from "../api/api.types";
-import { Category } from "app/types";
 
 export const useGetCategories = () => {
   const {
