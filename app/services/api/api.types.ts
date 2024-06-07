@@ -42,6 +42,17 @@ export interface ApiLoginResponse {
   };
 }
 
+export interface ApiRegisterResponse {
+  id: string;
+  email: string;
+  name: string;
+  phoneNumber: string;
+  emailConfirmed: string;
+  phoneNumberConfirmed: string;
+  avatarUrl: string;
+  coverUrl: string;
+}
+
 /**
  * The options used to configure apisauce.
  */
