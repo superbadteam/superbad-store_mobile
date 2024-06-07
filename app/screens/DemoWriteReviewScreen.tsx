@@ -1,19 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Image,ImageStyle, TextStyle, View, ViewStyle } from "react-native";
 import {
-  Button,
-  RadioGroup,
   Screen,
   Text,
   TextField,
-  DropdownComponent,
-  SelectImageGroup,
 } from "../components";
-import type { RadioOption } from "../components/RadioGroup";
-import { DemoTabScreenProps } from "../navigators/DemoNavigator";
 import { spacing, colors } from "../theme";
-import type { Category } from "app/types";
-import { FloatingLabelInput } from 'react-native-floating-label-input';
 import BackButton from "app/components/BackButton";
 
 const DemoWriteReviewScreen : React.FC = ()=>{
@@ -28,7 +20,7 @@ const DemoWriteReviewScreen : React.FC = ()=>{
         <BackButton tintColor={colors.text} />
         <Text style={$title} size="xl" tx={"demoWriteReviewScreen.title"} />
       </View>
-      <View style={$containerInfor}>
+      <View style={$containerInformation}>
         <Image source={{uri : product.imageUrl}} style ={$image} />
         <View style={$containTitle}>
            <Text style = {$nameProduct} size="md" text={product.name}/>
@@ -64,14 +56,14 @@ const $title: TextStyle = {
 const $writeReviewHeader : ViewStyle ={
   flexDirection: "row",
 };
-const $containerInfor :  ViewStyle = {
+const $containerInformation : ViewStyle = {
   paddingTop : spacing.xl,
   flexDirection : "row",
   paddingBottom : spacing.sm,
 };
 const $containTitle : ViewStyle = {
   flexDirection : "column",
-}; 
+};
 const $image: ImageStyle = {
   width: spacing.xxxl+spacing.xxl,
   height: spacing.xxxl+spacing.xxl,
@@ -91,6 +83,5 @@ const $nameProduct : TextStyle ={
    marginLeft: spacing.md,
    flexDirection : "row",
    flexWrap: "wrap",
-   width: '100%', 
-}
-  
+   width: "100%",
+};

@@ -89,14 +89,14 @@ const DemoCartScreen: React.FC = () => {
   const updateTotalPrice = (price: number, quantityChange: number) => {
     setTotalPrice((prevTotalPrice) => prevTotalPrice + price * quantityChange);
   };
-  
+
   const removeItem = (itemId: number, itemPrice: number, itemQuantity: number) => {
     setCartItems((prevItems) => prevItems.filter(item => item.id !== itemId));
     updateTotalPrice(itemPrice, -itemQuantity);
   };
 
   const totalAmount = totalPrice ;
-  
+
   return (
     <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -110,7 +110,6 @@ const DemoCartScreen: React.FC = () => {
         <View style={$summaryCard}>
           <View style={$summaryItem}>
             <Text
-              // text={"Price Detail (" + `${cartItems.length}` + " items)"}
               tx="demoCartListScreen.summary"
               txOptions={{ count: cartItems.length }}
               preset="formLabel"
@@ -134,7 +133,7 @@ const DemoCartScreen: React.FC = () => {
               tx={"demoCartListScreen.button.continue"}
               style={$button}
               textStyle={$buttonLabel}
-              
+
             />
           </View>
         </View>

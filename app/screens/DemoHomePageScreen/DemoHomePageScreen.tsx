@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
 import { Image,Keyboard, ImageStyle, TextStyle, TouchableOpacity, View, ViewStyle} from "react-native";
-import { Screen, Text, TextField  } from "../../components";
+import { Screen, Text, TextField } from "../../components";
 import { DemoTabScreenProps } from "../../navigators/DemoNavigator";
 import { colors, spacing } from "../../theme";
 import { ScrollView } from "react-native-gesture-handler";
@@ -117,7 +117,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                 </View>
               </View>
           </TouchableOpacity>
-            
+
           <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
@@ -134,7 +134,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                 </View>
               </View>
           </TouchableOpacity>
-           
+
           <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>

@@ -13,6 +13,7 @@ import { Text } from "../Text";
 import Quantity from "../Quantity/Quantity";
 import { colors } from "../../theme/colors";
 import { spacing } from "app/theme";
+import { translate } from "i18n-js";
 interface CartItems {
   id : number;
   title: string;
@@ -23,7 +24,7 @@ interface CartItems {
 export interface CartItemProps {
   item: CartItems;
   updateTotalPrice: (price: number, quantityChange: number) => void;
-  removeItem: (itemId: number, itemPrice: number, itemQuantity: number) => void; 
+  removeItem: (itemId: number, itemPrice: number, itemQuantity: number) => void;
 }
 
 const CartItems : React.FC<CartItemProps> = ({ item, updateTotalPrice,removeItem }) => {
@@ -54,17 +55,20 @@ const CartItems : React.FC<CartItemProps> = ({ item, updateTotalPrice,removeItem
     }
   };
   const handleDeletePress = () => {
-    Alert.alert("Delete Item", "Are you sure you want to delete this item from your cart?", [
+    Alert.alert(
+      translate("demoCartListScreen.cartItem.titleAlert")
+      ,
+      translate("demoCartListScreen.cartItem.question")
+      , [
       {
-        text: "Cancel",
+        text:  translate("demoCartListScreen.cartItem.cancel"),
         style: "cancel",
       },
       {
-        text: "delete",
+        text:  translate("demoCartListScreen.cartItem.delete"),
         onPress: () => {
-          console.log("Item deleted from cart");
           setQuantity(0);
-          removeItem(item.id, item.price, quantity); 
+          removeItem(item.id, item.price, quantity);
         },
       },
     ]);

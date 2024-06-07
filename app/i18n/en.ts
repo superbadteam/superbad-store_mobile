@@ -148,11 +148,12 @@ const en = {
     button: {
       continue: "Continue",
     },
-    priceDetail: "Price detail (",
-    items: "items )",
     cartItem: {
       delete: "Delete",
-      cancel: "cancel",
+      cancel: "Cancel",
+      titleAlert : "Delete Item",
+      question : "Are you sure you want to delete this item from your cart?",
+      success: "Item deleted from cart",
     },
     noFavoritesEmptyState: {
       heading: "This looks a bit empty",
@@ -190,7 +191,7 @@ const en = {
      label : {
       headingReview : "Heading of your review",
       writeYourReview : "Write your review",
-    }
+    },
   },
   productDetailScreen: {
     size: "Type",
