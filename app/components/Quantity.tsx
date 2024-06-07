@@ -18,7 +18,7 @@ const Quantity: React.FC<QuantityProps> = ({ quantity, increaseQuantity, decreas
       <TouchableOpacity style={$button} onPress={decreaseQuantity}>
         <Feather name="minus" size={15} />
       </TouchableOpacity>
-      <Text style={$quantity} tx="demoCartListScreen.quantity" txOptions={{quantity: quantity}}></Text>
+      <Text style={$quantity} tx="demoCartListScreen.quantity" txOptions={{quantity}}></Text>
       <TouchableOpacity style={$button} onPress={increaseQuantity}>
         <Feather name="plus" size={15} />
       </TouchableOpacity>

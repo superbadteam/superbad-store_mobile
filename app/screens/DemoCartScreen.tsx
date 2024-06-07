@@ -128,7 +128,7 @@ const DemoCartScreen: React.FC = () => {
         <View style={$totalContainer}>
           <Text tx={"demoCartListScreen.totalAmount"} style={$textMedium} />
           <View style={$totalAmountContainer}>
-            <Text preset="bold"  tx={"demoCartListScreen.summaryPrice"} txOptions={{summaryPrice : totalAmount}} style={$textTotal} />
+            <Text preset="bold" tx={"demoCartListScreen.summaryPrice"} txOptions={{summaryPrice : totalAmount}} style={$textTotal} />
             <Button
               tx={"demoCartListScreen.button.continue"}
               style={$button}
