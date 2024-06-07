@@ -1,4 +1,3 @@
-import { observer } from "mobx-react-lite";
 import React, { ComponentType, FC, useMemo, useRef, useState } from "react";
 import { TextInput, TextStyle, ViewStyle } from "react-native";
 import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../components";
@@ -9,7 +8,7 @@ import { useRegister } from "app/services/hooks/useRegister";
 
 interface SignUpScreenProps extends AppStackScreenProps<"SignUp"> {}
 
-export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScreen({ navigation }) {
+export const SignUpScreen: FC<SignUpScreenProps> = () => {
   const authPasswordInput = useRef<TextInput>(null);
   const authPasswordInputConfirm = useRef<TextInput>(null);
   const nameInput = useRef<TextInput>(null);
@@ -37,18 +36,6 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
       },
     [isAuthPasswordHidden],
   );
-
-  const handleSignUp = () => {
-    signUpByEmail(
-      { name, email: authEmail, password: authPassword, confirmPassword: authPasswordConfirm },
-      {
-        onSuccess: () => {
-          navigation.navigate("Login");
-        },
-      },
-    );
-  };
-
   return (
     <Screen
       preset="auto"
@@ -113,7 +100,14 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
         secureTextEntry={isAuthPasswordHidden}
         labelTx="signUp.passwordConfirmFieldLabel"
         placeholderTx="signUp.passwordConfirmFieldPlaceholder"
-        onSubmitEditing={handleSignUp}
+        onSubmitEditing={() =>
+          signUpByEmail({
+            name,
+            email: authEmail,
+            password: authPassword,
+            confirmPassword: authPasswordConfirm,
+          })
+        }
         RightAccessory={PasswordRightAccessory}
       />
 
@@ -122,12 +116,19 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
         tx="signUp.signUp"
         style={$tapButton}
         preset="reversed"
-        onPress={handleSignUp}
+        onPress={() =>
+          signUpByEmail({
+            name,
+            email: authEmail,
+            password: authPassword,
+            confirmPassword: authPasswordConfirm,
+          })
+        }
         disabled={isMutating}
       />
     </Screen>
   );
-});
+};
 
 const $screenContentContainer: ViewStyle = {
   paddingVertical: spacing.xxl,

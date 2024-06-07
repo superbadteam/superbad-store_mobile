@@ -3,8 +3,10 @@ import { notification } from "antd";
 import { api } from "../api/api";
 import { ApiErrorResponse, ApiRegisterResponse } from "../api/api.types";
 import { useStores } from "app/models";
+import { useNavigation } from "@react-navigation/native";
 
 export const useRegister = () => {
+  const navigation = useNavigation();
   const {
     authenticationStore: { setAuthEmail },
   } = useStores();
@@ -25,6 +27,7 @@ export const useRegister = () => {
         });
       },
       onSuccess: (data: ApiRegisterResponse) => {
+        navigation.navigate("Login");
         setAuthEmail(data.email);
       },
     },
