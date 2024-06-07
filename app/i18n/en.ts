@@ -198,6 +198,10 @@ const en = {
       headingReview : "Heading of your review",
       writeYourReview : "Write your review",
     },
+    productName : "{{productName}}",
+    submit : "Submit",
+    messageSubmit : "Review Submitted",
+    descriptionSubmit: "Your review has been successfully submitted.",
   },
   productDetailScreen: {
     size: "Type",
