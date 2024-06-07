@@ -100,7 +100,6 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
 
           <View style={$listProductBody}>
           <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
-          <View style={$productItem}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
                 <Text style={$productName}>Adidas white sneakers for men</Text>
@@ -117,11 +116,9 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                   <Text style={$productComment}>(545)</Text>
                 </View>
               </View>
-            </View>
           </TouchableOpacity>
             
           <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
-            <View style={$productItem}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
                 <Text style={$productName}>Adidas white sneakers for men</Text>
@@ -136,11 +133,9 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                   <Text style={$productComment}>(545)</Text>
                 </View>
               </View>
-            </View>
           </TouchableOpacity>
            
           <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
-            <View style={$productItem}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
                 <Text style={$productName}>Adidas white sneakers for men</Text>
@@ -155,11 +150,9 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                   <Text style={$productComment}>(545)</Text>
                 </View>
               </View>
-            </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
-            <View style={$productItem}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
                 <Text style={$productName}>Adidas white sneakers for men</Text>
@@ -174,7 +167,6 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                   <Text style={$productComment}>(545)</Text>
                 </View>
               </View>
-            </View>
           </TouchableOpacity>
           </View>
         </View>
