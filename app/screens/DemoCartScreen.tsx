@@ -4,7 +4,7 @@ import { colors } from "../theme/colors";
 import { Text, Button, Screen } from "../components";
 import { spacing } from "app/theme";
 import BackButton from "app/components/BackButton";
-import CartItem from "app/components/CartItem/CartItem";
+import CartItem from "app/components/CartItem";
 
 const DemoCartScreen: React.FC = () => {
   const clothItems : CartItem[]=[

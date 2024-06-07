@@ -9,11 +9,11 @@ import {
   Alert,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Text } from "../Text";
-import Quantity from "../Quantity/Quantity";
-import { colors } from "../../theme/colors";
+import { Text } from "./Text";
+import Quantity from "./Quantity";
+import { colors } from "../theme/colors";
 import { spacing } from "app/theme";
-import { translate } from "i18n-js";
+import { translate } from "../i18n";
 interface CartItems {
   id : number;
   title: string;

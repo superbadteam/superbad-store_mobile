@@ -15,6 +15,6 @@ export * from "./RadioGroup";
 export * from "./Rating";
 export * from "./ImagePicker";
 export * from "./CreateProduct/SelectImageGroup";
-export * from "./CartItem/CartItem";
-export * from "./Quantity/Quantity";
+export * from "./CartItem";
+export * from "./Quantity";
 export * from "./BackButton";

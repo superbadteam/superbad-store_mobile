@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { colors } from "../../theme/colors";
+import { colors } from "../theme/colors";
 import { spacing } from "app/theme";
 
 interface QuantityProps {
