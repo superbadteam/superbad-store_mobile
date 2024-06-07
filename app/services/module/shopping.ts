@@ -1,6 +1,6 @@
 import { api } from "../api";
 import { ApiResponse } from "apisauce";
-import { ProductDetailResponse } from "app/types";
+import { AddToCartResponse, ProductDetailResponse } from "app/types";
 import { ApiError, ApiErrorResponse } from "../api/api.types";
 
 const BASE_ENDPOINT = "/shopping";
@@ -14,4 +14,24 @@ export const getDetailProduct = async (id: string): Promise<ProductDetailRespons
   }
 
   return response.data as ProductDetailResponse;
+};
+
+export const addProductToCart = async (productTypeId: string, quantity: number, authToken: string): Promise<any> => {
+  const response: ApiResponse<AddToCartResponse | ApiErrorResponse> = await api.apisauce.post(
+    `${BASE_ENDPOINT}/users/cart`,
+    {
+      productTypeId, quantity,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new ApiError(response.data as ApiErrorResponse);
+  }
+
+  return response.data as AddToCartResponse;
 };
