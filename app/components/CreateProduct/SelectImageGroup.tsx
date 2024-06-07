@@ -43,10 +43,11 @@ export const SelectImageGroup = (props: SelectImageGroupProps) => {
     setItemType(newItems);
   }
 
-  function onChangePrice(text: string, id: string) {
+
+  function onChangeData(text: string, id: string, type: string) {
     const newItems = itemType.map((item) => {
       if (item.id === id) {
-        return { ...item, price: Number(text) };
+        return type === "price" ? { ...item, price: Number(text) } : { ...item, quantity: Number(text) };
       }
       return item;
     });
@@ -93,7 +94,7 @@ export const SelectImageGroup = (props: SelectImageGroupProps) => {
                     <View style={$inpField}>
                       <TextField
                         value={String(item.price)}
-                        onChangeText={(text) => onChangePrice(text, item.id)}
+                        onChangeText={(text) => onChangeData(text, item.id, "price")}
                         containerStyle={$textField}
                         placeholderTx="DemoCreateProductScreen.placeholder.price"
                       />
@@ -102,7 +103,7 @@ export const SelectImageGroup = (props: SelectImageGroupProps) => {
                     <View style={$inpField}>
                       <TextField
                         value={String(item.quantity)}
-                        onChangeText={(text) => onChangeQuantity(text, item.id)}
+                        onChangeText={(text) => onChangeData(text, item.id, "quantity")}
                         containerStyle={$textField}
                         placeholderTx="DemoCreateProductScreen.placeholder.quantity"
                       />
