@@ -11,8 +11,8 @@ const en = {
   },
   welcomeScreen: {
     postscript:
-      "psst  — This probably isn't what your app looks like. (Unless your designer handed you these screens, and in that case, ship it!)",
-    readyForLaunch: "Your app, almost ready for launch!",
+      "Let's go shopping! Find the best deals on the latest products. You can even create your own products to sell!",
+    readyForLaunch: "Ready for launch!",
     exciting: "(ohh, this is exciting!)",
     letsGo: "Let's go!",
   },
@@ -66,6 +66,7 @@ const en = {
     debugTab: "Debug",
     communityTab: "Community",
     podcastListTab: "Podcast",
+    cartListTab: "Cart",
   },
   demoCommunityScreen: {
     title: "Connect with the community",
@@ -137,6 +138,48 @@ const en = {
         "No favorites have been added yet. Tap the heart on an episode to add it to your favorites!",
     },
   },
+  demoCartListScreen: {
+    title: "My Cart",
+    summary: "Price Detail ({{count}} items)",
+    onlyFavorites: "Only Show Favorites",
+    favoriteButton: "Favorite",
+    unfavoriteButton: "Unfavorite",
+    accessibility: {
+      cardHint:
+        "Double tap to listen to the episode. Double tap and hold to {{action}} this episode.",
+      switch: "Switch on to only show favorites",
+      favoriteAction: "Toggle Favorite",
+      favoriteIcon: "Episode not favorited",
+      unfavoriteIcon: "Episode favorited",
+      publishLabel: "Published {{date}}",
+      durationLabel: "Duration: {{hours}} hours {{minutes}} minutes {{seconds}} seconds",
+    },
+    totalPrice: "Total Price",
+    discount: "Discount",
+    deliveryFee: "Delivery fee",
+    totalAmount: "Total Amount",
+    button: {
+      continue: "Continue",
+    },
+    cartItem: {
+      delete: "Delete",
+      cancel: "Cancel",
+      titleAlert : "Delete Item",
+      question : "Are you sure you want to delete this item from your cart?",
+      success: "Item deleted from cart",
+      brand : "{{brand}}",
+      itemPrice : "{{itemPrice}}",
+      title : "{{title}}",
+      quantityPrice : "${{quantityPrice}}",
+    },
+    quantity : "{{quantity}}",
+    noFavoritesEmptyState: {
+      heading: "This looks a bit empty",
+      content:
+        "No favorites have been added yet. Tap the heart on an episode to add it to your favorites!",
+    },
+    summaryPrice : "${{summaryPrice}}",
+  },
   DemoCreateProductScreen: {
     createProduct: "Create Product",
     label: {
@@ -159,6 +202,19 @@ const en = {
     upload: "Upload",
     title: "Create product",
     submit: "Submit",
+  },
+  demoWriteReviewScreen:{
+     title : "Write Review",
+     addPhoto : "Add Photo",
+     submitReview : "Submit Review",
+     label : {
+      headingReview : "Heading of your review",
+      writeYourReview : "Write your review",
+    },
+    productName : "{{productName}}",
+    submit : "Submit",
+    messageSubmit : "Review Submitted",
+    descriptionSubmit: "Your review has been successfully submitted.",
   },
   productDetailScreen: {
     size: "Type",

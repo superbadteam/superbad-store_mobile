@@ -15,11 +15,15 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 import { useColorScheme } from "react-native";
 import * as Screens from "app/screens";
+import ProductDetailScreen from "app/screens/ProductDetailScreen/ProductDetailScreen";
 import Config from "../config";
 import { useStores } from "../models";
 import { DemoNavigator, DemoTabParamList } from "./DemoNavigator";
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities";
 import { colors } from "app/theme";
+import DemoCartScreen from "app/screens/DemoCartScreen";
+import FilterProductsScreen from "app/screens/FilterProductsScreen/FilterProductsScreen";
+import DemoWriteReviewScreen from "app/screens/DemoWriteReviewScreen";
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -39,6 +43,10 @@ export type AppStackParamList = {
   Login: undefined;
   SignUp: undefined;
   Demo: NavigatorScreenParams<DemoTabParamList>;
+  ProductDetailScreen : undefined;
+  CartScreen : undefined;
+  FilterProductsScreen : undefined;
+  WriteReviewScreen : undefined;
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 };
@@ -71,6 +79,10 @@ const AppStack = observer(function AppStack() {
         <>
           <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
           <Stack.Screen name="Demo" component={DemoNavigator} />
+          <Stack.Screen name="ProductDetailScreen" component={ProductDetailScreen}/>
+          <Stack.Screen name="CartScreen" component={DemoCartScreen}/>
+          <Stack.Screen name="FilterProductsScreen"component={FilterProductsScreen}/>
+          <Stack.Screen name="WriteReviewScreen" component={DemoWriteReviewScreen}/>
         </>
       ) : (
         <>

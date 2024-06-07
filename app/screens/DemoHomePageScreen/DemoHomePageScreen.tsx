@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
-import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native";
+import { Image,Keyboard, ImageStyle, TextStyle, TouchableOpacity, View, ViewStyle} from "react-native";
 import { Screen, Text, TextField } from "../../components";
 import { DemoTabScreenProps } from "../../navigators/DemoNavigator";
 import { colors, spacing } from "../../theme";
@@ -8,6 +8,7 @@ import { api } from "../../services/api";
 import type { Category } from "app/types";
 import SlideShow from "app/components/SlideShow";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const imgProduct = require("../../../assets/icons/product.jpg");
 export interface Demo {
@@ -41,12 +42,22 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
       console.log(categories, "check category");
       fetchCategories();
     }, []);
+    const navigation = useNavigation<any>();
 
+    const handleSearch = (text: string) => {
+      if (text && text.trim() !== "") {
+        navigation.navigate("FilterProductsScreen");
+        Keyboard.dismiss();
+      }
+    };
+    const handleProductDetail = ()=>{
+        navigation.navigate("ProductDetailScreen");
+    };
     return (
       <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$screenContainer}>
         <View style={$search}>
           <Ionicons style={$iconSearch} name="search-outline" size={20} color="black" />
-          <TextField style={$inputSearch} placeholderTx="demoHomePageScreen.placeholderSearch" />
+          <TextField style={$inputSearch} placeholderTx="demoHomePageScreen.placeholderSearch" onSubmitEditing={(event) => handleSearch(event.nativeEvent.text)}/>
         </View>
 
         <View style={$listCategory}>
@@ -88,7 +99,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
           </View>
 
           <View style={$listProductBody}>
-            <View style={$productItem}>
+          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
                 <Text style={$productName}>Adidas white sneakers for men</Text>
@@ -105,9 +116,9 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                   <Text style={$productComment}>(545)</Text>
                 </View>
               </View>
-            </View>
+          </TouchableOpacity>
 
-            <View style={$productItem}>
+          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
                 <Text style={$productName}>Adidas white sneakers for men</Text>
@@ -122,9 +133,9 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                   <Text style={$productComment}>(545)</Text>
                 </View>
               </View>
-            </View>
+          </TouchableOpacity>
 
-            <View style={$productItem}>
+          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
                 <Text style={$productName}>Adidas white sneakers for men</Text>
@@ -139,9 +150,9 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                   <Text style={$productComment}>(545)</Text>
                 </View>
               </View>
-            </View>
+          </TouchableOpacity>
 
-            <View style={$productItem}>
+          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
                 <Text style={$productName}>Adidas white sneakers for men</Text>
@@ -156,7 +167,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                   <Text style={$productComment}>(545)</Text>
                 </View>
               </View>
-            </View>
+          </TouchableOpacity>
           </View>
         </View>
       </Screen>
