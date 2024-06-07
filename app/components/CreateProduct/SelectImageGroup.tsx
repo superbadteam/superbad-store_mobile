@@ -54,16 +54,6 @@ export const SelectImageGroup = (props: SelectImageGroupProps) => {
     setItemType(newItems);
   }
 
-  function onChangeQuantity(text: string, id: string) {
-    const newItems = itemType.map((item) => {
-      if (item.id === id) {
-        return { ...item, quantity: Number(text) };
-      }
-      return item;
-    });
-    setItemType(newItems);
-  }
-
   return (
     <View style={$container}>
       <ImagePicker type="gallery" titleTx="common.selectImage" onSelectedImage={selectedImage} />

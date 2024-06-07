@@ -9,15 +9,12 @@ import {
   DropdownComponent,
   SelectImageGroup,
 } from "../components";
-import { notification } from "antd";
 import type { RadioOption } from "../components/RadioGroup";
 import { DemoTabScreenProps } from "../navigators/DemoNavigator";
 import { spacing, colors } from "../theme";
-import ApiService from "app/services/modules";
-import type { Category, SubCategory, Product } from "app/types";
+import type { Category, SubCategory } from "app/types";
 import { useStores } from "app/models";
-import { useGetCategories } from "app/services/hooks/useInventory";
-import { translate } from "../i18n";
+import { useGetCategories, useInventory } from "app/services/hooks/useInventory";
 
 export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">> =
   function DemoCreateProductScreen(_props) {
@@ -35,44 +32,10 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
     const [categories, setCategories] = useState<Category[]>([]);
     const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
 
-    const [product, setProduct] = useState<Product>({
-      name: "",
-      description: "",
-      categoryId: "",
-      types: [],
-      images: [{ url: "xxx" }],
-      condition: "New",
-    });
+    const { createProduct, isMutating, product, setProduct } = useInventory();
 
     function onSelectParentCategory(item: Category) {
       setSubCategories(item.subCategories);
-    }
-
-    async function createProduct() {
-      try {
-        if (!authToken) return;
-
-        const imageCalls = product.types.map(async (type, index) => {
-          const res = await fetch(type.imageUrl);
-          const blob = await res.blob();
-          const fd = new FormData();
-          const file = new File([blob], "filename", { type: "image/jpeg" });
-          fd.append("images", file);
-          const response = await ApiService.shared.uploadsImage(fd, authToken);
-          product.types[index].imageUrl = response.urls[0];
-          setProduct({ ...product });
-        });
-
-        await Promise.all(imageCalls);
-        await ApiService.inventory.createProduct(product, authToken);
-        notification.success({
-          message: translate("DemoCreateProductScreen.notification.createSuccess"),
-        });
-      } catch (error) {
-        notification.error({
-          message: translate("DemoCreateProductScreen.notification.createError"),
-        });
-      }
     }
 
     useEffect(() => {
@@ -160,6 +123,7 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
           <Button
             style={$submit}
             textStyle={$submitText}
+            disabled={isMutating}
             onPress={() => {
               createProduct();
             }}
@@ -232,12 +196,4 @@ const $inpField: ViewStyle = {
   borderColor: colors.palette.neutral300,
   borderRadius: spacing.xs,
   minHeight: spacing.xxl,
-};
-
-const $loading: ViewStyle = {
-  flex: 1,
-  justifyContent: "center",
-  alignItems: "center",
-  position: "absolute",
-  top: 0,
 };

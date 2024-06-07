@@ -17,7 +17,6 @@ import {
   ApiRegisterResponse,
 } from "./api.types";
 import type { EpisodeSnapshotIn } from "app/models/Episode";
-import { Category } from "app/types";
 /**
  * Configuring the apisauce instance.
  */
