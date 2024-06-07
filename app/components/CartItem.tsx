@@ -10,8 +10,7 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Text } from "./Text";
 import Quantity from "./Quantity";
-import { colors } from "../theme/colors";
-import { spacing } from "app/theme";
+import { colors , spacing } from "app/theme";
 interface CartItems {
   id : number;
   title: string;
