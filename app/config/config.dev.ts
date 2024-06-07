@@ -7,4 +7,16 @@
  */
 export default {
   API_URL: "http://localhost:3000/api",
+  ENDPOINT: {
+    identity: {
+      login: "identity/auth/login",
+    },
+    inventory: {
+      categories: "inventory/categories",
+      products: "inventory/products",
+    },
+    shopping: {
+      products: (id: string) => `shopping/products/${id}`,
+    },
+  },
 };

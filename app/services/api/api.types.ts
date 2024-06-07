@@ -34,14 +34,6 @@ export interface ApiFeedResponse {
   items: EpisodeItem[];
 }
 
-export interface ApiLoginResponse {
-  emailConfirmed: boolean;
-  token: {
-    accessToken: string;
-    refreshToken: string;
-  };
-}
-
 /**
  * The options used to configure apisauce.
  */
@@ -50,6 +42,8 @@ export interface ApiConfig {
    * The URL of the api.
    */
   url: string;
+
+  endpoint: any;
 
   /**
    * Milliseconds before we timeout the request.

@@ -1,8 +1,10 @@
 import useSWRMutation from "swr/mutation";
 import { notification } from "antd";
-import { api } from "../api/api";
-import { ApiErrorResponse, ApiLoginResponse } from "../api/api.types";
+import ApiService from "../modules";
+import { ApiErrorResponse } from "../api/api.types";
+import { ApiLoginResponse } from "app/types";
 import { useStores } from "app/models";
+import Config from "app/config";
 
 export const useLogin = () => {
   const {
@@ -10,11 +12,11 @@ export const useLogin = () => {
   } = useStores();
 
   const { trigger: loginByEmail, isMutating } = useSWRMutation(
-    "api/identity/auth/login",
+    Config.ENDPOINT.identity.login,
     async (key: string, { arg }: { arg: { email: string; password: string } }) => {
       const { email, password } = arg;
       setAuthEmail(email);
-      return await api.loginByEmail(email, password);
+      return await ApiService.identity.loginByEmail(email, password);
     },
     {
       onError: (error: ApiErrorResponse) => {

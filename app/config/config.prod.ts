@@ -7,4 +7,13 @@
  */
 export default {
   API_URL: "CHANGEME",
+  ENDPOINT: {
+    identity: {
+      login: "CHANGEME",
+    },
+    inventory: {
+      categories: "CHANGEME",
+      products: "CHANGEME",
+    },
+  },
 };

@@ -1,12 +1,13 @@
 import useSWRMutation from "swr/mutation";
 import { notification } from "antd";
-import ApiService from "../module";
+import ApiService from "../modules";
 import { ApiErrorResponse } from "../api/api.types";
 import { Category } from "app/types";
+import Config from "app/config";
 
 export const useGetCategories = () => {
   const { trigger: getCategories, isMutating } = useSWRMutation(
-    "api/identity/categories",
+    Config.ENDPOINT.inventory.categories,
     async () => {
       return await ApiService.inventory.getCategories();
     },

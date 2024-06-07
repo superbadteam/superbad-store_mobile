@@ -13,7 +13,7 @@ import { notification } from "antd";
 import type { RadioOption } from "../components/RadioGroup";
 import { DemoTabScreenProps } from "../navigators/DemoNavigator";
 import { spacing, colors } from "../theme";
-import ApiService from "app/services/module";
+import ApiService from "app/services/modules";
 import type { Category, SubCategory, Product } from "app/types";
 import { useStores } from "app/models";
 import { useGetCategories } from "app/services/hooks/useInventory";

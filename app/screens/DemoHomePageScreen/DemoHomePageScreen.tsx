@@ -1,5 +1,13 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
-import { Image,Keyboard, ImageStyle, TextStyle, TouchableOpacity, View, ViewStyle} from "react-native";
+import {
+  Image,
+  Keyboard,
+  ImageStyle,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native";
 import { Screen, Text, TextField } from "../../components";
 import { DemoTabScreenProps } from "../../navigators/DemoNavigator";
 import { colors, spacing } from "../../theme";
@@ -50,14 +58,18 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
         Keyboard.dismiss();
       }
     };
-    const handleProductDetail = ()=>{
-        navigation.navigate("ProductDetailScreen");
+    const handleProductDetail = (id: string) => {
+      navigation.navigate("ProductDetailScreen", { id });
     };
     return (
       <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$screenContainer}>
         <View style={$search}>
           <Ionicons style={$iconSearch} name="search-outline" size={20} color="black" />
-          <TextField style={$inputSearch} placeholderTx="demoHomePageScreen.placeholderSearch" onSubmitEditing={(event) => handleSearch(event.nativeEvent.text)}/>
+          <TextField
+            style={$inputSearch}
+            placeholderTx="demoHomePageScreen.placeholderSearch"
+            onSubmitEditing={(event) => handleSearch(event.nativeEvent.text)}
+          />
         </View>
 
         <View style={$listCategory}>
@@ -99,7 +111,10 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
           </View>
 
           <View style={$listProductBody}>
-          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
+            <TouchableOpacity
+              style={$productItem}
+              onPress={() => handleProductDetail("4fdae4dc-4130-4cf9-9f92-1e6d02e1ff3e")}
+            >
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
                 <Text style={$productName}>Adidas white sneakers for men</Text>
@@ -116,9 +131,12 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                   <Text style={$productComment}>(545)</Text>
                 </View>
               </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
+            <TouchableOpacity
+              style={$productItem}
+              onPress={() => handleProductDetail("4fdae4dc-4130-4cf9-9f92-1e6d02e1ff3e")}
+            >
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
                 <Text style={$productName}>Adidas white sneakers for men</Text>
@@ -133,9 +151,12 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                   <Text style={$productComment}>(545)</Text>
                 </View>
               </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
+            <TouchableOpacity
+              style={$productItem}
+              onPress={() => handleProductDetail("4fdae4dc-4130-4cf9-9f92-1e6d02e1ff3e")}
+            >
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
                 <Text style={$productName}>Adidas white sneakers for men</Text>
@@ -150,9 +171,12 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                   <Text style={$productComment}>(545)</Text>
                 </View>
               </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
+            <TouchableOpacity
+              style={$productItem}
+              onPress={() => handleProductDetail("4fdae4dc-4130-4cf9-9f92-1e6d02e1ff3e")}
+            >
               <Image source={imgProduct} style={$imgProduct} />
               <View style={$productItemContain}>
                 <Text style={$productName}>Adidas white sneakers for men</Text>
@@ -167,7 +191,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
                   <Text style={$productComment}>(545)</Text>
                 </View>
               </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
           </View>
         </View>
       </Screen>

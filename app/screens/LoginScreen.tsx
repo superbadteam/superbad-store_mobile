@@ -5,7 +5,7 @@ import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "
 import { useStores } from "../models";
 import { AppStackScreenProps } from "../navigators";
 import { colors, spacing } from "../theme";
-import { useLogin } from "../services/hooks/useLogin";
+import { useLogin } from "../services/hooks";
 
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
