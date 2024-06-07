@@ -16,8 +16,8 @@ import {
   ApiErrorResponse,
   ApiRegisterResponse,
 } from "./api.types";
-import type { EpisodeSnapshotIn } from "app/models/Episode";
-import { Category } from "app/types";
+import type { EpisodeSnapshotIn } from "../../models/Episode";
+import { Category, Products } from "app/types";
 /**
  * Configuring the apisauce instance.
  */
@@ -134,6 +134,16 @@ export class Api {
     }
 
     return response.data as ApiRegisterResponse;
+  }
+
+  async getProducts(queryUrl: string): Promise<Products> {
+    const response: ApiResponse<Products | ApiErrorResponse> = await this.apisauce.get(
+      `shopping/products${queryUrl}`,
+    );
+    if (!response.ok) {
+      throw new ApiError(response.data as ApiErrorResponse);
+    }
+    return response.data as Products;
   }
 }
 

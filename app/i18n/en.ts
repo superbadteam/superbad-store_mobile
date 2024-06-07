@@ -244,6 +244,9 @@ const en = {
     notFound: "No Results Found",
     results: "results",
   },
+  productItem: {
+    sold: "Sold",
+  },
 };
 
 export default en;
