@@ -33,12 +33,8 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
 
     useEffect(() => {
       const fetchCategories = async () => {
-        try {
           const response = await getCategories();
           setCategories(response);
-        } catch (error) {
-          console.error("Error fetching categories:", error);
-        }
       };
 
       console.log(categories, "check category");
