@@ -36,6 +36,7 @@ const en = {
   },
   loginScreen: {
     signIn: "Sign In",
+    nextScreen: "Sign Up",
     enterDetails:
       "Enter your details below to unlock top secret info. You'll never guess what we've got waiting. Or maybe you will; it's not rocket science here.",
     emailFieldLabel: "Email",
@@ -47,6 +48,18 @@ const en = {
     loginWithEmail: "Login with Email",
     login: "Login",
     forgotPassword: "Forgot Password?",
+  },
+  signUp: {
+    signUp: "Sign up",
+    signUpWithEmail: "Sign up with Email",
+    nameFieldPlaceholder: "Full Name",
+    emailFieldPlaceholder: "Email Id",
+    passwordFieldPlaceholder: "Password",
+    passwordConfirmFieldPlaceholder: "Confirm Password",
+    nameFieldLabel: "Full Name",
+    emailFieldLabel: "Email",
+    passwordFieldLabel: "Password",
+    passwordConfirmFieldLabel: "Confirm Password",
   },
   demoNavigator: {
     componentsTab: "Components",

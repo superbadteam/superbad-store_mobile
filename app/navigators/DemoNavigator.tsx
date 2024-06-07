@@ -23,6 +23,8 @@ export type DemoTabParamList = {
   DemoPodcastList: undefined;
   DemoCreateProduct: undefined;
   ProductDetail: undefined;
+  LoginScreen: undefined;
+  SignUpScreen: undefined;
 };
 
 /**
