@@ -127,6 +127,7 @@ const en = {
   },
   demoCartListScreen: {
     title: "My Cart",
+    summary: "Price Detail ({{count}} items)",
     onlyFavorites: "Only Show Favorites",
     favoriteButton: "Favorite",
     unfavoriteButton: "Unfavorite",

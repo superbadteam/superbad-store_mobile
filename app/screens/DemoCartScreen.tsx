@@ -110,7 +110,9 @@ const DemoCartScreen: React.FC = () => {
         <View style={$summaryCard}>
           <View style={$summaryItem}>
             <Text
-              text={"Price Detail (" + `${cartItems.length}` + " items)"}
+              // text={"Price Detail (" + `${cartItems.length}` + " items)"}
+              tx="demoCartListScreen.summary"
+              txOptions={{ count: cartItems.length }}
               preset="formLabel"
               style={$textMedium}
             />
