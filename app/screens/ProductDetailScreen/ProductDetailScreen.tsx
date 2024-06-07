@@ -7,6 +7,7 @@ import Rating from "app/components/Rating";
 import { Text } from "app/components";
 import { colors } from "app/theme";
 import CustomHeader from "app/components/CustomHeader";
+import { useNavigation } from "@react-navigation/native";
 
 const ProductDetailScreen = () => {
   const product = {
@@ -31,6 +32,11 @@ const ProductDetailScreen = () => {
   const rightContents = ["heart-outline", "share-outline", "cart-outline"];
 
   const [selectedType, setSelectedType] = useState<number>(-1);
+
+  const navigation = useNavigation<any>();
+  const handleAddToCart = () => {
+    navigation.navigate("CartScreen");
+  };
 
   return (
     <View style={$container}>
@@ -99,7 +105,8 @@ const ProductDetailScreen = () => {
 
       {/* Buttons */}
       <View style={$buttonContainer}>
-        <TouchableOpacity style={[$button, $addToCartButton]}>
+        <TouchableOpacity style={[$button, $addToCartButton]}
+        onPress = {handleAddToCart}>
           <Text
             style={[$buttonText, { color: colors.blue }]}
             tx="productDetailScreen.addToCart"

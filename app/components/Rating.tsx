@@ -3,10 +3,16 @@ import { View, TouchableOpacity, TextStyle, ViewStyle } from "react-native";
 import { Text } from "app/components";
 import { colors, spacing } from "app/theme";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 interface RatingProps {}
 
 const Rating: React.FC<RatingProps> = () => {
+  const navigation = useNavigation<any>();
+  const handleRate = () => {
+    navigation.navigate("WriteReviewScreen");
+  };
+
   return (
     <View style={$container}>
       <View style={$reviewHeader}>
@@ -22,7 +28,7 @@ const Rating: React.FC<RatingProps> = () => {
               <Text style={$quantityRating}>574 Ratings</Text>
             </View>
           </View>
-          <TouchableOpacity style={[$button, $addToCartButton]}>
+          <TouchableOpacity style={[$button, $addToCartButton]} onPress = {handleRate}>
             <Text style={[$buttonText, { color: colors.blue }]} tx="listReview.rateBtn" />
           </TouchableOpacity>
         </View>

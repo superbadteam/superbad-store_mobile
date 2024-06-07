@@ -12,6 +12,7 @@ import {
   DemoCreateProductScreen,
 } from "../screens";
 import { DemoPodcastListScreen } from "../screens/DemoPodcastListScreen";
+import DemoCartScreen from "../screens/DemoCartScreen";
 import { colors, spacing, typography } from "../theme";
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator";
 import ProductDetailScreen from "app/screens/ProductDetailScreen/ProductDetailScreen";
@@ -21,6 +22,7 @@ export type DemoTabParamList = {
   DemoHomePage: { queryIndex?: string; itemIndex?: string };
   DemoDebug: undefined;
   DemoPodcastList: undefined;
+  DemoCartList: undefined;
   DemoCreateProduct: undefined;
   ProductDetail: undefined;
 };
@@ -92,6 +94,17 @@ export function DemoNavigator() {
           ),
         }}
       />
+      <Tab.Screen
+        name="DemoCartList"
+        component={DemoCartScreen}
+        options={{
+          tabBarAccessibilityLabel: translate("demoNavigator.cartListTab"),
+          tabBarLabel: translate("demoNavigator.cartListTab"),
+          tabBarIcon: ({ focused }) => (
+            <Icon icon="cart" color={focused ? colors.tint : undefined} size={30} />
+          ),
+        }}
+      />
 
       <Tab.Screen
         name="DemoDebug"
@@ -103,7 +116,6 @@ export function DemoNavigator() {
           ),
         }}
       />
-
       <Tab.Screen
         name="DemoCreateProduct"
         component={DemoCreateProductScreen}
