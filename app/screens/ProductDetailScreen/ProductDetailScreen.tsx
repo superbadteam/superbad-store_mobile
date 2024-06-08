@@ -7,10 +7,7 @@ import Rating from "app/components/Rating";
 import { Text } from "app/components";
 import { colors } from "app/theme";
 import CustomHeader from "app/components/CustomHeader";
-import { useNavigation } from "@react-navigation/native";
-import { useStores } from "app/models";
-import ApiService from "app/services/module";
-import { notification } from "antd";
+import { useAddProductToCart } from "app/services/hooks/useShopping";
 
 const ProductDetailScreen = () => {
   const product = {
@@ -35,30 +32,13 @@ const ProductDetailScreen = () => {
   const rightContents = ["heart-outline", "share-outline", "cart-outline"];
 
   const [selectedType, setSelectedType] = useState<number>(0);
+  const { addProductToCart, isMutating } = useAddProductToCart();
 
-  const navigation = useNavigation<any>();
+
   const handleAddToCart = () => {
     addProductToCart();
   };
 
-  const {
-    authenticationStore: { authToken },
-  } = useStores();
-
-  async function addProductToCart() {
-    try {
-      if (!authToken) return;
-      await ApiService.shopping.addProductToCart("9652cb3b-40bf-4707-a949-bd12185ad428", 1, authToken);
-      notification.success({
-        message: "Add product to cart successfully",
-      });
-      navigation.navigate("CartScreen");
-    } catch (error) {
-      notification.error({
-        message: "Error add product to cart",
-      });
-    }
-  }
 
   return (
     <View style={$container}>
@@ -128,7 +108,7 @@ const ProductDetailScreen = () => {
       {/* Buttons */}
       <View style={$buttonContainer}>
         <TouchableOpacity style={[$button, $addToCartButton]}
-        onPress = {handleAddToCart}>
+          onPress={handleAddToCart} disabled={isMutating}>
           <Text
             style={[$buttonText, { color: colors.blue }]}
             tx="productDetailScreen.addToCart"
