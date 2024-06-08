@@ -3,25 +3,20 @@ import { CompositeScreenProps } from "@react-navigation/native";
 import React from "react";
 import { TextStyle, ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Icon } from "../components";
 import { translate } from "../i18n";
 import {
-  DemoCommunityScreen,
   DemoHomePageScreen,
-  DemoDebugScreen,
   DemoCreateProductScreen,
 } from "../screens";
-import { DemoPodcastListScreen } from "../screens/DemoPodcastListScreen";
+import { Ionicons } from "@expo/vector-icons";
 import DemoCartScreen from "../screens/DemoCartScreen";
 import { colors, spacing, typography } from "../theme";
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator";
 import ProductDetailScreen from "app/screens/ProductDetailScreen/ProductDetailScreen";
 
 export type DemoTabParamList = {
-  DemoCommunity: undefined;
   DemoHomePage: { queryIndex?: string; itemIndex?: string };
   DemoDebug: undefined;
-  DemoPodcastList: undefined;
   DemoCartList: undefined;
   DemoCreateProduct: undefined;
   ProductDetail: undefined;
@@ -67,32 +62,9 @@ export function DemoNavigator() {
         name="DemoHomePage"
         component={DemoHomePageScreen}
         options={{
-          tabBarLabel: translate("demoNavigator.componentsTab"),
+          tabBarLabel: translate("demoHomePageScreen.home"),
           tabBarIcon: ({ focused }) => (
-            <Icon icon="components" color={focused ? colors.tint : undefined} size={30} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="DemoCommunity"
-        component={DemoCommunityScreen}
-        options={{
-          tabBarLabel: translate("demoNavigator.communityTab"),
-          tabBarIcon: ({ focused }) => (
-            <Icon icon="community" color={focused ? colors.tint : undefined} size={30} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="DemoPodcastList"
-        component={DemoPodcastListScreen}
-        options={{
-          tabBarAccessibilityLabel: translate("demoNavigator.podcastListTab"),
-          tabBarLabel: translate("demoNavigator.podcastListTab"),
-          tabBarIcon: ({ focused }) => (
-            <Icon icon="podcast" color={focused ? colors.tint : undefined} size={30} />
+            <Ionicons name="home" color={focused ? colors.tint : undefined} size={30} />
           ),
         }}
       />
@@ -103,18 +75,7 @@ export function DemoNavigator() {
           tabBarAccessibilityLabel: translate("demoNavigator.cartListTab"),
           tabBarLabel: translate("demoNavigator.cartListTab"),
           tabBarIcon: ({ focused }) => (
-            <Icon icon="cart" color={focused ? colors.tint : undefined} size={30} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="DemoDebug"
-        component={DemoDebugScreen}
-        options={{
-          tabBarLabel: translate("demoNavigator.debugTab"),
-          tabBarIcon: ({ focused }) => (
-            <Icon icon="debug" color={focused ? colors.tint : undefined} size={30} />
+            <Ionicons name="cart" color={focused ? colors.tint : undefined} size={30} />
           ),
         }}
       />
@@ -122,9 +83,9 @@ export function DemoNavigator() {
         name="DemoCreateProduct"
         component={DemoCreateProductScreen}
         options={{
-          tabBarLabel: "create",
+          tabBarLabel: translate("DemoCreateProductScreen.create"),
           tabBarIcon: ({ focused }) => (
-            <Icon icon="debug" color={focused ? colors.tint : undefined} size={30} />
+            <Ionicons name="create-sharp" color={focused ? colors.tint : undefined} size={30} />
           ),
         }}
       />
@@ -133,9 +94,9 @@ export function DemoNavigator() {
         name="ProductDetail"
         component={ProductDetailScreen}
         options={{
-          tabBarLabel: "product detail",
+          tabBarLabel: translate("productDetailScreen.productDetail"),
           tabBarIcon: ({ focused }) => (
-            <Icon icon="debug" color={focused ? colors.tint : undefined} size={30} />
+            <Ionicons name="bag" color={focused ? colors.tint : undefined} size={30} />
           ),
         }}
       />

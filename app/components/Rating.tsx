@@ -11,7 +11,6 @@ export interface RatingProps {
   productId: string;
 }
 
-
 const Rating: React.FC<RatingProps> = ({productId}) => {
   const navigation = useNavigation<any>();
   const handleRate = () => {
@@ -66,7 +65,6 @@ const Rating: React.FC<RatingProps> = ({productId}) => {
           <Text style={$reviewDate}>{review.reviewer.name}, {new Date(review.createdAt).toLocaleDateString()}</Text>
         </View>
     ))}
-
     </View>
   );
 };
@@ -165,6 +163,5 @@ const $reviewStar: ViewStyle = {
   gap: spacing.xs,
   marginTop: spacing.xxs,
 };
-
 
 export default Rating;

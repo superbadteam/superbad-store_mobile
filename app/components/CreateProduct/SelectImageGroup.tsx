@@ -1,26 +1,25 @@
 import React, { ViewStyle, View } from "react-native";
 import { ImagePicker, AutoImage, TextField, Button, Icon } from "../";
-import { useState } from "react";
 import { spacing, colors } from "../../theme";
+import type { ProductItemType } from "app/types";
+import { v4 } from "uuid";
+import { Text } from "../Text";
 
-interface ItemType {
-  id: number;
-  img: string;
-  name: string;
-  price: number;
+interface SelectImageGroupProps {
+  itemType: ProductItemType[];
+  setItemType: (types: ProductItemType[]) => void;
 }
-export const SelectImageGroup = () => {
-  const [itemType, setItemType] = useState<ItemType[]>([]);
-
+export const SelectImageGroup = (props: SelectImageGroupProps) => {
+  const { itemType, setItemType } = props;
   const selectedImage = (image: string) => {
-    const newId = itemType.length > 0 ? itemType[itemType.length - 1].id + 1 : 1;
     setItemType([
       ...itemType,
       {
-        id: newId,
-        img: image,
+        id: v4(),
+        imageUrl: image,
         name: "",
         price: 0,
+        quantity: 0,
       },
     ]);
   };
@@ -29,10 +28,31 @@ export const SelectImageGroup = () => {
     setItemType([]);
   };
 
-  const removeItem = (id: number) => {
+  const removeItem = (id: string) => {
     const newItems = itemType.filter((item) => item.id !== id);
     setItemType(newItems);
   };
+
+  function onChangeName(text: string, id: string) {
+    const newItems = itemType.map((item) => {
+      if (item.id === id) {
+        return { ...item, name: text };
+      }
+      return item;
+    });
+    setItemType(newItems);
+  }
+
+
+  function onChangeData(text: string, id: string, type: string) {
+    const newItems = itemType.map((item) => {
+      if (item.id === id) {
+        return type === "price" ? { ...item, price: Number(text) } : { ...item, quantity: Number(text) };
+      }
+      return item;
+    });
+    setItemType(newItems);
+  }
 
   return (
     <View style={$container}>
@@ -40,26 +60,45 @@ export const SelectImageGroup = () => {
       {itemType.length > 0 && <Button tx="common.removeAll" onPress={resetData} />}
       {itemType.map((item) => {
         return (
-          item.img && (
+          item.imageUrl && (
             <View key={item.id} style={$itemContainer}>
               <AutoImage
                 maxWidth={300}
                 maxHeight={200}
                 resizeMode="contain"
-                source={{ uri: item.img }}
+                source={{ uri: item.imageUrl }}
               />
               <View style={$itemContainerField}>
                 <View style={$itemContainerFieldInput}>
-                  <TextField
-                    containerStyle={$textField}
-                    labelTx="common.type"
-                    placeholderTx="DemoCreateProductScreen.placeholder.itemType"
-                  />
-                  <TextField
-                    containerStyle={$textField}
-                    labelTx="DemoCreateProductScreen.label.price"
-                    placeholderTx="DemoCreateProductScreen.placeholder.price"
-                  />
+                  <Text weight="medium" tx="common.type" />
+                  <View style={$inpField}>
+                    <TextField
+                      value={item.name}
+                      onChangeText={(text) => onChangeName(text, item.id)}
+                      containerStyle={$textField}
+                      placeholderTx="DemoCreateProductScreen.placeholder.itemType"
+                    />
+                  </View>
+                  <View style={$itemContainerFieldInput}>
+                    <Text weight="medium" tx="DemoCreateProductScreen.label.price" />
+                    <View style={$inpField}>
+                      <TextField
+                        value={String(item.price)}
+                        onChangeText={(text) => onChangeData(text, item.id, "price")}
+                        containerStyle={$textField}
+                        placeholderTx="DemoCreateProductScreen.placeholder.price"
+                      />
+                    </View>
+                    <Text weight="medium" tx="DemoCreateProductScreen.label.quantity" />
+                    <View style={$inpField}>
+                      <TextField
+                        value={String(item.quantity)}
+                        onChangeText={(text) => onChangeData(text, item.id, "quantity")}
+                        containerStyle={$textField}
+                        placeholderTx="DemoCreateProductScreen.placeholder.quantity"
+                      />
+                    </View>
+                  </View>
                 </View>
                 <Button style={$recycleBinSolid} onPress={() => removeItem(item.id)}>
                   <Icon icon="recycleBinSolid" size={16} color={colors.palette.neutral100} />
@@ -121,4 +160,13 @@ const $recycleBinSolid: ViewStyle = {
   zIndex: 1,
   borderWidth: 0,
   marginTop: spacing.xl,
+};
+
+const $inpField: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+  borderWidth: 2,
+  borderColor: colors.palette.neutral300,
+  borderRadius: spacing.xs,
+  minHeight: spacing.xxl,
 };
