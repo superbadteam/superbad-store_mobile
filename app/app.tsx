@@ -51,6 +51,7 @@ const config = {
         DemoCreateProduct: "create",
         DemoWriteReviewScreen : "writeReview",
         DemoCartScreen : "cart",
+        DemoMyProductScreen: "myProduct",
       },
     },
     SignUp: {

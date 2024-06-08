@@ -13,12 +13,14 @@ import DemoCartScreen from "../screens/DemoCartScreen";
 import { colors, spacing, typography } from "../theme";
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator";
 import ProductDetailScreen from "app/screens/ProductDetailScreen/ProductDetailScreen";
+import DemoMyProductSceen from "app/screens/DemoMyProductSceen";
 
 export type DemoTabParamList = {
   DemoHomePage: { queryIndex?: string; itemIndex?: string };
   DemoDebug: undefined;
   DemoCartList: undefined;
   DemoCreateProduct: undefined;
+  DemoMyProduct: undefined;
   ProductDetail: undefined;
   LoginScreen: undefined;
   SignUpScreen: undefined;
@@ -100,6 +102,16 @@ export function DemoNavigator() {
           ),
         }}
       />
+        <Tab.Screen
+            name="DemoMyProduct"
+            component={DemoMyProductSceen}
+            options={{
+                tabBarLabel: "My product",
+                tabBarIcon: ({ focused }) => (
+                    <Icon icon="debug" color={focused ? colors.tint : undefined} size={30} />
+                ),
+            }}
+        />
     </Tab.Navigator>
   );
 }

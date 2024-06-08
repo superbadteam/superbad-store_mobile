@@ -5,6 +5,7 @@ export * from "./DemoCommunityScreen";
 export * from "./DemoDebugScreen";
 export * from "./DemoHomePageScreen/DemoHomePageScreen";
 export * from "./DemoCreateProductScreen";
+export * from "./DemoMyProductSceen";
 export * from "./ErrorScreen/ErrorBoundary";
 export * from "./DemoCartScreen";
 export * from "./DemoWriteReviewScreen";
