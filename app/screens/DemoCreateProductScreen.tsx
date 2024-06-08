@@ -12,28 +12,32 @@ import {
 import type { RadioOption } from "../components/RadioGroup";
 import { DemoTabScreenProps } from "../navigators/DemoNavigator";
 import { spacing, colors } from "../theme";
-import { api } from "../services/api";
-import type { Category } from "app/types";
+import type { Category, SubCategory } from "app/types";
+import { useGetCategories, useInventory } from "app/services/hooks/useInventory";
 
 export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">> =
   function DemoCreateProductScreen(_props) {
     const conditions: RadioOption[] = [
-      { label: "New", value: "new" },
-      { label: "Like new", value: "likeNew" },
-      { label: "Old", value: "old" },
+      { label: "New", value: "New" },
+      { label: "Like new", value: "LikeNew" },
+      { label: "Old", value: "Old" },
     ];
 
+    const { getCategories } = useGetCategories();
     const [radioValue, setRadioValue] = useState<RadioOption>(conditions[0]);
     const [categories, setCategories] = useState<Category[]>([]);
+    const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
+
+    const { createProduct, isMutating, product, setProduct } = useInventory();
+
+    function onSelectParentCategory(item: Category) {
+      setSubCategories(item.subCategories);
+    }
 
     useEffect(() => {
       const fetchCategories = async () => {
-        try {
-          const response = await api.getCategories();
-          setCategories(response);
-        } catch (error) {
-          console.error("Error fetching categories:", error);
-        }
+        const response = await getCategories();
+        if (response) setCategories(response);
       };
 
       fetchCategories();
@@ -44,30 +48,23 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
         <View style={$createContainer}>
           <Text size="xl" style={$title} tx="DemoCreateProductScreen.createProduct" />
 
-          <TextField
-            containerStyle={$textField}
-            labelTx="DemoCreateProductScreen.label.productName"
-            placeholderTx="DemoCreateProductScreen.placeholder.productName"
-          />
-
-          <View style={$informationField}>
+          <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.productName" />
+          <View style={$inpField}>
             <TextField
-              containerStyle={$informationFieldTextField}
-              labelTx="DemoCreateProductScreen.label.price"
-              placeholderTx="DemoCreateProductScreen.placeholder.price"
-            />
-
-            <TextField
-              containerStyle={$informationFieldTextField}
-              labelTx="DemoCreateProductScreen.label.discount"
-              placeholderTx="DemoCreateProductScreen.placeholder.discount"
+              value={product.name}
+              onChangeText={(text) => setProduct({ ...product, name: text })}
+              containerStyle={$textField}
+              placeholderTx="DemoCreateProductScreen.placeholder.productName"
             />
           </View>
 
-          <View style={$descriptionField}>
+          <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.description" />
+          <View style={$inpField}>
             <TextField
-              labelTx="DemoCreateProductScreen.label.description"
+              value={product.description}
+              onChangeText={(text) => setProduct({ ...product, description: text })}
               placeholderTx="DemoCreateProductScreen.label.description"
+              containerStyle={$textField}
               multiline
             />
           </View>
@@ -75,9 +72,24 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
           <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.category" />
           {categories.length > 0 && (
             <DropdownComponent
+              valueField="id"
               searchPlaceholder="common.search"
               data={categories}
+              onChange={onSelectParentCategory}
               placeholderTx="DemoCreateProductScreen.placeholder.selectCategory"
+            />
+          )}
+
+          <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.subCategory" />
+          {categories.length > 0 && (
+            <DropdownComponent
+              valueField="id"
+              searchPlaceholder="common.search"
+              data={subCategories}
+              onChange={(item) => {
+                setProduct({ ...product, categoryId: item.id });
+              }}
+              placeholderTx="DemoCreateProductScreen.placeholder.selectSubCategory"
             />
           )}
 
@@ -85,7 +97,10 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
           <RadioGroup
             options={conditions}
             value={radioValue}
-            onValueChange={setRadioValue}
+            onValueChange={(value) => {
+              setProduct({ ...product, condition: value.value });
+              setRadioValue(value);
+            }}
             style={$radioToggleGroupContainer}
           />
 
@@ -95,13 +110,20 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
               weight="medium"
               tx="DemoCreateProductScreen.label.uploadImage"
             />
-            <SelectImageGroup />
+            <SelectImageGroup
+              itemType={product.types}
+              setItemType={(types) => setProduct({ ...product, types })}
+            />
           </View>
 
           <Button
             style={$submit}
             textStyle={$submitText}
-            tx="DemoCreateProductScreen.label.uploadImage"
+            disabled={isMutating}
+            onPress={() => {
+              createProduct();
+            }}
+            tx="DemoCreateProductScreen.createProduct"
           />
         </View>
       </Screen>
@@ -132,28 +154,11 @@ const $createContainer: ViewStyle = {
 };
 
 const $textField: ViewStyle = {
-  marginBottom: spacing.lg,
-  width: "100%",
-};
-
-const $descriptionField: ViewStyle = {
-  marginTop: spacing.lg,
   width: "100%",
 };
 
 const $title: TextStyle = {
   marginBottom: spacing.lg,
-};
-
-const $informationField: ViewStyle = {
-  flexDirection: "row",
-  justifyContent: "space-between",
-  width: "100%",
-  gap: spacing.lg,
-};
-
-const $informationFieldTextField: ViewStyle = {
-  flex: 1,
 };
 
 const $uploadArea: ViewStyle = {
@@ -178,4 +183,13 @@ const $radioToggleGroupContainer: ViewStyle = {
   marginTop: spacing.lg,
   width: "100%",
   gap: spacing.lg,
+};
+
+const $inpField: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+  borderWidth: 2,
+  borderColor: colors.palette.neutral300,
+  borderRadius: spacing.xs,
+  minHeight: spacing.xxl,
 };
