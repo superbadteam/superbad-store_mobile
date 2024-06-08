@@ -5,7 +5,7 @@ import { ApiError, ApiErrorResponse } from "../api/api.types";
 
 const BASE_ENDPOINT = "/shopping";
 
-export const getDetailProduct = async (id: string): Promise<ProductDetailResponse> => {
+export const getProductByID = async (id: string): Promise<ProductDetailResponse> => {
   const response: ApiResponse<ProductDetailResponse | ApiErrorResponse> = await api.apisauce.get(
     `${BASE_ENDPOINT}/products/${id}`,
   );

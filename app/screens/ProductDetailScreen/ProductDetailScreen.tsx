@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View, TouchableOpacity, TextStyle, ViewStyle } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -7,27 +7,23 @@ import Rating from "app/components/Rating";
 import { Text } from "app/components";
 import { colors } from "app/theme";
 import CustomHeader from "app/components/CustomHeader";
-import { useAddProductToCart } from "app/services/hooks/useShopping";
+import { useAddProductToCart, useGetProductByID } from "app/services/hooks/useShopping";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { ProductItem } from "app/types/inventory";
+import { DemoTabParamList } from "app/navigators/DemoNavigator";
 
 const ProductDetailScreen = () => {
-  const product = {
-    id: 1,
-    name: "Sample Product",
-    brand: "Gucci",
-    price: 99.99,
-    description:
-      "This is a fantastic example product. It's made with high-quality materials and designed to last. Whether you're using it at home or on the go, it's sure to meet your needs. It's made with high-quality materials and designed to last. Whether you're using it at home or on the go, it's sure to meet your needs. It's made with high-quality materials and designed to last. Whether you're using it at home or on the go, it's sure to meet your needs.",
-    imageUrl: "https://via.placeholder.com/200",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-  };
-
-  const images = [
-    "https://via.placeholder.com/600/92c952",
-    "https://via.placeholder.com/600/771796",
-    "https://via.placeholder.com/600/24f355",
-    "https://via.placeholder.com/600/d32776",
-    "https://via.placeholder.com/600/f66b97",
-  ];
+  const [product, setProduct] = useState<ProductItem | null>(null);
+  const route = useRoute<RouteProp<DemoTabParamList, "ProductDetail">>();
+  if (route.params && route.params.id) {
+    const { getProductByID } = useGetProductByID(route.params.id);
+    useEffect(() => {
+        getProductByID().then((response) => {
+          if (response)
+            setProduct(response);
+        });
+    }, []);
+  }
 
   const rightContents = ["heart-outline", "share-outline", "cart-outline"];
 
@@ -40,33 +36,35 @@ const ProductDetailScreen = () => {
         <CustomHeader rightContents={rightContents} leftContents={[]} isHasBackButton={true} />
 
         {/* SlideShow component */}
-        <SlideShow images={images} />
+        {product && <SlideShow images={product.types.map((type) => type.imageUrl)} />}
 
         {/* Product details */}
-        <View style={$productDetails}>
-          <Text style={[$brand, { color: colors.gray }]} size="md">
-            {product.brand}
-          </Text>
-          <Text style={[$name, { color: colors.text }]} size="lg">
-            {product.name}
-          </Text>
-          <View style={$reviewContainer}>
-            <View style={[$ratingReview, { backgroundColor: colors.orange }]}>
-              <Ionicons name="star" size={20} color="white" />
-              <Text style={[$reviewText, { color: colors.white }]}>4.1</Text>
-            </View>
-            <Text style={[{ color: colors.gray }, $countReview]} size="md">
-              87
+        {product && (
+          <View style={$productDetails}>
+            <Text style={[$brand, { color: colors.gray }]} size="md">
+              {product.condition}
             </Text>
-            <Text style={{ color: colors.gray }} tx="productDetailScreen.review" size="md" />
+            <Text style={[$name, { color: colors.text }]} size="lg">
+              {product.name}
+            </Text>
+            <View style={$reviewContainer}>
+              <View style={[$ratingReview, { backgroundColor: colors.orange }]}>
+                <Ionicons name="star" size={20} color="white" />
+                <Text style={[$reviewText, { color: colors.white }]}>4.1</Text>
+              </View>
+              <Text style={[$countReview, { color: colors.gray }]} size="md">
+                87
+              </Text>
+              <Text style={{ color: colors.gray }} tx="productDetailScreen.review" size="md" />
+            </View>
+            <Text style={[$price, { color: colors.text }]} size="lg">
+              ${product.minPrice} - ${product.maxPrice}
+            </Text>
+            <Text style={[$description, { color: colors.text }]} size="md">
+              {product.description}
+            </Text>
           </View>
-          <Text style={[$price, { color: colors.text }]} size="lg">
-            ${product.price}
-          </Text>
-          <Text style={[$description, { color: colors.text }]} size="md">
-            {product.description}
-          </Text>
-        </View>
+        )}
 
         {/* Type options */}
         <View style={$typeContainer}>
@@ -78,7 +76,7 @@ const ProductDetailScreen = () => {
             />
           </View>
           <View style={$typeOptionContainer}>
-            {product.sizes.map((size, index) => (
+            {product && product.types.map((type, index) => (
               <TouchableOpacity
                 key={index}
                 style={[$typeButton, selectedType === index ? $selectedTypeButton : null]}
@@ -88,7 +86,7 @@ const ProductDetailScreen = () => {
                   style={{ color: selectedType === index ? colors.white : colors.text }}
                   size="md"
                 >
-                  {size}
+                  {type.name}
                 </Text>
               </TouchableOpacity>
             ))}

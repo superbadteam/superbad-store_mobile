@@ -1,6 +1,6 @@
 import * as Inventory from "./inventory";
 import * as Shared from "./shared";
-import * as Shopping from "../modules/shopping";
+import * as Shopping from "./shopping";
 
 const ApiService = {
   inventory: Inventory,
