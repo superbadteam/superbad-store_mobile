@@ -232,6 +232,10 @@ const en = {
     addToCart: "Add to Cart",
     buyNow: "Buy Now",
     review: "Reviews",
+    notification: {
+      addSuccess: "Add product to cart successfully",
+      addError: "Error add product to cart",
+    },
   },
   listReview: {
     title: "Rating & Reviews",

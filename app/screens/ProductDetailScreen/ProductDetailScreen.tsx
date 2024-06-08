@@ -7,7 +7,7 @@ import Rating from "app/components/Rating";
 import { Text } from "app/components";
 import { colors } from "app/theme";
 import CustomHeader from "app/components/CustomHeader";
-import { useNavigation } from "@react-navigation/native";
+import { useAddProductToCart } from "app/services/hooks/useShopping";
 
 const ProductDetailScreen = () => {
   const product = {
@@ -107,7 +107,7 @@ const ProductDetailScreen = () => {
       {/* Buttons */}
       <View style={$buttonContainer}>
         <TouchableOpacity style={[$button, $addToCartButton]}
-        onPress = {handleAddToCart}>
+          onPress={() => addProductToCart()} disabled={isMutating}>
           <Text
             style={[$buttonText, { color: colors.blue }]}
             tx="productDetailScreen.addToCart"
