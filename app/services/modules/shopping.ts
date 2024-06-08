@@ -16,7 +16,7 @@ export const getDetailProduct = async (id: string): Promise<ProductDetailRespons
   return response.data as ProductDetailResponse;
 };
 
-export const addProductToCart = async (productTypeId: string, quantity: number, authToken: string): Promise<any> => {
+export const addProductToCart = async (productTypeId: string, quantity: number, authToken: string): Promise<AddToCartResponse> => {
   const response: ApiResponse<AddToCartResponse | ApiErrorResponse> = await api.apisauce.post(
     `${BASE_ENDPOINT}/users/cart`,
     {
