@@ -8,7 +8,7 @@ import { Text } from "app/components";
 import { colors } from "app/theme";
 import CustomHeader from "app/components/CustomHeader";
 import { useAddProductToCart, useGetProductByID } from "app/services/hooks/useShopping";
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { RouteProp, useRoute } from "@react-navigation/native";
 import { ProductItem } from "app/types/inventory";
 import { DemoTabParamList } from "app/navigators/DemoNavigator";
 
