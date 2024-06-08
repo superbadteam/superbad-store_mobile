@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import { View, TouchableOpacity, TextStyle, ViewStyle } from "react-native";
 import { Text } from "app/components";
 import { colors, spacing } from "app/theme";
-import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import StarRating from "react-native-star-rating-widget";
 
 interface RatingProps {}
+
 
 const Rating: React.FC<RatingProps> = () => {
   const navigation = useNavigation<any>();
@@ -13,6 +14,9 @@ const Rating: React.FC<RatingProps> = () => {
     navigation.navigate("WriteReviewScreen");
   };
 
+  const rating = 3.5;
+  const ratingSecond = 4;
+  const [setRating] = useState(0);
   return (
     <View style={$container}>
       <View style={$reviewHeader}>
@@ -25,7 +29,7 @@ const Rating: React.FC<RatingProps> = () => {
             </View>
             <View style={$overalRating}>
               <Text style={$overal} tx="listReview.overal" />
-              <Text style={$quantityRating}>574 Ratings</Text>
+              <Text style={$quantityRating}>3 Ratings</Text>
             </View>
           </View>
           <TouchableOpacity style={[$button, $addToCartButton]} onPress = {handleRate}>
@@ -35,11 +39,10 @@ const Rating: React.FC<RatingProps> = () => {
       </View>
       <View style={$reviewContainer}>
         <View style={$reviewStar}>
-          <Ionicons name="star" size={20} color={colors.palette.yellow500} />
-          <Ionicons name="star" size={20} color={colors.palette.yellow500} />
-          <Ionicons name="star" size={20} color={colors.palette.yellow500} />
-          <Ionicons name="star" size={20} color={colors.palette.yellow500} />
-          <Ionicons name="star" size={20} color={colors.palette.yellow500} />
+          <StarRating
+            rating={rating}
+            onChange={setRating}
+          />
         </View>
 
         <Text weight="bold" size="xl">
@@ -51,11 +54,21 @@ const Rating: React.FC<RatingProps> = () => {
         </Text>
         <Text style={$reviewDate}>TrungDOng, 31th Jan 2024</Text>
       </View>
-      <View style={$reviewSeeAll}>
-        <Text size="sm" style={$seeAllText}>
-          View All 64 Reviews
+      <View style={$reviewContainer}>
+        <View style={$reviewStarSecond}>
+          <StarRating
+            rating={ratingSecond}
+            onChange={setRating}
+          />
+        </View>
+
+        <Text weight="bold" size="xl">
+          Wonderful
         </Text>
-        <Ionicons name="chevron-forward-outline" size={20} color="blue" />
+        <Text>
+        I was pleasantly surprised by how well this fits. Being about 6 feet tall, I chose a size 40 and it suits me perfectly. The craftsmanship and quality are impressive and definitely justify the cost.
+        </Text>
+        <Text style={$reviewDate}>HiNam, 3th Feb 2024</Text>
       </View>
     </View>
   );
@@ -150,20 +163,13 @@ const $reviewDate: TextStyle = {
   borderBottomColor: colors.palette.neutral300,
 };
 
-const $reviewSeeAll: TextStyle = {
-  flexDirection: "row",
-  justifyContent: "space-between",
-  paddingVertical: 16,
-  paddingHorizontal: 12,
-};
-
-const $seeAllText: TextStyle = {
-  color: colors.theme,
-};
-
 const $reviewStar: ViewStyle = {
   flexDirection: "row",
   gap: spacing.xs,
+};
+
+const $reviewStarSecond: ViewStyle = {
+  marginTop: spacing.xs,
 };
 
 export default Rating;
