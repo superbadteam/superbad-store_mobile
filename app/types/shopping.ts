@@ -1,14 +1,6 @@
-export interface Query {
-  Category?: string;
-  Condition?: string;
-  Keyword?: string;
-  PageIndex?: number;
-  PageSize?: number;
-  IsDescending?: boolean;
-  SortBy?: string;
-}
+import { paging } from "./paging";
 
-export interface Product {
+export interface ProductItem {
   id: string;
   name: string;
   minPrice: number;
@@ -18,12 +10,7 @@ export interface Product {
   imageUrl: string;
 }
 
-export interface Products {
-  meta: {
-    pageIndex: number;
-    totalPages: number;
-    totalCount: number;
-    pageSize: number;
-  };
-  data: Product[];
+export interface GetProductsResponse {
+  meta: paging;
+  data: ProductItem[];
 }

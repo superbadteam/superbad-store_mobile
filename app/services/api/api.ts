@@ -16,8 +16,8 @@ import {
   ApiErrorResponse,
   ApiRegisterResponse,
 } from "./api.types";
-import type { EpisodeSnapshotIn } from "../../models/Episode";
-import { Category, Products } from "app/types";
+import { GetProductsResponse } from "app/types";
+import type { EpisodeSnapshotIn } from "app/models/Episode";
 /**
  * Configuring the apisauce instance.
  */
@@ -82,21 +82,6 @@ export class Api {
     }
   }
 
-  async getCategories(): Promise<any> {
-    try {
-      const response: ApiResponse<Category[]> = await this.apisauce.get("/inventory/categories");
-
-      if (!response.ok) {
-        const problem = getGeneralApiProblem(response);
-        if (problem) return problem;
-      }
-
-      return response.data;
-    } catch (e) {
-      return { kind: "unknown-error", temporary: true };
-    }
-  }
-
   async loginByEmail(email: string, password: string): Promise<ApiLoginResponse> {
     const response: ApiResponse<ApiLoginResponse | ApiErrorResponse> = await this.apisauce.post(
       "identity/auth/login",
@@ -136,14 +121,14 @@ export class Api {
     return response.data as ApiRegisterResponse;
   }
 
-  async getProducts(queryUrl: string): Promise<Products> {
-    const response: ApiResponse<Products | ApiErrorResponse> = await this.apisauce.get(
+  async getProducts(queryUrl: string): Promise<GetProductsResponse> {
+    const response: ApiResponse<GetProductsResponse | ApiErrorResponse> = await this.apisauce.get(
       `shopping/products${queryUrl}`,
     );
     if (!response.ok) {
       throw new ApiError(response.data as ApiErrorResponse);
     }
-    return response.data as Products;
+    return response.data as GetProductsResponse;
   }
 }
 

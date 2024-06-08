@@ -1,9 +1,10 @@
 import { colors, spacing } from "app/theme";
 import React, { useState } from "react";
-import { View, ViewStyle, ImageStyle, TextStyle } from "react-native";
+import { View, ViewStyle, ImageStyle, TextStyle, TouchableOpacity } from "react-native";
 import { AutoImage } from "./AutoImage";
 import { Text } from "./Text";
 import StarRating from "react-native-star-rating-widget";
+import { useNavigation } from "@react-navigation/native";
 
 export interface Product {
   id: number;
@@ -25,45 +26,53 @@ const ProductItem = (props: ProductItemProps) => {
     return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(amount);
   };
 
+  const navigation = useNavigation<any>();
+
+  const handleProductDetail = () => {
+    navigation.navigate("ProductDetailScreen", { id: id });
+  };
+
   const [setRating] = useState(0);
 
   return (
-    <View style={$container}>
+    <TouchableOpacity onPress={handleProductDetail} style={$container}>
       <View>
-        <AutoImage
-          maxWidth={190}
-          maxHeight={190}
-          source={{ uri: imageUrl }}
-          style={$image}
-          resizeMode="cover"
-        />
-      </View>
-
-      <View style={$infor}>
         <View>
-          <Text style={$productName} text={name} numberOfLines={2} />
+          <AutoImage
+            maxWidth={190}
+            maxHeight={190}
+            source={{ uri: imageUrl }}
+            style={$image}
+            resizeMode="cover"
+          />
         </View>
-        <View style={$priceContainer}>
-          <Text style={$discountedPrice} text={`${formatCurrency(minPrice)}`} size="sm" />
-        </View>
-        <View style={$ratingSoldContainer}>
-          <View style={$ratingContainer}>
-            <StarRating
-              rating={rating}
-              onChange={setRating}
-              starSize={20}
-              starStyle={{ marginHorizontal: spacing.xxxs }}
-              style={{ marginRight: spacing.xs }}
-            />
-            <Text text={`${rating}/5`} size="md" />
+
+        <View style={$infor}>
+          <View>
+            <Text style={$productName} text={name} numberOfLines={2} />
           </View>
-          <View style={$soldContainer}>
-            <Text tx="productItem.sold"></Text>
-            <Text text={`${sold}`}></Text>
+          <View style={$priceContainer}>
+            <Text style={$discountedPrice} text={`${formatCurrency(minPrice)}`} size="sm" />
+          </View>
+          <View style={$ratingSoldContainer}>
+            <View style={$ratingContainer}>
+              <StarRating
+                rating={rating}
+                onChange={setRating}
+                starSize={20}
+                starStyle={{ marginHorizontal: spacing.xxxs }}
+                style={{ marginRight: spacing.xs }}
+              />
+              <Text text={`${rating}/5`} size="md" />
+            </View>
+            <View style={$soldContainer}>
+              <Text tx="productItem.sold"></Text>
+              <Text text={`${sold}`}></Text>
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

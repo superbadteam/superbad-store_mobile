@@ -5,7 +5,8 @@ import { DemoTabScreenProps } from "../../navigators/DemoNavigator";
 import { colors, spacing } from "../../theme";
 import { ScrollView } from "react-native-gesture-handler";
 import { api } from "../../services/api";
-import type { Category, Products } from "app/types";
+import type { Category, GetProductsResponse } from "app/types";
+import { useGetCategories } from "app/services/hooks/useInventory";
 import SlideShow from "app/components/SlideShow";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -19,25 +20,23 @@ export interface Demo {
 
 export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
   function DemoHomePageScreen(_props) {
+    const { getCategories } = useGetCategories();
+
     const images = [
-      "https://via.placeholder.com/600/92c952",
-      "https://via.placeholder.com/600/771796",
-      "https://via.placeholder.com/600/24f355",
-      "https://via.placeholder.com/600/d32776",
-      "https://via.placeholder.com/600/f66b97",
+      "https://img.freepik.com/vecteurs-libre/modele-banniere-vente-horizontale-realiste-photo_23-2149017940.jpg",
+      "https://img.freepik.com/vecteurs-premium/banniere-vente-horizontale-remise-shopping-degrade_23-2150321976.jpg",
+      "https://img.freepik.com/vecteurs-libre/modele-banniere-vente-plat-11-11-shopping-day_23-2149724054.jpg?t=st=1717728105~exp=1717728705~hmac=c131d2759cb3b5000995d08018a633f3f807efa961db78331a116c3f36758e19",
+      "https://img.freepik.com/vecteurs-libre/modele-banniere-verticale-degradee-pour-evenement-vente-11-11_23-2150841749.jpg?w=740&t=st=1717728354~exp=1717728954~hmac=d00c52e3d23c73e92d681a8b534b1949a9caea44a195c202cfba1f8bf37564ca  ",
+      "https://img.freepik.com/vecteurs-libre/modele-banniere-horizontale-degradee-pour-evenement-el-buen-fin-espagnol_23-2150843234.jpg?w=1380&t=st=1717728391~exp=1717728991~hmac=b24e827910f3f29379e79deef1d932dd69c01b09beec537c03c78c087ca86d7d",
     ];
 
     const [categories, setCategories] = useState<Category[]>([]);
-    const [products, setProducts] = useState<Products>();
+    const [products, setProducts] = useState<GetProductsResponse>();
 
     useEffect(() => {
       const fetchCategories = async () => {
-        try {
-          const response = await api.getCategories();
-          setCategories(response);
-        } catch (error) {
-          console.error("Error fetching categories:", error);
-        }
+        const response = await getCategories();
+        if (response) setCategories(response);
       };
 
       console.log(categories, "check category");
@@ -69,9 +68,7 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
         Keyboard.dismiss();
       }
     };
-    const handleProductDetail = () => {
-      navigation.navigate("ProductDetailScreen");
-    };
+
     const renderProducts = (products) => {
       return products.map((item, index) => {
         // Determine if this is the last item and an odd one
