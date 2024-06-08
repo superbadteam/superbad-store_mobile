@@ -34,12 +34,6 @@ const ProductDetailScreen = () => {
   const [selectedType, setSelectedType] = useState<number>(0);
   const { addProductToCart, isMutating } = useAddProductToCart();
 
-
-  const handleAddToCart = () => {
-    addProductToCart();
-  };
-
-
   return (
     <View style={$container}>
       <ScrollView style={$scrollView}>
@@ -108,7 +102,7 @@ const ProductDetailScreen = () => {
       {/* Buttons */}
       <View style={$buttonContainer}>
         <TouchableOpacity style={[$button, $addToCartButton]}
-          onPress={handleAddToCart} disabled={isMutating}>
+          onPress={() => addProductToCart()} disabled={isMutating}>
           <Text
             style={[$buttonText, { color: colors.blue }]}
             tx="productDetailScreen.addToCart"
