@@ -92,6 +92,7 @@ const en = {
     hireUsLink: "Send us a message",
   },
   demoHomePageScreen: {
+    home : "Home",
     placeholderSearch: "Search product",
     categoryList: "Category",
     viewAll: "View All",
@@ -181,6 +182,7 @@ const en = {
     summaryPrice : "${{summaryPrice}}",
   },
   DemoCreateProductScreen: {
+    create : "Create",
     createProduct: "Create Product",
     label: {
       productName: "Product Name",
@@ -217,6 +219,7 @@ const en = {
     descriptionSubmit: "Your review has been successfully submitted.",
   },
   productDetailScreen: {
+    productDetail : "My Product",
     size: "Type",
     addToCart: "Add to Cart",
     buyNow: "Buy Now",
