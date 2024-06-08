@@ -16,8 +16,7 @@ import {
   ApiErrorResponse,
   ApiRegisterResponse,
 } from "./api.types";
-import type { EpisodeSnapshotIn } from "../../models/Episode";
-import { Category, Products } from "app/types";
+import type { EpisodeSnapshotIn } from "app/models/Episode";
 /**
  * Configuring the apisauce instance.
  */
@@ -79,21 +78,6 @@ export class Api {
         console.error(`Bad data: ${e.message}\n${response.data}`, e.stack);
       }
       return { kind: "bad-data" };
-    }
-  }
-
-  async getCategories(): Promise<any> {
-    try {
-      const response: ApiResponse<Category[]> = await this.apisauce.get("/inventory/categories");
-
-      if (!response.ok) {
-        const problem = getGeneralApiProblem(response);
-        if (problem) return problem;
-      }
-
-      return response.data;
-    } catch (e) {
-      return { kind: "unknown-error", temporary: true };
     }
   }
 

@@ -149,13 +149,13 @@ const $imageWrapper: ViewStyle = {
   position: "relative",
   marginRight: spacing.md,
   marginBottom: spacing.md,
-  flexBasis: "28%", 
-  maxWidth: "30%", 
+  flexBasis: "28%",
+  maxWidth: "30%",
   alignItems: "center",
 };
 const $selectedImage: ImageStyle = {
-  width: "100%", 
-  aspectRatio: 1, 
+  width: "100%",
+  aspectRatio: 1,
   borderRadius: spacing.xxs,
 };
 const $deleteButton: ViewStyle = {
