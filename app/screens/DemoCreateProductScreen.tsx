@@ -13,7 +13,6 @@ import type { RadioOption } from "../components/RadioGroup";
 import { DemoTabScreenProps } from "../navigators/DemoNavigator";
 import { spacing, colors } from "../theme";
 import type { Category, SubCategory } from "app/types";
-import { useStores } from "app/models";
 import { useGetCategories, useInventory } from "app/services/hooks/useInventory";
 
 export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">> =
@@ -23,9 +22,6 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
       { label: "Like new", value: "LikeNew" },
       { label: "Old", value: "Old" },
     ];
-    const {
-      authenticationStore: { authToken },
-    } = useStores();
 
     const { getCategories } = useGetCategories();
     const [radioValue, setRadioValue] = useState<RadioOption>(conditions[0]);
