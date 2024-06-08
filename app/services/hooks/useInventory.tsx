@@ -61,6 +61,7 @@ export const useInventory = () => {
         fd.append("images", file);
         const response = await ApiService.shared.uploadsImage(fd, authToken);
         product.types[index].imageUrl = response.urls[0];
+        product.images[index].url = response.urls[0];
         setProduct({ ...product });
       });
 

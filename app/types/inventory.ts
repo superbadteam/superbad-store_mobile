@@ -18,6 +18,7 @@ export interface Product {
   types: ProductItemType[];
   images: Image[];
   condition: string;
+  imageUrl?: string;
 }
 export interface ProductItem extends Product {
   userId: string;

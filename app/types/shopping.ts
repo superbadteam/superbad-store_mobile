@@ -1,5 +1,8 @@
 import { ProductItemType } from "./inventory";
 
+
+import { paging } from "./paging";
+
 export interface ProductDetailResponse {
   id: string;
   userId: string;
@@ -48,4 +51,19 @@ export interface Product {
   imageUrl: string;
   deletedAt: null;
   deletedBy: null;
+}
+
+export interface ProductItem {
+  id: string;
+  name: string;
+  minPrice: number;
+  maxPrice: number;
+  sold: number;
+  rating: number;
+  imageUrl: string;
+}
+
+export interface GetProductsResponse {
+  meta: paging;
+  data: ProductItem[];
 }

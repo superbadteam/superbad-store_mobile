@@ -1,16 +1,17 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
-import { Image,Keyboard, ImageStyle, TextStyle, TouchableOpacity, View, ViewStyle} from "react-native";
+import { Keyboard, TextStyle, View, ViewStyle } from "react-native";
 import { Screen, Text, TextField } from "../../components";
 import { DemoTabScreenProps } from "../../navigators/DemoNavigator";
 import { colors, spacing } from "../../theme";
 import { ScrollView } from "react-native-gesture-handler";
+import { api } from "../../services/api";
+import type { Category, GetProductsResponse } from "app/types";
 import { useGetCategories } from "app/services/hooks/useInventory";
-import type { Category } from "app/types";
 import SlideShow from "app/components/SlideShow";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import ProductItem from "app/components/ProductItem";
 
-const imgProduct = require("../../../assets/icons/product.jpg");
 export interface Demo {
   name: string;
   description: string;
@@ -30,15 +31,34 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
     ];
 
     const [categories, setCategories] = useState<Category[]>([]);
+    const [products, setProducts] = useState<GetProductsResponse>();
 
     useEffect(() => {
       const fetchCategories = async () => {
-          const response = await getCategories();
-          if (response) setCategories(response);
+        const response = await getCategories();
+        if (response) setCategories(response);
       };
 
       console.log(categories, "check category");
       fetchCategories();
+
+      const defaultQuery = {
+        PageIndex: 1,
+        PageSize: 10,
+      };
+      let queryUrl = Object.keys(defaultQuery).length > 0 ? "?" : "";
+
+      Object.keys(defaultQuery).map((key) => {
+        queryUrl += `${key}=${defaultQuery[`${key}`]}&`;
+        return 0;
+      }, "");
+      queryUrl = queryUrl.slice(0, -1);
+
+      const fetchProducts = async () => {
+        const response = await api.getProducts(queryUrl);
+        setProducts(response);
+      };
+      fetchProducts();
     }, []);
     const navigation = useNavigation<any>();
 
@@ -48,14 +68,24 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
         Keyboard.dismiss();
       }
     };
-    const handleProductDetail = (id: string)=>{
-        navigation.navigate("ProductDetailScreen", { id });
+
+    const renderProducts = (products) => {
+      return products.map((item, index) => {
+        // Determine if this is the last item and an odd one
+        const isLastOddItem = products.length % 2 !== 0 && index === products.length - 1;
+        return (
+          <View key={item.id} style={[$productWrapper, isLastOddItem && $fullWidth]}>
+            <ProductItem product={item} />
+          </View>
+        );
+      });
     };
+
     return (
       <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$screenContainer}>
         <View style={$search}>
           <Ionicons style={$iconSearch} name="search-outline" size={20} color="black" />
-          <TextField style={$inputSearch} placeholderTx="demoHomePageScreen.placeholderSearch" onSubmitEditing={(event) => handleSearch(event.nativeEvent.text)}/>
+          <TextField style={$inputSearch} placeholderTx="demoHomePageScreen.placeholderSearch" onSubmitEditing={(event) => handleSearch(event.nativeEvent.text)} />
         </View>
 
         <View style={$listCategory}>
@@ -96,77 +126,9 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
             </View>
           </View>
 
-          <View style={$listProductBody}>
-          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
-              <Image source={imgProduct} style={$imgProduct} />
-              <View style={$productItemContain}>
-                <Text style={$productName}>Adidas white sneakers for men</Text>
-                <View style={$productItemContain}>
-                  <Text weight="bold" style={$productPrice}>
-                    $68
-                  </Text>
-                  <Text style={$productSale}>$134</Text>
-                  <Text style={$productDiscount}>50% OFF</Text>
-                </View>
-                <View style={$productRatingContain}>
-                  <Ionicons name="star" size={20} color="yellow" />
-                  <Text style={$productRating}>4.8</Text>
-                  <Text style={$productComment}>(545)</Text>
-                </View>
-              </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
-              <Image source={imgProduct} style={$imgProduct} />
-              <View style={$productItemContain}>
-                <Text style={$productName}>Adidas white sneakers for men</Text>
-                <View style={$productItemContain}>
-                  <Text style={$productPrice}>$68</Text>
-                  <Text style={$productSale}>$134</Text>
-                  <Text style={$productDiscount}>50% OFF</Text>
-                </View>
-                <View style={$productRatingContain}>
-                  <Ionicons name="star" size={20} color="yellow" />
-                  <Text style={$productRating}>4.8</Text>
-                  <Text style={$productComment}>(545)</Text>
-                </View>
-              </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
-              <Image source={imgProduct} style={$imgProduct} />
-              <View style={$productItemContain}>
-                <Text style={$productName}>Adidas white sneakers for men</Text>
-                <View style={$productItemContain}>
-                  <Text style={$productPrice}>$68</Text>
-                  <Text style={$productSale}>$134</Text>
-                  <Text style={$productDiscount}>50% OFF</Text>
-                </View>
-                <View style={$productRatingContain}>
-                  <Ionicons name="star" size={20} color="yellow" />
-                  <Text style={$productRating}>4.8</Text>
-                  <Text style={$productComment}>(545)</Text>
-                </View>
-              </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={$productItem} onPress={handleProductDetail}>
-              <Image source={imgProduct} style={$imgProduct} />
-              <View style={$productItemContain}>
-                <Text style={$productName}>Adidas white sneakers for men</Text>
-                <View style={$productItemContain}>
-                  <Text style={$productPrice}>$68</Text>
-                  <Text style={$productSale}>$134</Text>
-                  <Text style={$productDiscount}>50% OFF</Text>
-                </View>
-                <View style={$productRatingContain}>
-                  <Ionicons name="star" size={20} color="yellow" />
-                  <Text style={$productRating}>4.8</Text>
-                  <Text style={$productComment}>(545)</Text>
-                </View>
-              </View>
-          </TouchableOpacity>
-          </View>
+          <ScrollView>
+            <View style={$productsContainer}>{renderProducts(products?.data || [])}</View>
+          </ScrollView>
         </View>
       </Screen>
     );
@@ -236,61 +198,25 @@ const $categoryText: TextStyle = {
   maxWidth: 120,
   textAlign: "center",
 };
-const $imgProduct: ImageStyle = {
-  width: "100%",
-  height: 140,
-  borderRadius: spacing.xs,
-};
 
 const $listProduct: ViewStyle = {
   padding: spacing.md,
+  flexGrow: 1,
+  justifyContent: "center",
+  paddingHorizontal: 10,
 };
 
-const $listProductBody: ViewStyle = {
-  flexDirection: "row",
-  width: "100%",
-  gap: 10,
-  flexWrap: "wrap",
-};
-
-const $productItem: ViewStyle = {
+const $fullWidth: ViewStyle = {
   width: "48%",
 };
 
-const $productRatingContain: ViewStyle = {
+const $productWrapper: ViewStyle = {
+  width: "48%",
+  marginBottom: 10,
+};
+
+const $productsContainer: ViewStyle = {
   flexDirection: "row",
-  gap: 6,
-  alignItems: "center",
+  flexWrap: "wrap",
+  justifyContent: "space-between",
 };
-const $productItemContain: ViewStyle = {
-  flexDirection: "column",
-  gap: 6,
-};
-
-const $productName: TextStyle = {
-  fontSize: 16,
-  color: "#333",
-  lineHeight: 16,
-  marginTop: 4,
-};
-
-const $productPrice: TextStyle = {
-  fontSize: 18,
-};
-
-const $productSale: TextStyle = {
-  fontSize: 14,
-  color: "#ccc",
-};
-
-const $productDiscount: TextStyle = {
-  color: colors.palette.primary600,
-};
-
-const $productRating: ViewStyle = {
-  flexDirection: "row",
-  alignItems: "center",
-  marginTop: 6,
-};
-
-const $productComment: ViewStyle = {};

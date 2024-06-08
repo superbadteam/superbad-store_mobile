@@ -256,8 +256,14 @@ const en = {
       discount: "Discount",
       customerRating: "Customer Rating",
     },
+     productItem: {
+      sold: "Sold",
+    },
     notFound: "No Results Found",
     results: "results",
+  },
+ productItem: {
+    sold: "Sold",
   },
 };
 
