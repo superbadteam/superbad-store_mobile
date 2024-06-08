@@ -6,8 +6,8 @@ import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { colors, spacing } from "app/theme";
 import { Text, TextField } from "app/components";
 import FilterSortByScreen from "app/screens/FilterProductsScreen/FilterSortByIconScreen";
-import MyProduct, {Product} from "app/components/MyProduct";
 
+import ProductItem, { Product } from "app/components/ProductItem";
 interface BackButtonProps {
   tintColor: string;
 }
@@ -27,43 +27,71 @@ const DemoMyProductScreen = () => {
             id: 1,
             name: "Men's T-shirt",
             imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
-            sold: 3,
+            description: "This is a very nice T-shirt",
+            price: 20,
+            rating: 4.5,
+            isFavorite: false,
+            discount: 10,
         },
         {
-            id: 2,
-            name: "Women's Jeans",
+          id: 2,
+            name: "Men's T-shirt",
             imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
-            sold: 1,
+            description: "This is a very nice T-shirt",
+            price: 20,
+            rating: 4.5,
+            isFavorite: false,
+            discount: 10,
         },
         {
             id: 3,
-            name: "Women's Raincoat",
+            name: "Men's T-shirt",
             imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
-            sold: 5,
+            description: "This is a very nice T-shirt",
+            price: 20,
+            rating: 4.5,
+            isFavorite: false,
+            discount: 10,
         },
         {
-            id: 4,
-            name: "Men's underwear",
+           id: 4,
+            name: "Men's T-shirt",
             imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
-            sold: 2,
+            description: "This is a very nice T-shirt",
+            price: 20,
+            rating: 4.5,
+            isFavorite: false,
+            discount: 10,
         },
         {
             id: 5,
-            name: "Children's skirt",
+            name: "Men's T-shirt",
             imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
-            sold: 7,
+            description: "This is a very nice T-shirt",
+            price: 20,
+            rating: 4.5,
+            isFavorite: false,
+            discount: 10,
         },
         {
             id: 6,
-            name: "Women's trouser",
+            name: "Men's T-shirt",
             imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
-            sold: 1,
+            description: "This is a very nice T-shirt",
+            price: 20,
+            rating: 4.5,
+            isFavorite: false,
+            discount: 10,
         },
         {
             id: 7,
-            name: "Men's shorts",
+           name: "Men's T-shirt",
             imageUrl: "https://res.cloudinary.com/dufmi5tf3/image/upload/v1714918926/OIP_m7ucv9.jpg",
-            sold: 1,
+            description: "This is a very nice T-shirt",
+            price: 20,
+            rating: 4.5,
+            isFavorite: false,
+            discount: 10,
         },
     ];
     return (
@@ -84,19 +112,21 @@ const DemoMyProductScreen = () => {
                 <Text tx="FilterProductsScreen.results"></Text>
             </View>
             <ScrollView>
-                {products.length > 0 ? (
+                <View style={$flexContainer}>
+                  {products.length > 0 ? (
                     <FlatList
-                        data={products}
-                        renderItem={({ item }) => <MyProduct product={item} />}
-                        keyExtractor={(item) => item.id.toString()}
-                        numColumns={2}
-                        style={$products}
+                      data={products}
+                      renderItem={({ item }) => <ProductItem product={item} />}
+                      keyExtractor={(item) => item.id.toString()}
+                      numColumns={2}
+                      style={$productItemContainer}
                     />
                 ) : (
                     <View style={$noResultsContainer}>
                         <Text tx="FilterProductsScreen.notFound" />
                     </View>
                 )}
+                </View>
             </ScrollView>
             <View>{products.length > 0 && <FilterSortByScreen></FilterSortByScreen>}</View>
         </>
@@ -136,11 +166,6 @@ const $rightIcons: ViewStyle = {
   flexDirection: "row",
 };
 
-const $products: ViewStyle = {
-  flex: 1,
-  backgroundColor: colors.palette.neutral100,
-};
-
 const $icon: ViewStyle = {
   marginLeft: spacing.lg,
 };
@@ -156,4 +181,15 @@ const $iconContainer: ViewStyle = {
   padding: spacing.xs,
 };
 
+const $flexContainer: ViewStyle = {
+  flexDirection: "row",
+  flexWrap: "wrap",
+  justifyContent: "space-between",
+};
+
+const $productItemContainer: ViewStyle = {
+  width: "48%",
+  marginBottom: spacing.sm,
+  backgroundColor: colors.palette.neutral100,
+};
 export default DemoMyProductScreen;
