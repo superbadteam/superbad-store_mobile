@@ -14,8 +14,9 @@ import {
   ApiLoginResponse,
   ApiError,
   ApiErrorResponse,
+  ApiRegisterResponse,
 } from "./api.types";
-import type { EpisodeSnapshotIn } from "../../models/Episode";
+import type { EpisodeSnapshotIn } from "app/models/Episode";
 /**
  * Configuring the apisauce instance.
  */
@@ -94,6 +95,29 @@ export class Api {
     }
 
     return response.data as ApiLoginResponse;
+  }
+
+  async signUpByEmail(
+    name: string,
+    email: string,
+    password: string,
+    confirmPassword: string,
+  ): Promise<ApiRegisterResponse> {
+    const response: ApiResponse<ApiRegisterResponse | ApiErrorResponse> = await this.apisauce.post(
+      "identity/auth/register",
+      {
+        name,
+        email,
+        password,
+        confirmPassword,
+      },
+    );
+
+    if (!response.ok) {
+      throw new ApiError(response.data as ApiErrorResponse);
+    }
+
+    return response.data as ApiRegisterResponse;
   }
 }
 

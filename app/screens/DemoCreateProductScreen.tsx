@@ -9,14 +9,11 @@ import {
   DropdownComponent,
   SelectImageGroup,
 } from "../components";
-import { notification } from "antd";
 import type { RadioOption } from "../components/RadioGroup";
 import { DemoTabScreenProps } from "../navigators/DemoNavigator";
 import { spacing, colors } from "../theme";
-import ApiService from "app/services/module";
-import type { Category, SubCategory, Product } from "app/types";
-import { useStores } from "app/models";
-import { useGetCategories } from "app/services/hooks/useInventory";
+import type { Category, SubCategory } from "app/types";
+import { useGetCategories, useInventory } from "app/services/hooks/useInventory";
 
 export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">> =
   function DemoCreateProductScreen(_props) {
@@ -25,50 +22,22 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
       { label: "Like new", value: "LikeNew" },
       { label: "Old", value: "Old" },
     ];
-    const {
-      authenticationStore: { authToken },
-    } = useStores();
 
     const { getCategories } = useGetCategories();
     const [radioValue, setRadioValue] = useState<RadioOption>(conditions[0]);
     const [categories, setCategories] = useState<Category[]>([]);
     const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
 
-    const [product, setProduct] = useState<Product>({
-      name: "",
-      description: "",
-      categoryId: "",
-      types: [],
-      images: [{ url: "xxx" }],
-      condition: "New",
-    });
+    const { createProduct, isMutating, product, setProduct } = useInventory();
 
     function onSelectParentCategory(item: Category) {
       setSubCategories(item.subCategories);
     }
 
-    async function createProduct() {
-      try {
-        if (!authToken) return;
-        await ApiService.inventory.createProduct(product, authToken);
-        notification.success({
-          message: "Product created successfully",
-        });
-      } catch (error) {
-        notification.error({
-          message: "Error creating product",
-        });
-      }
-    }
-
     useEffect(() => {
       const fetchCategories = async () => {
-        try {
-          const response = await getCategories();
-          setCategories(response);
-        } catch (error) {
-          console.error("Error fetching categories:", error);
-        }
+        const response = await getCategories();
+        if (response) setCategories(response);
       };
 
       fetchCategories();
@@ -79,20 +48,23 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
         <View style={$createContainer}>
           <Text size="xl" style={$title} tx="DemoCreateProductScreen.createProduct" />
 
-          <TextField
-            value={product.name}
-            onChangeText={(text) => setProduct({ ...product, name: text })}
-            containerStyle={$textField}
-            labelTx="DemoCreateProductScreen.label.productName"
-            placeholderTx="DemoCreateProductScreen.placeholder.productName"
-          />
+          <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.productName" />
+          <View style={$inpField}>
+            <TextField
+              value={product.name}
+              onChangeText={(text) => setProduct({ ...product, name: text })}
+              containerStyle={$textField}
+              placeholderTx="DemoCreateProductScreen.placeholder.productName"
+            />
+          </View>
 
-          <View style={$descriptionField}>
+          <Text weight="medium" style={$label} tx="DemoCreateProductScreen.label.description" />
+          <View style={$inpField}>
             <TextField
               value={product.description}
               onChangeText={(text) => setProduct({ ...product, description: text })}
-              labelTx="DemoCreateProductScreen.label.description"
               placeholderTx="DemoCreateProductScreen.label.description"
+              containerStyle={$textField}
               multiline
             />
           </View>
@@ -147,11 +119,11 @@ export const DemoCreateProductScreen: FC<DemoTabScreenProps<"DemoCreateProduct">
           <Button
             style={$submit}
             textStyle={$submitText}
+            disabled={isMutating}
             onPress={() => {
-              console.log("Submit product:", product);
               createProduct();
             }}
-            tx="DemoCreateProductScreen.label.uploadImage"
+            tx="DemoCreateProductScreen.createProduct"
           />
         </View>
       </Screen>
@@ -185,11 +157,6 @@ const $textField: ViewStyle = {
   width: "100%",
 };
 
-const $descriptionField: ViewStyle = {
-  marginTop: spacing.lg,
-  width: "100%",
-};
-
 const $title: TextStyle = {
   marginBottom: spacing.lg,
 };
@@ -216,4 +183,13 @@ const $radioToggleGroupContainer: ViewStyle = {
   marginTop: spacing.lg,
   width: "100%",
   gap: spacing.lg,
+};
+
+const $inpField: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+  borderWidth: 2,
+  borderColor: colors.palette.neutral300,
+  borderRadius: spacing.xs,
+  minHeight: spacing.xxl,
 };

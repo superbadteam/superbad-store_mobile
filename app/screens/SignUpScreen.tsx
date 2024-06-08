@@ -1,33 +1,25 @@
-import { observer } from "mobx-react-lite";
-import React, { ComponentType, FC, useEffect, useMemo, useRef, useState } from "react";
+import React, { ComponentType, FC, useMemo, useRef, useState } from "react";
 import { TextInput, TextStyle, ViewStyle } from "react-native";
 import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../components";
 import { useStores } from "../models";
 import { AppStackScreenProps } from "../navigators";
 import { colors, spacing } from "../theme";
-import { useLogin } from "../services/hooks/useLogin";
+import { useRegister } from "app/services/hooks/useRegister";
 
-interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
+interface SignUpScreenProps extends AppStackScreenProps<"SignUp"> {}
 
-export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_props) {
-  const { navigation } = _props;
+export const SignUpScreen: FC<SignUpScreenProps> = () => {
   const authPasswordInput = useRef<TextInput>(null);
-  const { loginByEmail, isMutating } = useLogin();
+  const authPasswordInputConfirm = useRef<TextInput>(null);
+  const nameInput = useRef<TextInput>(null);
+  const { signUpByEmail, isMutating } = useRegister();
+  const [name, setName] = useState("");
   const [authPassword, setAuthPassword] = useState("");
+  const [authPasswordConfirm, setAuthPasswordConfirm] = useState("");
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true);
   const {
     authenticationStore: { authEmail, setAuthEmail },
   } = useStores();
-
-  useEffect(() => {
-    setAuthEmail("user@123");
-    setAuthPassword("User@123");
-
-    return () => {
-      setAuthPassword("");
-      setAuthEmail("");
-    };
-  }, []);
 
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
     () =>
@@ -44,11 +36,6 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
       },
     [isAuthPasswordHidden],
   );
-
-  function goNext() {
-    navigation.navigate("SignUp");
-  }
-
   return (
     <Screen
       preset="auto"
@@ -56,12 +43,24 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
       safeAreaEdges={["top", "bottom"]}
     >
       <Text
-        testID="login-heading"
-        tx="loginScreen.loginWithEmail"
+        testID="signUp-heading"
+        tx="signUp.signUpWithEmail"
         preset="heading"
-        style={$login}
+        style={$signUp}
         size="xl"
         weight="bold"
+      />
+
+      <TextField
+        ref={nameInput}
+        value={name}
+        onChangeText={setName}
+        containerStyle={$textField}
+        autoCapitalize="none"
+        autoComplete="name"
+        autoCorrect={false}
+        labelTx="signUp.nameFieldLabel"
+        placeholderTx="signUp.nameFieldPlaceholder"
       />
       <TextField
         value={authEmail}
@@ -71,8 +70,8 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         autoComplete="email"
         autoCorrect={false}
         keyboardType="email-address"
-        labelTx="loginScreen.emailFieldLabel"
-        placeholderTx="loginScreen.emailFieldPlaceholder"
+        labelTx="signUp.emailFieldLabel"
+        placeholderTx="signUp.emailFieldPlaceholder"
         onSubmitEditing={() => authPasswordInput.current?.focus()}
       />
 
@@ -85,38 +84,58 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         autoComplete="password"
         autoCorrect={false}
         secureTextEntry={isAuthPasswordHidden}
-        labelTx="loginScreen.passwordFieldLabel"
-        placeholderTx="loginScreen.passwordFieldPlaceholder"
-        onSubmitEditing={() => loginByEmail({ email: authEmail, password: authPassword })}
+        labelTx="signUp.passwordFieldLabel"
+        placeholderTx="signUp.passwordFieldPlaceholder"
         RightAccessory={PasswordRightAccessory}
       />
 
-      <Text tx="loginScreen.forgotPassword" size="sm" style={$link} weight="bold" />
-      <Button
-        testID="login-button"
-        tx="loginScreen.login"
-        style={$loginButton}
-        preset="reversed"
-        onPress={() => loginByEmail({ email: authEmail, password: authPassword })}
-        disabled={isMutating}
+      <TextField
+        ref={authPasswordInputConfirm}
+        value={authPasswordConfirm}
+        onChangeText={setAuthPasswordConfirm}
+        containerStyle={$textField}
+        autoCapitalize="none"
+        autoComplete="password"
+        autoCorrect={false}
+        secureTextEntry={isAuthPasswordHidden}
+        labelTx="signUp.passwordConfirmFieldLabel"
+        placeholderTx="signUp.passwordConfirmFieldPlaceholder"
+        onSubmitEditing={() =>
+          signUpByEmail({
+            name,
+            email: authEmail,
+            password: authPassword,
+            confirmPassword: authPasswordConfirm,
+          })
+        }
+        RightAccessory={PasswordRightAccessory}
       />
+
       <Button
-        testID="next-screen-button"
-        style={$signUpButton}
+        testID="signUp-button"
+        tx="signUp.signUp"
+        style={$tapButton}
         preset="reversed"
-        tx="loginScreen.nextScreen"
-        onPress={goNext}
+        onPress={() =>
+          signUpByEmail({
+            name,
+            email: authEmail,
+            password: authPassword,
+            confirmPassword: authPasswordConfirm,
+          })
+        }
+        disabled={isMutating}
       />
     </Screen>
   );
-});
+};
 
 const $screenContentContainer: ViewStyle = {
   paddingVertical: spacing.xxl,
   paddingHorizontal: spacing.lg,
 };
 
-const $login: TextStyle = {
+const $signUp: TextStyle = {
   marginBottom: spacing.lg,
 };
 
@@ -124,19 +143,7 @@ const $textField: ViewStyle = {
   marginBottom: spacing.lg,
 };
 
-const $loginButton: ViewStyle = {
+const $tapButton: ViewStyle = {
   marginTop: spacing.xs,
   backgroundColor: colors.theme,
-};
-
-const $signUpButton: ViewStyle = {
-  marginTop: spacing.xs,
-  backgroundColor: colors.textDim,
-};
-
-const $link: TextStyle = {
-  color: colors.theme,
-  marginTop: -spacing.md,
-  marginBottom: spacing.md,
-  alignSelf: "flex-end",
 };

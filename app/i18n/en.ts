@@ -36,6 +36,7 @@ const en = {
   },
   loginScreen: {
     signIn: "Sign In",
+    nextScreen: "Sign Up",
     enterDetails:
       "Enter your details below to unlock top secret info. You'll never guess what we've got waiting. Or maybe you will; it's not rocket science here.",
     emailFieldLabel: "Email",
@@ -47,6 +48,18 @@ const en = {
     loginWithEmail: "Login with Email",
     login: "Login",
     forgotPassword: "Forgot Password?",
+  },
+  signUp: {
+    signUp: "Sign up",
+    signUpWithEmail: "Sign up with Email",
+    nameFieldPlaceholder: "Full Name",
+    emailFieldPlaceholder: "Email Id",
+    passwordFieldPlaceholder: "Password",
+    passwordConfirmFieldPlaceholder: "Confirm Password",
+    nameFieldLabel: "Full Name",
+    emailFieldLabel: "Email",
+    passwordFieldLabel: "Password",
+    passwordConfirmFieldLabel: "Confirm Password",
   },
   demoNavigator: {
     componentsTab: "Components",
@@ -79,6 +92,7 @@ const en = {
     hireUsLink: "Send us a message",
   },
   demoHomePageScreen: {
+    home : "Home",
     placeholderSearch: "Search product",
     categoryList: "Category",
     viewAll: "View All",
@@ -151,23 +165,24 @@ const en = {
     cartItem: {
       delete: "Delete",
       cancel: "Cancel",
-      titleAlert : "Delete Item",
-      question : "Are you sure you want to delete this item from your cart?",
+      titleAlert: "Delete Item",
+      question: "Are you sure you want to delete this item from your cart?",
       success: "Item deleted from cart",
-      brand : "{{brand}}",
-      itemPrice : "{{itemPrice}}",
-      title : "{{title}}",
-      quantityPrice : "${{quantityPrice}}",
+      brand: "{{brand}}",
+      itemPrice: "{{itemPrice}}",
+      title: "{{title}}",
+      quantityPrice: "${{quantityPrice}}",
     },
-    quantity : "{{quantity}}",
+    quantity: "{{quantity}}",
     noFavoritesEmptyState: {
       heading: "This looks a bit empty",
       content:
         "No favorites have been added yet. Tap the heart on an episode to add it to your favorites!",
     },
-    summaryPrice : "${{summaryPrice}}",
+    summaryPrice: "${{summaryPrice}}",
   },
   DemoCreateProductScreen: {
+    create : "Create",
     createProduct: "Create Product",
     label: {
       productName: "Product Name",
@@ -179,6 +194,10 @@ const en = {
       condition: "Condition",
       uploadImage: "Upload Image",
       quantity: "Quantity",
+    },
+    notification: {
+      createSuccess: "Product created successfully",
+      createError: "Error creating product",
     },
     placeholder: {
       productName: "Enter product name",
@@ -194,16 +213,21 @@ const en = {
     title: "Create product",
     submit: "Submit",
   },
-  demoWriteReviewScreen:{
-     title : "Write Review",
-     addPhoto : "Add Photo",
-     submitReview : "Submit Review",
-     label : {
-      headingReview : "Heading of your review",
-      writeYourReview : "Write your review",
+  demoWriteReviewScreen: {
+    title: "Write Review",
+    addPhoto: "Add Photo",
+    submitReview: "Submit Review",
+    label: {
+      headingReview: "Heading of your review",
+      writeYourReview: "Write your review",
     },
+    productName: "{{productName}}",
+    submit: "Submit",
+    messageSubmit: "Review Submitted",
+    descriptionSubmit: "Your review has been successfully submitted.",
   },
   productDetailScreen: {
+    productDetail : "My Product",
     size: "Type",
     addToCart: "Add to Cart",
     buyNow: "Buy Now",

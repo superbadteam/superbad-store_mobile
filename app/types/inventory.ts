@@ -11,6 +11,7 @@ export interface Category {
 }
 
 export interface Product {
+  id?: string;
   name: string;
   description: string;
   categoryId: string;
@@ -24,7 +25,7 @@ export interface Image {
 }
 
 export interface ProductItemType {
-  id: number;
+  id: string;
   name: string;
   quantity: number;
   price: number;
