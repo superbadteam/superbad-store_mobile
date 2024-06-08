@@ -19,7 +19,7 @@ export type DemoTabParamList = {
   DemoDebug: undefined;
   DemoCartList: undefined;
   DemoCreateProduct: undefined;
-  ProductDetail: undefined;
+  ProductDetail: { id?: string };
   LoginScreen: undefined;
   SignUpScreen: undefined;
 };

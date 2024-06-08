@@ -48,8 +48,8 @@ export const DemoHomePageScreen: FC<DemoTabScreenProps<"DemoHomePage">> =
         Keyboard.dismiss();
       }
     };
-    const handleProductDetail = ()=>{
-        navigation.navigate("ProductDetailScreen");
+    const handleProductDetail = (id: string)=>{
+        navigation.navigate("ProductDetailScreen", { id });
     };
     return (
       <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$screenContainer}>

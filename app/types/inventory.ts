@@ -19,6 +19,14 @@ export interface Product {
   images: Image[];
   condition: string;
 }
+export interface ProductItem extends Product {
+  userId: string;
+  minPrice: number;
+  maxPrice: number;
+  rating: number;
+  sold: number;
+}
+
 
 export interface Image {
   url: string;

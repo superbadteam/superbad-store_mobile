@@ -5,7 +5,7 @@ import { ApiErrorResponse } from "../api/api.types";
 import { useStores } from "app/models";
 import { useNavigation } from "@react-navigation/native";
 import { translate } from "app/i18n";
-
+import useSWR from "swr";
 
 export const useAddProductToCart = () => {
   const {
@@ -36,6 +36,34 @@ export const useAddProductToCart = () => {
 
   return {
     addProductToCart,
+    isMutating,
+  };
+};
+
+
+export const useGetProductByID = (id: string) => {
+  const {
+    data: product,
+    mutate: getProductByID,
+    isValidating: isMutating,
+  } = useSWR(
+    `/shopping/products/${id}`,
+    async () => {
+      return await ApiService.shopping.getProductByID(id);
+    },
+    {
+      revalidateOnFocus: false,
+      onError: (error: ApiErrorResponse) => {
+        notification.error({
+          message: error.title,
+        });
+      },
+    },
+  );
+
+  return {
+    product,
+    getProductByID,
     isMutating,
   };
 };
