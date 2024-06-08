@@ -53,6 +53,7 @@ export interface ApiRegisterResponse {
   coverUrl: string;
 }
 
+
 /**
  * The options used to configure apisauce.
  */

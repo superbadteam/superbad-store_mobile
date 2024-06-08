@@ -37,6 +37,7 @@ const ProductDetailScreen = () => {
   const handleAddToCart = () => {
     navigation.navigate("CartScreen");
   };
+  const id = "4fdae4dc-4130-4cf9-9f92-1e6d02e1ff3e";
 
   return (
     <View style={$container}>
@@ -98,7 +99,7 @@ const ProductDetailScreen = () => {
             ))}
           </View>
           <View>
-            <Rating />
+            <Rating productId={id}/>
           </View>
         </View>
       </ScrollView>
