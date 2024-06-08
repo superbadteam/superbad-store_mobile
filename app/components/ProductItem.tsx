@@ -1,59 +1,66 @@
-import { Ionicons } from "@expo/vector-icons";
 import { colors, spacing } from "app/theme";
-import React from "react";
+import React, { useState } from "react";
 import { View, ViewStyle, ImageStyle, TextStyle } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { AutoImage } from "./AutoImage";
 import { Text } from "./Text";
+import StarRating from "react-native-star-rating-widget";
 
 export interface Product {
   id: number;
   name: string;
-  price: number;
+  minPrice: number;
+  maxPrice: number;
   imageUrl: string;
-  description: string;
+  sold: number;
   rating: number;
-  isFavorite: boolean;
-  discount: number;
 }
 
 export interface ProductItemProps {
   product: Product;
 }
 const ProductItem = (props: ProductItemProps) => {
-  const { name, price, imageUrl, rating, isFavorite, discount } = props.product;
-  const discountedPriceTx = price - (price * discount) / 100;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { id, name, minPrice, maxPrice, imageUrl, sold, rating } = props.product;
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(amount);
+  };
+
+  const [setRating] = useState(0);
+
   return (
     <View style={$container}>
-      <AutoImage maxWidth={190} maxHeight={190} source={{ uri: imageUrl }} style={$image} />
-
-      <View style={$favoriteContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            console.log("Favorite button pressed");
-          }}
-          style={$favoriteButton}
-        >
-          <Ionicons
-            name={isFavorite ? "heart" : "heart-outline"}
-            size={24}
-            color={isFavorite ? "red" : "black"}
-          />
-        </TouchableOpacity>
+      <View>
+        <AutoImage
+          maxWidth={190}
+          maxHeight={190}
+          source={{ uri: imageUrl }}
+          style={$image}
+          resizeMode="cover"
+        />
       </View>
 
       <View style={$infor}>
         <View>
-          <Text style={$productName} text={name} />
+          <Text style={$productName} text={name} numberOfLines={2} />
         </View>
         <View style={$priceContainer}>
-          <Text style={$discountedPrice} text={`$${discountedPriceTx}`} size="sm" />
-          <Text style={$originalPrice} text={`$${price}`} size="xs" />
-          <Text style={$discountAmount} text={`${discount}% OFF`} size="xs" />
+          <Text style={$discountedPrice} text={`${formatCurrency(minPrice)}`} size="sm" />
         </View>
-        <View style={$ratingContainer}>
-          <Ionicons name="star-outline" size={20} color="gold" />
-          <Text text={`${rating} (100)`} size="md" />
+        <View style={$ratingSoldContainer}>
+          <View style={$ratingContainer}>
+            <StarRating
+              rating={rating}
+              onChange={setRating}
+              starSize={20}
+              starStyle={{ marginHorizontal: spacing.xxxs }}
+              style={{ marginRight: spacing.xs }}
+            />
+            <Text text={`${rating}/5`} size="md" />
+          </View>
+          <View style={$soldContainer}>
+            <Text tx="productItem.sold"></Text>
+            <Text text={`${sold}`}></Text>
+          </View>
         </View>
       </View>
     </View>
@@ -63,36 +70,20 @@ const ProductItem = (props: ProductItemProps) => {
 const $container: ViewStyle = {
   flex: 1,
   padding: spacing.sm,
+  borderWidth: 1,
+  borderRadius: 5,
+  borderColor: colors.gray,
 };
 
 const $image: ViewStyle & ImageStyle = {
   borderRadius: 15,
+  padding: spacing.xxs,
   marginBottom: spacing.xs,
+  width: "100%",
 };
 
 const $infor: ViewStyle = {
   alignItems: "flex-start",
-};
-
-const $favoriteContainer: ViewStyle = {
-  alignItems: "center",
-  backgroundColor: colors.palette.white,
-  borderBlockColor: "black",
-  borderRadius: spacing.md,
-  height: 40,
-  justifyContent: "center",
-  position: "absolute",
-  right: 20,
-  top: 20,
-  width: 40,
-  zIndex: 1,
-};
-
-const $favoriteButton: ViewStyle = {
-  alignItems: "center",
-  height: "100%",
-  justifyContent: "center",
-  width: "100%",
 };
 
 const $productName: TextStyle = {
@@ -111,19 +102,20 @@ const $discountedPrice: TextStyle = {
   marginRight: spacing.xxs,
 };
 
-const $originalPrice: TextStyle = {
-  color: colors.palette.gray,
-  marginRight: spacing.xxs,
-  textDecorationLine: "line-through",
-};
-
-const $discountAmount: TextStyle = {
-  color: colors.palette.red,
-};
-
 const $ratingContainer: TextStyle = {
-  alignItems: "center",
+  alignItems: "flex-start",
   flexDirection: "row",
+};
+
+const $ratingSoldContainer: ViewStyle = {
+  alignItems: "flex-start",
+  flexDirection: "column",
+};
+
+const $soldContainer: TextStyle = {
+  alignItems: "flex-start",
+  flexDirection: "row",
+  gap: spacing.xs,
 };
 
 export default ProductItem;

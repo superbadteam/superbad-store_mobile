@@ -119,6 +119,16 @@ export class Api {
 
     return response.data as ApiRegisterResponse;
   }
+
+  async getProducts(queryUrl: string): Promise<Products> {
+    const response: ApiResponse<Products | ApiErrorResponse> = await this.apisauce.get(
+      `shopping/products${queryUrl}`,
+    );
+    if (!response.ok) {
+      throw new ApiError(response.data as ApiErrorResponse);
+    }
+    return response.data as Products;
+  }
 }
 
 // Singleton instance of the API for convenience
