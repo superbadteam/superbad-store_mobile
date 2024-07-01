@@ -1,21 +1,40 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { View, TouchableOpacity, TextStyle, ViewStyle } from "react-native";
 import { Text } from "app/components";
 import { colors, spacing } from "app/theme";
 import { useNavigation } from "@react-navigation/native";
 import StarRating from "react-native-star-rating-widget";
+import type { Review } from "app/types";
+import { api } from "../services/api";
 
-interface RatingProps {}
+export interface RatingProps {
+  productId: string;
+}
 
-
-const Rating: React.FC<RatingProps> = () => {
+const Rating: React.FC<RatingProps> = ({productId}) => {
   const navigation = useNavigation<any>();
   const handleRate = () => {
     navigation.navigate("WriteReviewScreen");
   };
+  const [reviews, setReviews] = useState<Review[]>([]);
 
-  const rating = 3.5;
-  const ratingSecond = 4;
+    useEffect(() => {
+      const fetchReviews = async () => {
+        try {
+          const response = await api.getReviews(productId);
+          console.log(response.data, "API Response"); // Log response data
+          setReviews(response.data);
+        } catch (error) {
+          console.error("Error fetching reviews:", error);
+        }
+      };
+      console.log(reviews, "check review");
+      fetchReviews();
+    }, [productId]);
+  const averageRating = reviews.length > 0
+  ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+  : 0;
+
   const [setRating] = useState(0);
   return (
     <View style={$container}>
@@ -24,12 +43,12 @@ const Rating: React.FC<RatingProps> = () => {
         <View style={$header}>
           <View style={$headerLeft}>
             <View style={$rating}>
-              <Text style={$realRating}>4.8</Text>
+              <Text style={$realRating}>{averageRating}</Text>
               <Text style={$totalRating}>/5</Text>
             </View>
             <View style={$overalRating}>
               <Text style={$overal} tx="listReview.overal" />
-              <Text style={$quantityRating}>3 Ratings</Text>
+              <Text style={$quantityRating}>{ reviews.length } Ratings</Text>
             </View>
           </View>
           <TouchableOpacity style={[$button, $addToCartButton]} onPress = {handleRate}>
@@ -37,39 +56,15 @@ const Rating: React.FC<RatingProps> = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={$reviewContainer}>
-        <View style={$reviewStar}>
-          <StarRating
-            rating={rating}
-            onChange={setRating}
-          />
+      {reviews.map((review, index) => (
+        <View key={index} style={$reviewContainer}>
+          <View style={$reviewStar}>
+            <StarRating rating={review.rating} onChange={setRating} />
+          </View>
+          <Text>{review.content}</Text>
+          <Text style={$reviewDate}>{review.reviewer.name}, {new Date(review.createdAt).toLocaleDateString()}</Text>
         </View>
-
-        <Text weight="bold" size="xl">
-          Amazing
-        </Text>
-        <Text>
-          An amazing fit. i am somewhere around 6ft and ordered 40 size. It's a perfect fit and
-          quality is worth
-        </Text>
-        <Text style={$reviewDate}>TrungDOng, 31th Jan 2024</Text>
-      </View>
-      <View style={$reviewContainer}>
-        <View style={$reviewStarSecond}>
-          <StarRating
-            rating={ratingSecond}
-            onChange={setRating}
-          />
-        </View>
-
-        <Text weight="bold" size="xl">
-          Wonderful
-        </Text>
-        <Text>
-        I was pleasantly surprised by how well this fits. Being about 6 feet tall, I chose a size 40 and it suits me perfectly. The craftsmanship and quality are impressive and definitely justify the cost.
-        </Text>
-        <Text style={$reviewDate}>HiNam, 3th Feb 2024</Text>
-      </View>
+    ))}
     </View>
   );
 };
@@ -166,10 +161,7 @@ const $reviewDate: TextStyle = {
 const $reviewStar: ViewStyle = {
   flexDirection: "row",
   gap: spacing.xs,
-};
-
-const $reviewStarSecond: ViewStyle = {
-  marginTop: spacing.xs,
+  marginTop: spacing.xxs,
 };
 
 export default Rating;

@@ -27,8 +27,13 @@ const ProductDetailScreen = () => {
 
   const rightContents = ["heart-outline", "share-outline", "cart-outline"];
 
-  const [selectedType, setSelectedType] = useState<number>(0);
-  const { addProductToCart, isMutating } = useAddProductToCart();
+  const [selectedType, setSelectedType] = useState<number>(-1);
+
+  const navigation = useNavigation<any>();
+  const handleAddToCart = () => {
+    navigation.navigate("CartScreen");
+  };
+  const id = "4fdae4dc-4130-4cf9-9f92-1e6d02e1ff3e";
 
   return (
     <View style={$container}>
@@ -92,7 +97,7 @@ const ProductDetailScreen = () => {
             ))}
           </View>
           <View>
-            <Rating />
+            <Rating productId={id}/>
           </View>
         </View>
       </ScrollView>
